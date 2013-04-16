@@ -22,6 +22,8 @@ import frsf.cidisi.faia.agent.Action;
 import frsf.cidisi.faia.exceptions.SituationCalculusException;
 import frsf.cidisi.faia.solver.Solve;
 import java.util.Hashtable;
+import java.util.List;
+import java.util.Vector;
 
 public class SituationCalculus extends Solve {
 
@@ -31,7 +33,7 @@ public class SituationCalculus extends Solve {
     }
 
     @Override
-    public Action solve(Object[] params) throws SituationCalculusException {
+    public List<Action> solve(Object[] params) throws SituationCalculusException {
         KnowledgeBase kb = (KnowledgeBase) params[0];
 
         // Query the knowledge base for the best action in the current situation.
@@ -46,7 +48,11 @@ public class SituationCalculus extends Solve {
 
         String bestAction = results[0].get("X").toString();
 
-        /* We convert the string 'bestAction' in an Action object */
-        return kb.getActionFactory().makeActionFromString(bestAction);
+        /* We convert the string 'bestAction' in an Action object and insert this element
+         * in the return list */
+        Vector<Action> ret = new Vector<Action>();
+        ret.add(kb.getActionFactory().makeActionFromString(bestAction));
+        
+        return ret;
     }
 }

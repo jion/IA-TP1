@@ -17,6 +17,8 @@
  */
 package frsf.cidisi.faia.agent;
 
+import java.util.List;
+
 public abstract class Agent {
 
     public Agent() {
@@ -27,5 +29,5 @@ public abstract class Agent {
      * action.
      * @return The action chosen by the agent.
      */
-    public abstract Action selectAction();
+    public abstract List<Action> selectAction();
 }

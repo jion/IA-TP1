@@ -27,6 +27,7 @@ import frsf.cidisi.faia.environment.Environment;
 import frsf.cidisi.faia.state.AgentState;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Vector;
 
 public class SearchBasedAgentSimulator extends GoalBasedAgentSimulator {
@@ -40,7 +41,7 @@ public class SearchBasedAgentSimulator extends GoalBasedAgentSimulator {
     }
 
     @Override
-    public boolean agentSucceeded(Action actionReturned) {
+    public boolean agentSucceeded(List<? extends Action> actionsReturned) { //TODO: Para que le manda las acciones?
         //TODO: 
         // ACA HAY QUE HACER UN BUCLE PARA CUANDO HAY MAS DE UN AGENTE DEFINIDO
         // POR AHORA EL FRAMEWORK ES MONOAGENTE :)
@@ -53,8 +54,8 @@ public class SearchBasedAgentSimulator extends GoalBasedAgentSimulator {
     }
 
     @Override
-    public boolean agentFailed(Action actionReturned) {
-        return this.environment.agentFailed(actionReturned);
+    public boolean agentFailed(List<? extends Action> actionsReturned) {
+        return this.environment.agentFailed(actionsReturned);
     }
 
     @Override
@@ -69,8 +70,8 @@ public class SearchBasedAgentSimulator extends GoalBasedAgentSimulator {
     }
 
     @Override
-    public void actionReturned(Agent agent, Action action) {
-        this.updateState(action);
+    public void actionReturned(Agent agent, List<? extends Action> actions) {
+        this.updateState(actions);
         this.showSolution();
     }
 }

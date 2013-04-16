@@ -31,6 +31,11 @@ public class Pair<F,S> extends DataStructure {
 	        this.second = second;
 	    }
 
+	    public void setPair(F first, S second) {
+	        this.first = first;
+	        this.second = second;
+	    }
+	    
 	    public void setFirst(F first) {
 	        this.first = first;
 	    }

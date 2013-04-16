@@ -17,6 +17,7 @@
  */
 package frsf.cidisi.faia.simulator;
 
+import java.util.List;
 import java.util.Vector;
 
 import frsf.cidisi.faia.agent.GoalBasedAgent;
@@ -54,7 +55,7 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
         System.out.println();
 
         Perception perception;
-        Action action;
+        List<Action> action;
         GoalBasedAgent agent;
 
         agent = (GoalBasedAgent) this.getAgents().firstElement();
@@ -113,13 +114,13 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
      * simulator.
      * @param action
      */
-    protected void updateState(Action action) {
-        this.getEnvironment().updateState(((GoalBasedAgent) agents.elementAt(0)).getAgentState(), action);
+    protected void updateState(List<? extends Action> actions) {
+        this.getEnvironment().updateState(((GoalBasedAgent) agents.elementAt(0)).getAgentState(), actions);
     }
 
-    public abstract boolean agentSucceeded(Action action);
+    public abstract boolean agentSucceeded(List<? extends Action> actions);
 
-    public abstract boolean agentFailed(Action action);
+    public abstract boolean agentFailed(List<? extends Action> actions);
 
     /**
      * This method is executed in the mail loop of the simulation when the
@@ -127,7 +128,7 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
      * @param agent
      * @param action
      */
-    public abstract void actionReturned(Agent agent, Action action);
+    public abstract void actionReturned(Agent agent, List<? extends Action> actions);
 
     /**
      * @return The name of the simulator, e.g. 'SearchBasedAgentSimulator'

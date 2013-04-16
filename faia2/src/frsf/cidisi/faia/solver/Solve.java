@@ -17,6 +17,8 @@
  */
 package frsf.cidisi.faia.solver;
 
+import java.util.List;
+
 import frsf.cidisi.faia.agent.Action;
 
 /**
@@ -33,7 +35,7 @@ public abstract class Solve {
      * 
      * @param problem
      */
-    public abstract Action solve(Object[] params) throws Exception;
+    public abstract List<? extends Action> solve(Object[] params) throws Exception;
 
     /* Maybe it's not correct to leave this method here, due to it's probable
      * some AI techniques could not show the solution */

@@ -17,6 +17,9 @@
  */
 package frsf.cidisi.faia.solver.planning;
 
+import java.util.List;
+import java.util.Vector;
+
 import frsf.cidisi.faia.agent.planning.PlanningBasedAgentState;
 import frsf.cidisi.faia.agent.Action;
 import frsf.cidisi.faia.agent.planning.PlanningBasedAgent;
@@ -30,7 +33,7 @@ public class Planning extends Solve {
     }
 
     @Override
-    public Action solve(Object[] params) throws Exception {
+    public List<Action> solve(Object[] params) throws Exception {
         PlanningBasedAgent agent = (PlanningBasedAgent) params[0];
         PlanningBasedAgentState agentState = (PlanningBasedAgentState) agent.getAgentState();
 
@@ -41,6 +44,9 @@ public class Planning extends Solve {
 //		String[] aver = bestAction.split("\\(");
 //		bestAction = aver[0];
 
-        return agentState.getActionFactory().makeActionFromString(bestAction);
+        Vector<Action> ret = new Vector<Action>();
+        ret.add(agentState.getActionFactory().makeActionFromString(bestAction));
+        
+        return ret;
     }
 }

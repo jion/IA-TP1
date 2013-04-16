@@ -17,6 +17,7 @@
  */
 package frsf.cidisi.faia.solver.search;
 
+import java.util.List;
 import java.util.Vector;
 
 import frsf.cidisi.faia.agent.search.GoalTest;
@@ -75,7 +76,7 @@ public class Search extends Solve {
      * @param problem
      */
     @Override
-    public SearchAction solve(Object[] params) {
+    public List<SearchAction> solve(Object[] params) {
 
         Problem problem = (Problem) params[0];
 
@@ -135,9 +136,18 @@ public class Search extends Solve {
         if (goal && !getBestPath().isEmpty()) {
             // This variable store the branch's path where the node belongs.-
             Vector<NTree> path = getBestPath();
-
+            Vector<SearchAction> ret = new Vector<SearchAction>();
+            
+            //TODO: Sacar debug
+            System.out.println("--- el path!");
+            for(NTree nodo: path) {
+            	ret.add(nodo.getAction());
+            	System.out.println(nodo.getAction().toString());
+            }
+            System.out.println("---fin-----");
+            
             // The first node of the branch has the action that must be executed by the agent.-
-            return path.elementAt(0).getAction();
+            return ret;
         }
 
         return null;

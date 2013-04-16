@@ -17,6 +17,8 @@
  */
 package frsf.cidisi.faia.environment;
 
+import java.util.List;
+
 import frsf.cidisi.faia.agent.Perception;
 import frsf.cidisi.faia.agent.Action;
 import frsf.cidisi.faia.state.EnvironmentState;
@@ -31,8 +33,11 @@ public abstract class Environment {
      * @param ast The state of the Agent
      * @param action
      */
-    public void updateState(AgentState ast, Action action) {
-        environmentState = (EnvironmentState) action.execute(ast, environmentState);
+    public void updateState(AgentState ast, List<? extends Action> actions) {
+    	
+    	for(Action action: actions) {
+    		environmentState = (EnvironmentState) action.execute(ast, environmentState);
+    	}
     }
 
     public void setEnvironmentState(EnvironmentState state) {
@@ -56,7 +61,7 @@ public abstract class Environment {
      * @param actionReturned
      * @return
      */
-    public boolean agentFailed(Action actionReturned) {
+    public boolean agentFailed(List<? extends Action> actionReturned) {
         return false;
     }
 
