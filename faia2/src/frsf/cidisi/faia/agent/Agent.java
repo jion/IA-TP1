@@ -29,5 +29,5 @@ public abstract class Agent {
      * action.
      * @return The action chosen by the agent.
      */
-    public abstract List<Action> selectAction();
+    public abstract List<? extends Action> selectAction();
 }
