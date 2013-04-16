@@ -9,12 +9,9 @@ public class RonlyGoal extends GoalTest {
 
     @Override
     public boolean isGoalState (AgentState agentState) {
-    
-    	// TODO: Complete Method
-        if  (true) //(posSalidas.contains(posicion))
-        	{
-            return true;
-        	}
-        return false;
+    	RonlyEstado agState = (RonlyEstado) agentState;
+
+    	/* Verifico si el agente esta en estado de fiesta => Ganó! */
+        return agState.isGoalReached();
 	}
 }

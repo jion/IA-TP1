@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.2" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" language="java" name="frsf.cidisi.exercise.tp1.search.RonlyAgent" project="TP1" 
+    file="/TP1/src/frsf/cidisi/exercise/tp1/search/RonlyAgent.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="280" y="97" width="177" height="171"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="frsf.cidisi.exercise.tp1.search.RonlyAgentPerception" project="TP1" 
+    file="/TP1/src/frsf/cidisi/exercise/tp1/search/RonlyAgentPerception.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="604" y="-34" width="232" height="243"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="frsf.cidisi.exercise.tp1.search.RonlyEstado" project="TP1" 
+    file="/TP1/src/frsf/cidisi/exercise/tp1/search/RonlyEstado.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="14" y="-225" width="252" height="675"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="frsf.cidisi.exercise.tp1.search.RonlyGoal" project="TP1" 
+    file="/TP1/src/frsf/cidisi/exercise/tp1/search/RonlyGoal.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="609" y="270" width="184" height="99"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="frsf.cidisi.exercise.tp1.search.RonlyPartialGoal" project="TP1" 
+    file="/TP1/src/frsf/cidisi/exercise/tp1/search/RonlyPartialGoal.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="368" y="310" width="184" height="99"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
