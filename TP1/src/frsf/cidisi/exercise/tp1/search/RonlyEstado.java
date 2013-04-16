@@ -41,44 +41,27 @@ public class RonlyEstado extends SearchBasedAgentState {
 	public RonlyEstado() {
     	super();
 
-    	this.posicion = new Pair<Integer, Integer>(0,0);
-		this.orientacion = ESTE;
-		
-		this.llave = false;
-		
-		this.posLlave = new Pair<Integer, Integer>(0,0);
+    	this.posicion   = new Pair<Integer, Integer>(0,0);
+		this.posLlave   = new Pair<Integer, Integer>(0,0);
 		this.posSalidas = new ArrayList<Pair<Integer, Integer>>();
-		this.goalReached = false;
+		
+		this.initState();
     }
-    
-   /* public EstadoRonly(int[][] laberinto,
-    		Pair<Integer, Integer> posInicial,
-    		List<Pair<Integer, Integer>> posSalidas,
-    		boolean llave,
-    		Pair<Integer, Integer> posLlave,
-    		int orientacion) {
-
-		this.laberinto = laberinto;
-    	this.posicion = posInicial;
-		this.orientacion = orientacion;
-		
-		this.llave = llave;
-		
-		this.posLlave = posLlave;
-		this.posSalidas = posSalidas;
-
-		//this.path = new ArrayList<SearchAction>();
-		
-        this.initState();
-    }*/
     
     /**
      * This method is optional, and sets the initial state of the agent.
      */
     @Override
     public void initState() {
-        
-	//TODO: Complete Method
+    	// TODO: Tal vez debería inicializarse en base a su ubicacion en el ambiente
+    	this.posicion.setPair(0,0);
+		this.orientacion = ESTE;
+		
+		this.llave = false;
+		
+		this.posLlave.setPair(0,0);
+		this.posSalidas.clear();
+		this.goalReached = false;
     }
     
     /**
@@ -88,9 +71,19 @@ public class RonlyEstado extends SearchBasedAgentState {
     @Override
     public SearchBasedAgentState clone() {
         
-		//TODO: Complete Method
-		
-        return null;
+		//TODO: Esto es ya Completo?
+    	RonlyEstado state = new RonlyEstado();
+    	
+    	state.setLaberinto(this.laberinto.clone());
+    	state.setLlave(this.llave);
+    	state.setOrientacion(this.orientacion);
+    	state.setPosicion(this.posicion);
+    	state.setPosLlave(this.posLlave);
+    	state.setPosSalidas(this.posSalidas);
+    	
+    	state.setGoalReached(this.goalReached);
+    	
+        return state;
     }
 
     /**
@@ -200,5 +193,31 @@ public class RonlyEstado extends SearchBasedAgentState {
  	public void setGoalReached(boolean goalReached) {
  		this.goalReached = goalReached;
  	}
+
+	protected void setLaberinto(int[][] laberinto) {
+		this.laberinto = laberinto;
+	}
+
+	protected void setPosicion(Pair<Integer, Integer> posicion) {
+		this.posicion = posicion;
+	}
+
+	protected void setOrientacion(int orientacion) {
+		this.orientacion = orientacion;
+	}
+
+	protected void setLlave(boolean llave) {
+		this.llave = llave;
+	}
+
+	protected void setPosLlave(Pair<Integer, Integer> posLlave) {
+		this.posLlave = posLlave;
+	}
+
+	protected void setPosSalidas(List<Pair<Integer, Integer>> posSalidas) {
+		this.posSalidas = posSalidas;
+	}
+ 	
+ 	
 }
 
