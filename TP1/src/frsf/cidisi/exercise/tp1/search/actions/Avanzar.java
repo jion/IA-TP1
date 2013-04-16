@@ -14,27 +14,79 @@ public class Avanzar extends SearchAction {
      */
     @Override
     public SearchBasedAgentState execute(SearchBasedAgentState s) {
-        RonlyEstado agState = (RonlyEstado) s;
+    	RonlyEstado agState = (RonlyEstado) s;
         
-        // TODO: Use this conditions
-        // PreConditions: null
-        // PostConditions: null
+        // Posicion actual del agente
+        int x = agState.getposicion().getFirst();
+        int y = agState.getposicion().getSecond();
         
-        return null;
+        // PreConditions: El agente debe poder moverse hacia adelante
+        switch(agState.getorientacion()) {
+        case RonlyEstado.NORTE:
+        	if((agState.getlaberinto()[x][y] & LaberintosEstado.PARED_ARRIBA) == 0) {
+        		if((agState.getlaberinto()[x][y-1] & LaberintosEstado.HAY_CANDADO) != 0) {
+        			if(agState.getllave()) y--;
+        		} else {
+        			y--;
+        		}
+        	}
+        	break;
+        case RonlyEstado.SUR:
+        	if((agState.getlaberinto()[x][y] & LaberintosEstado.PARED_ABAJO) == 0) {
+        		if((agState.getlaberinto()[x][y+1] & LaberintosEstado.HAY_CANDADO) != 0) {
+        			if(agState.getllave()) y++;
+        		} else {
+        			y++;
+        		}
+        	}
+        	break;
+        case RonlyEstado.ESTE:
+        	if((agState.getlaberinto()[x][y] & LaberintosEstado.PARED_DERECHA) == 0) {
+        		if((agState.getlaberinto()[x+1][y] & LaberintosEstado.HAY_CANDADO) != 0) {
+        			if(agState.getllave()) x++;
+        		} else {
+        			x++;
+        		}
+        	}
+        	break;
+        case RonlyEstado.OESTE:
+        	if((agState.getlaberinto()[x][y] & LaberintosEstado.PARED_IZQUIERDA) == 0) {
+        		if((agState.getlaberinto()[x-1][y] & LaberintosEstado.HAY_CANDADO) != 0) {
+        			if(agState.getllave()) x--;
+        		} else {
+        			x--;
+        		}
+        	}
+        	break;
+        	
+        }
+        
+        /* PostConditions:
+         *   - El agente estará en su nueva posicion
+         */
+        agState.setposicion(x, y);
+ 
+        // Si hay llave, actualizar estado
+        if((agState.getlaberinto()[x][y] & LaberintosEstado.HAY_LLAVE) != 0) {
+        	//TODO: Aca deberia actualizarse el estado del laberinto
+        	agState.setllave(true);
+        }
+        return agState;
     }
 
     /**
      * This method updates the agent state and the real world state.
+     * TODO: ESTA NUNCA SE VA A EJECUTAR!! O si?
      */
     @Override
     public EnvironmentState execute(AgentState ast, EnvironmentState est) {
-        LaberintosEstado environmentState = (LaberintosEstado) est;
-        RonlyEstado agState = ((RonlyEstado) ast);
+    	LaberintosEstado environmentState = (LaberintosEstado) est;
+    	RonlyEstado agState = ((RonlyEstado) ast);
 
         // TODO: Use this conditions
         // PreConditions: null
         // PostConditions: null
-        
+
         if (true) {
             // Update the real world
             

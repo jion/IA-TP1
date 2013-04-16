@@ -54,7 +54,12 @@ public class RonlyAgentPerception extends Perception {
         StringBuffer str = new StringBuffer();
 
         //TODO: Complete Method
-        return this.percepcionLaberinto.toString();//str.toString();
+        if(getWon())
+        	{ str.append("Fin del juego!"); }
+        else
+        	{ str.append("Nuevo laberinto"); }
+        
+        return str.toString();
     }
 
     // The following methods are agent-specific:

@@ -14,13 +14,27 @@ public class GiraIzq extends SearchAction {
      */
     @Override
     public SearchBasedAgentState execute(SearchBasedAgentState s) {
-        RonlyEstado agState = (RonlyEstado) s;
+    	RonlyEstado agState = (RonlyEstado) s;
         
-        // TODO: Use this conditions
         // PreConditions: null
-        // PostConditions: null
         
-        return null;
+        // PostConditions: null
+        switch(agState.getorientacion()) {
+        case RonlyEstado.NORTE:
+        	agState.setorientacion(RonlyEstado.OESTE);
+        	break;
+        case RonlyEstado.SUR:
+        	agState.setorientacion(RonlyEstado.ESTE);
+        	break;
+        case RonlyEstado.ESTE:
+        	agState.setorientacion(RonlyEstado.NORTE);
+        	break;
+        case RonlyEstado.OESTE:
+        	agState.setorientacion(RonlyEstado.SUR);
+        	break;
+        }
+        
+        return agState;
     }
 
     /**
