@@ -1,0 +1,9 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# Todo lo relacionado con el workspace
+.metadata/**
