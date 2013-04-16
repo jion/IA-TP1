@@ -10,12 +10,16 @@ public class RonlyAgentPerception extends Perception {
     //public static int UNKNOWN_PERCEPTION = -1;   
 	
 	
-	//TODO: Setup Sensors
-	private int[][] percepcionlaberinto;
-	
- 
+	/* Sensores:
+	 * 	- percepcionLaberinto: El laberinto actual
+	 *  - won: true si se ha llegado a la meta final
+	 */
+	private int[][] percepcionLaberinto;
+	private Boolean won;
 
-    public  RonlyAgentPerception() {
+	
+	
+	public  RonlyAgentPerception() {
     	//TODO: Complete Method
     }
 
@@ -29,14 +33,20 @@ public class RonlyAgentPerception extends Perception {
     @Override
     public void initPerception(Agent agentIn, Environment environmentIn) {
     	
-    	//TODO: Complete Method
-        
+    	//TODO: Aca deberia actiualizarse el estado del agente si llego a la meta?
         //RonlyAgent agent = (RonlyAgent) agentIn;
-        //LaberintosAmbiente environment = (LaberintosAmbiente) environmentIn;
-        //LaberintosEstado environmentState =
-        //        environment.getEnvironmentState();
+        LaberintosAmbiente environment = (LaberintosAmbiente) environmentIn;
+        LaberintosEstado environmentState =
+                environment.getEnvironmentState();
        
+        // Se percibe del ambiente un laberinto entero a la vez
+        // (El siguente nivel no resuelto). Se setea a null si
+        // ya no quedan niveles por completar
+        this.percepcionLaberinto = environmentState.getLaberintoActual();
         
+        // true: No quedan mas laberintos. (Ganaste!)
+        // false: La princesa está en el otro castillo...
+        this.won = environmentState.isFinished();
     }
     
     @Override
@@ -44,19 +54,26 @@ public class RonlyAgentPerception extends Perception {
         StringBuffer str = new StringBuffer();
 
         //TODO: Complete Method
-
-        return str.toString();
+        return this.percepcionLaberinto.toString();//str.toString();
     }
 
     // The following methods are agent-specific:
-    //TODO: Complete this section with the agent-specific methods
+
+    /* Getters & Setters *****************************************************/	
+	public int[][] getPercepcionLaberinto(){
+		return percepcionLaberinto;
+	}
+
+	public void setPercepcionLaberinto(int[][] percepcionLaberinto){
+		this.percepcionLaberinto = percepcionLaberinto;
+	}
 	
-     public int[][] getpercepcionlaberinto(){
-        return percepcionlaberinto;
-     }
-     public void setpercepcionlaberinto(int[][] arg){
-        this.percepcionlaberinto = arg;
-     }
+	public Boolean getWon() {
+		return won;
+	}
 	
-   
+	public void setWon(Boolean won) {
+		this.won = won;
+	}
+
 }

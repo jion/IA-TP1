@@ -1,7 +1,6 @@
 package frsf.cidisi.exercise.tp1.search;
 
 import frsf.cidisi.faia.agent.Action;
-import frsf.cidisi.faia.agent.Perception;
 import frsf.cidisi.faia.environment.Environment;
 
 public class LaberintosAmbiente extends Environment {
@@ -26,8 +25,10 @@ public class LaberintosAmbiente extends Environment {
         // Create a new perception to return
          RonlyAgentPerception perception = new RonlyAgentPerception();
 		
-		//TODO : Set the perceptions sensors
-        
+		//TODO : Revisar si estan bien definidos los sensores
+         perception.setPercepcionLaberinto(this.getNextLevel());
+         perception.setWon(((LaberintosEstado) environmentState).isFinished());
+         
         // Return the perception
         return perception;
     }
@@ -40,16 +41,17 @@ public class LaberintosAmbiente extends Environment {
     
     public boolean agentFailed(Action actionReturned) {
 
-        LaberintosEstado envState =
+    	LaberintosEstado envState =
                 this.getEnvironmentState();
 
-        // TODO: Complete Method        
+        // TODO: Completar metodo. El agente puede fallar en este problema??       
 
         return false;
     }
 
 	//TODO: Complete this section with agent-specific methods
-    // The following methods are agent-specific:
-    
-    
+    /* Getters & Setters *****************************************************/
+    public int[][] getNextLevel() {
+    	return ((LaberintosEstado) environmentState).getLaberintoActual();
+    }
 }
