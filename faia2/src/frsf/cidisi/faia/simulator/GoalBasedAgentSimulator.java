@@ -46,7 +46,7 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
         this.agents = ags;
     }
 
-    @Override
+	@Override
     public void start() {
 
         System.out.println("----------------------------------------------------");
@@ -79,7 +79,7 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
             System.out.println("Environment: " + environment);
 
             System.out.println("Asking the agent for an action...");
-            action = agent.selectAction();
+            action = (List<Action>) agent.selectAction();
 
             if (action == null) {
                 break;
