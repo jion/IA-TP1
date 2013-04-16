@@ -217,7 +217,30 @@ public class RonlyEstado extends SearchBasedAgentState {
 	protected void setPosSalidas(List<Pair<Integer, Integer>> posSalidas) {
 		this.posSalidas = posSalidas;
 	}
- 	
- 	
+
+	public int[][] getLaberinto() {
+		return laberinto;
+	}
+
+	public Pair<Integer, Integer> getPosicion() {
+		return posicion;
+	}
+
+	public int getOrientacion() {
+		return orientacion;
+	}
+
+	public boolean isLlave() {
+		return llave;
+	}
+
+	public Pair<Integer, Integer> getPosLlave() {
+		return posLlave;
+	}
+
+	public List<Pair<Integer, Integer>> getPosSalidas() {
+		return posSalidas;
+	}
+	
 }
 

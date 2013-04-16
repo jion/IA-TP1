@@ -26,35 +26,28 @@ public class RonlyAgent extends SearchBasedAgent {
 	private Problem partialProblem;
 	
 	public RonlyAgent() {
-
-        /* Defino el problema general del agente */
-        RonlyGoal agGoal = new RonlyGoal();			// El objetivo General del agente
-        
-        RonlyEstado agState = new RonlyEstado();
-        this.setAgentState(agState);
-
-        Vector<SearchAction> operators = new Vector<SearchAction>();
-        operators.addElement(new GirarDer());	
-        operators.addElement(new GiraIzq());	
-        operators.addElement(new Avanzar());
-        
-        Problem agProblem = new Problem(agGoal, agState, operators);
-
-        /* Defino el problema parcial del agente (Resolver un laberinto) */
-        RonlyPartialGoal ptGoal = new RonlyPartialGoal();			// El objetivo Parcial del agente
-        
-        RonlyEstado ptState = new RonlyEstado();
-
-        Vector<SearchAction> ptOperators = new Vector<SearchAction>();
-        ptOperators.addElement(new GirarDer());	
-        ptOperators.addElement(new GiraIzq());	
-        ptOperators.addElement(new Avanzar());
-        
-        Problem ptProblem = new Problem(ptGoal, ptState, ptOperators);
-        
+		/* Goals */
+		RonlyGoal agGoal = new RonlyGoal();				// El objetivo General del agente
+		RonlyPartialGoal ptGoal = new RonlyPartialGoal();	// El objetivo Parcial del agente
+		 
+		/* Actions */
+		Vector<SearchAction> operators = new Vector<SearchAction>();
+		operators.addElement(new GirarDer());	
+		operators.addElement(new GiraIzq());	
+		operators.addElement(new Avanzar());
+		
+		/* Estado */
+		RonlyEstado state = new RonlyEstado();
+		this.setAgentState(state);
+		
+		/* Problemas */
+		Problem agProblem = new Problem(agGoal, state, operators);
+		Problem ptProblem = new Problem(ptGoal, state, operators);
+		 
         /* Seteamos el problema general y parcial del agente */
         this.setProblem(agProblem);
         this.setPartialProblem(ptProblem);
+        
     }
 
     /**
