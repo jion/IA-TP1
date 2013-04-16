@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 import frsf.cidisi.exercise.tp1.search.actions.Avanzar;
 import frsf.cidisi.exercise.tp1.search.actions.GiraIzq;
 import frsf.cidisi.exercise.tp1.search.actions.GirarDer;
-import frsf.cidisi.faia.agent.Action;
 import frsf.cidisi.faia.agent.Perception;
 import frsf.cidisi.faia.agent.search.Problem;
 import frsf.cidisi.faia.agent.search.SearchAction;
@@ -62,7 +61,7 @@ public class RonlyAgent extends SearchBasedAgent {
      * This method is executed by the simulator to ask the agent for an action.
      */
     @Override
-    public List<Action> selectAction() {
+    public List<SearchAction> selectAction() {
 
         // Create the search strategy
         IStepCostFunction cost = new CostFunction();
@@ -80,10 +79,10 @@ public class RonlyAgent extends SearchBasedAgent {
         this.setSolver(searchSolver);
 
 		// Ask the solver for the best action
-        List<Action> path = null;
+        List<SearchAction> path = null;
         
         try {
-            path = (List<Action>) this.getSolver().solve(new Object[]{this.getPartialProblem()});
+            path = this.getSolver().solve(new Object[]{this.getPartialProblem()});
         } catch (Exception ex) {
             Logger.getLogger(RonlyAgent.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -102,7 +101,13 @@ public class RonlyAgent extends SearchBasedAgent {
         this.getAgentState().updateState(p);
     }
     
-    /* Getters & Setters *****************************************************/
+    @Override
+	public Search getSolver() {
+		// TODO Auto-generated method stub
+		return (Search) super.getSolver();
+	}
+
+	/* Getters & Setters *****************************************************/
     public Problem getPartialProblem() {
     	return partialProblem;
     }
