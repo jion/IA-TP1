@@ -53,7 +53,7 @@ public class Pair<F,S> extends DataStructure {
 	    }
 
 		@Override
-		protected Object clone() throws CloneNotSupportedException {
+		public Pair<F,S> clone() {
 			Pair<F,S> givenPair = new Pair<F,S>(getFirst(), getSecond());
 			
 			return givenPair;

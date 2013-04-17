@@ -77,7 +77,7 @@ public class RonlyEstado extends SearchBasedAgentState {
     	state.setLaberinto(this.laberinto.clone());
     	state.setLlave(this.llave);
     	state.setOrientacion(this.orientacion);
-    	state.setPosicion(this.posicion);
+    	state.setPosicion(this.posicion.clone());
     	state.setPosLlave(this.posLlave);
     	state.setPosSalidas(this.posSalidas);
     	

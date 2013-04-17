@@ -32,9 +32,9 @@ public class RonlyAgent extends SearchBasedAgent {
 		 
 		/* Actions */
 		Vector<SearchAction> operators = new Vector<SearchAction>();
-		operators.addElement(new GirarDer());	
-		operators.addElement(new GiraIzq());	
 		operators.addElement(new Avanzar());
+		operators.addElement(new GirarDer());
+		operators.addElement(new GiraIzq());
 		
 		/* Estado */
 		RonlyEstado state = new RonlyEstado();
@@ -76,6 +76,7 @@ public class RonlyAgent extends SearchBasedAgent {
         
         try {
             path = this.getSolver().solve(new Object[]{this.getPartialProblem()});
+            // System.out.println(path.toString()); //TODO: Debug. Borrar.
         } catch (Exception ex) {
             Logger.getLogger(RonlyAgent.class.getName()).log(Level.SEVERE, null, ex);
         }
