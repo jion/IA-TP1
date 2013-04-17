@@ -51,4 +51,29 @@ public class Pair<F,S> extends DataStructure {
 	    public S getSecond() {
 	        return second;
 	    }
+
+		@Override
+		protected Object clone() throws CloneNotSupportedException {
+			Pair<F,S> givenPair = new Pair<F,S>(getFirst(), getSecond());
+			
+			return givenPair;
+		}
+
+		@Override
+		public boolean equals(Object arg0) {
+			// TODO Auto-generated method stub
+			if(arg0.getClass() == Pair.class) {
+				Pair<F,S> givenPair = (Pair<F,S>) arg0;
+				return (getFirst() == givenPair.getFirst()) &&
+							(getSecond() == givenPair.getSecond());
+			}
+			
+			return false;
+		}
+
+		@Override
+		public String toString() {
+			return "(" + getFirst() + ", " + getSecond() + ")";
+		}
+	    
 	}
