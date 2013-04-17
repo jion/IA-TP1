@@ -25,39 +25,43 @@ public class Avanzar extends SearchAction {
         case RonlyEstado.NORTE:
         	if((agState.getlaberinto()[x][y] & LaberintosEstado.PARED_ARRIBA) == 0) {
         		if((agState.getlaberinto()[x-1][y] & LaberintosEstado.HAY_CANDADO) != 0) {
-        			if(agState.getllave()) x--;
+        			if(agState.getllave()) x--; else return null;
         		} else {
         			x--;
         		}
+        		break;
         	}
-        	break;
+        	return null;
         case RonlyEstado.SUR:
         	if((agState.getlaberinto()[x][y] & LaberintosEstado.PARED_ABAJO) == 0) {
         		if((agState.getlaberinto()[x+1][y] & LaberintosEstado.HAY_CANDADO) != 0) {
-        			if(agState.getllave()) x++;
+        			if(agState.getllave()) x++; else return null;
         		} else {
         			x++;
         		}
+        		break;
         	}
-        	break;
+        	return null;
         case RonlyEstado.ESTE:
         	if((agState.getlaberinto()[x][y] & LaberintosEstado.PARED_DERECHA) == 0) {
         		if((agState.getlaberinto()[x][y+1] & LaberintosEstado.HAY_CANDADO) != 0) {
-        			if(agState.getllave()) y++;
+        			if(agState.getllave()) y++; else return null;
         		} else {
         			y++;
         		}
+        		break;
         	}
-        	break;
+        	return null;
         case RonlyEstado.OESTE:
         	if((y>0) && (agState.getlaberinto()[x][y] & LaberintosEstado.PARED_IZQUIERDA) == 0) {
         		if((agState.getlaberinto()[x][y-1] & LaberintosEstado.HAY_CANDADO) != 0) {
-        			if(agState.getllave()) y--;
+        			if(agState.getllave()) y--; else return null;
         		} else {
         			y--;
         		}
+        		break;
         	}
-        	break;
+        	return null;
         	
         }
         

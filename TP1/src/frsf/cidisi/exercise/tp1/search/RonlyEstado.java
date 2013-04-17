@@ -74,7 +74,7 @@ public class RonlyEstado extends SearchBasedAgentState {
 		//TODO: Esto es ya Completo?
     	RonlyEstado state = new RonlyEstado();
     	
-    	state.setLaberinto(this.laberinto.clone());
+    	state.setLaberinto(this.laberinto);
     	state.setLlave(this.llave);
     	state.setOrientacion(this.orientacion);
     	state.setPosicion(this.posicion.clone());
@@ -150,11 +150,12 @@ public class RonlyEstado extends SearchBasedAgentState {
 				} else {
 					str.append(" ");
 				}
+				if((posLlave.getFirst()==i) && (posLlave.getFirst()==j) ) str.append("L"); else {
 				if( (laberinto[i][j] & LaberintosEstado.PARED_ABAJO) > 0) {
 					str.append("_");
 				} else {
 					str.append(" ");
-				}
+				} }
 			}
 			
 			if( (laberinto[i][laberinto[i].length - 1] & LaberintosEstado.PARED_DERECHA) > 0) {
@@ -175,8 +176,12 @@ public class RonlyEstado extends SearchBasedAgentState {
     public boolean equals(Object obj) {
     	if(obj != null && (obj.getClass() == RonlyEstado.class)) {
     		RonlyEstado givenState = (RonlyEstado) obj;
+    		boolean ret = true;
+    		ret = this.isLlave() == givenState.isLlave();
+    		ret = ret && this.getPosicion().equals(givenState.getPosicion());
+    		ret = ret && (this.getOrientacion() == givenState.getorientacion());
     		
-    		return (this.getPosicion() == givenState.getPosicion());
+    		return ret;
     	}
     		
         return false;
