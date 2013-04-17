@@ -124,14 +124,48 @@ public class RonlyEstado extends SearchBasedAgentState {
     /**
      * This method returns the String representation of the agent state.
      */
-    @Override
-    public String toString() {
-        String str = "";
+	@Override
+	public String toString() {
+		StringBuffer str = new StringBuffer();
+		
+		str.append("\n  Posicion: "+ this.getposicion());
+		str.append("\n  Orientacion: "+ this.getOrientacion());
+		str.append("\n  Tengo llave?: "+ this.isLlave());
+		str.append("\n  Laberinto percibido: ");
+		str.append("\n   ");
+		for(int j=0; j < laberinto[0].length; j++) {
+			if( (laberinto[0][j] & LaberintosEstado.PARED_ARRIBA) > 0) {
+				str.append(" _");
+			} else {
+				str.append("  ");
+			}
+		}
+		
+		for(int i=0; i < laberinto.length; i++) {
+			str.append("\n   ");
 
-        //TODO: Complete Method
+			for(int j=0; j < laberinto[i].length; j++) {
+				if( (laberinto[i][j] & LaberintosEstado.PARED_IZQUIERDA) > 0) {
+					str.append("|");
+				} else {
+					str.append(" ");
+				}
+				if( (laberinto[i][j] & LaberintosEstado.PARED_ABAJO) > 0) {
+					str.append("_");
+				} else {
+					str.append(" ");
+				}
+			}
+			
+			if( (laberinto[i][laberinto[i].length - 1] & LaberintosEstado.PARED_DERECHA) > 0) {
+				str.append("|");
+			} else {
+				str.append(" ");
+			}
+		}
+		return str.toString();
+	}
 
-        return str;
-    }
 
     /**
      * This method is used in the search process to verify if the node already
@@ -139,10 +173,13 @@ public class RonlyEstado extends SearchBasedAgentState {
      */
     @Override
     public boolean equals(Object obj) {
-       
-       //TODO: Complete Method
-        
-        return true;
+    	if(obj != null && (obj.getClass() == RonlyEstado.class)) {
+    		RonlyEstado givenState = (RonlyEstado) obj;
+    		
+    		return (this.getPosicion() == givenState.getPosicion());
+    	}
+    		
+        return false;
     }
 
     //TODO: Complete this section with agent-specific methods
