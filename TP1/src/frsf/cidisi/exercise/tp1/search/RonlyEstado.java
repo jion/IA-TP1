@@ -92,33 +92,50 @@ public class RonlyEstado extends SearchBasedAgentState {
      */
     @Override
     public void updateState(Perception p) {
-    	laberinto = ((RonlyAgentPerception) p).getPercepcionLaberinto();
+    	RonlyAgentPerception rap = (RonlyAgentPerception) p;
+
+    	// TODO: Hacer un tipo de percepcion especifica (nueva clase)
+    	// cuando gano el juego??
     	
-    	/* Recorre el nuevo laberinto para guardar las posiciones
-    	 * de los objetos que se encuentran en el mismo.
-    	 */
-    	for(int fila=0; fila < 10; fila++) {
-    		for(int columna=0; columna < 10; columna++) {
-    			int celda = laberinto[fila][columna];
-    			
-    			if((celda & LaberintosEstado.HAY_LLAVE) > 0) { posLlave.setPair(fila, columna); }
-    			if((celda & LaberintosEstado.ES_SALIDA) > 0) {
-    				posSalidas.add(new Pair<Integer, Integer>(fila, columna));
-    			}
-    		}
+    	// Alcancé el objetivo?
+    	this.setGoalReached(rap.getWon());
+    	
+    	// Si no lo alcance todavia, obtengo los datos del
+    	// siguiente laberinto
+    	if(!this.isGoalReached()) {
+    		laberinto = rap.getPercepcionLaberinto();
+
+    		// Reinicializo el estado
+    		this.setLlave(false);
+    		this.posSalidas.clear();
+    		this.setGoalReached(false);
+
+        	/* Recorre el nuevo laberinto para guardar las posiciones
+        	 * de los objetos que se encuentran en el mismo.
+        	 */
+        	for(int fila=0; fila < 10; fila++) {
+        		for(int columna=0; columna < 10; columna++) {
+        			int celda = laberinto[fila][columna];
+        			
+        			if((celda & LaberintosEstado.HAY_LLAVE) > 0) { posLlave.setPair(fila, columna); }
+        			if((celda & LaberintosEstado.ES_SALIDA) > 0) {
+        				posSalidas.add(new Pair<Integer, Integer>(fila, columna));
+        			}
+        		}
+        	}
+        	
+        	/* Actualiza la posicion inicial del agente para el siguiente
+        	 * laberinto. Dada la simplificacion del TP, solo cambiaría
+        	 * la columna.
+        	 */
+        	posicion.setSecond(0);
+        	
+        	// Si hay llave en la posicion inicial, la tomamos.
+        	int celdaActual= laberinto[posicion.getFirst()][posicion.getSecond()];
+        	llave = ((celdaActual & LaberintosEstado.HAY_LLAVE) > 0) ? true : false;
     	}
     	
-    	/* Actualiza la posicion inicial del agente para el siguiente
-    	 * laberinto. Dada la simplificacion del TP, solo cambiaría
-    	 * la columna.
-    	 */
-    	posicion.setSecond(0);
-    	
-    	// Si hay llave en la posicion inicial, la tomamos.
-    	int celdaActual= laberinto[posicion.getFirst()][posicion.getSecond()];
-    	llave = ((celdaActual & LaberintosEstado.HAY_LLAVE) > 0) ? true : false;
-
-    	this.setGoalReached(((RonlyAgentPerception) p).getWon());
+    	return;
     }
 
     /**
@@ -150,7 +167,7 @@ public class RonlyEstado extends SearchBasedAgentState {
 				} else {
 					str.append(" ");
 				}
-				if((posLlave.getFirst()==i) && (posLlave.getFirst()==j) ) str.append("L"); else {
+				if((posLlave.getFirst()==i) && (posLlave.getSecond()==j) ) str.append("L"); else {
 				if( (laberinto[i][j] & LaberintosEstado.PARED_ABAJO) > 0) {
 					str.append("_");
 				} else {
@@ -176,8 +193,9 @@ public class RonlyEstado extends SearchBasedAgentState {
     public boolean equals(Object obj) {
     	if(obj != null && (obj.getClass() == RonlyEstado.class)) {
     		RonlyEstado givenState = (RonlyEstado) obj;
+    		
     		boolean ret = true;
-    		ret = this.isLlave() == givenState.isLlave();
+    		ret = this.isLlave() == givenState.isLlave(); // Camino con/sin llave
     		ret = ret && this.getPosicion().equals(givenState.getPosicion());
     		ret = ret && (this.getOrientacion() == givenState.getorientacion());
     		
