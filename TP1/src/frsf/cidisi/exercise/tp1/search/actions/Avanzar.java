@@ -80,7 +80,6 @@ public class Avanzar extends SearchAction {
 
     /**
      * This method updates the agent state and the real world state.
-     * TODO: ESTA NUNCA SE VA A EJECUTAR!! O si?
      */
     @Override
     public EnvironmentState execute(AgentState ast, EnvironmentState est) {
@@ -90,12 +89,35 @@ public class Avanzar extends SearchAction {
         // TODO: Use this conditions
         // PreConditions: null
         // PostConditions: null
-
+        
+    	// Posicion actual del agente
+        int x = agState.getposicion().getFirst();	// Fila
+        int y = agState.getposicion().getSecond();	// Columna
+        
         if (true) {
-            // Update the real world
-            
             // Update the agent state
-            
+            switch(agState.getorientacion()) {
+            case RonlyEstado.NORTE:
+            	x--;
+            	break;
+            case RonlyEstado.SUR:
+            	x++;
+            	break;
+            case RonlyEstado.ESTE:
+            	y++;
+            	break;
+            case RonlyEstado.OESTE:
+            	y--;
+            	break;
+            }
+            agState.setposicion(x,y);
+
+        	// Update the real world
+        	if(agState.getposSalidas().contains(agState.getposicion())) {
+        		environmentState.pasarNivel();
+        		if(environmentState.isFinished()) agState.setGoalReached(true); // TODO: Donde se debe actualizar realmente????
+        	}
+        	
             return environmentState;
         }
 
