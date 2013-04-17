@@ -17,31 +17,22 @@ public class Avanzar extends SearchAction {
     	RonlyEstado agState = (RonlyEstado) s;
         
         // Posicion actual del agente
-        int x = agState.getposicion().getFirst();
-        int y = agState.getposicion().getSecond();
+        int x = agState.getposicion().getFirst();	// Fila
+        int y = agState.getposicion().getSecond();	// Columna
         
         // PreConditions: El agente debe poder moverse hacia adelante
         switch(agState.getorientacion()) {
         case RonlyEstado.NORTE:
         	if((agState.getlaberinto()[x][y] & LaberintosEstado.PARED_ARRIBA) == 0) {
-        		if((agState.getlaberinto()[x][y-1] & LaberintosEstado.HAY_CANDADO) != 0) {
-        			if(agState.getllave()) y--;
+        		if((agState.getlaberinto()[x-1][y] & LaberintosEstado.HAY_CANDADO) != 0) {
+        			if(agState.getllave()) x--;
         		} else {
-        			y--;
+        			x--;
         		}
         	}
         	break;
         case RonlyEstado.SUR:
         	if((agState.getlaberinto()[x][y] & LaberintosEstado.PARED_ABAJO) == 0) {
-        		if((agState.getlaberinto()[x][y+1] & LaberintosEstado.HAY_CANDADO) != 0) {
-        			if(agState.getllave()) y++;
-        		} else {
-        			y++;
-        		}
-        	}
-        	break;
-        case RonlyEstado.ESTE:
-        	if((agState.getlaberinto()[x][y] & LaberintosEstado.PARED_DERECHA) == 0) {
         		if((agState.getlaberinto()[x+1][y] & LaberintosEstado.HAY_CANDADO) != 0) {
         			if(agState.getllave()) x++;
         		} else {
@@ -49,12 +40,21 @@ public class Avanzar extends SearchAction {
         		}
         	}
         	break;
-        case RonlyEstado.OESTE:
-        	if((agState.getlaberinto()[x][y] & LaberintosEstado.PARED_IZQUIERDA) == 0) {
-        		if((agState.getlaberinto()[x-1][y] & LaberintosEstado.HAY_CANDADO) != 0) {
-        			if(agState.getllave()) x--;
+        case RonlyEstado.ESTE:
+        	if((agState.getlaberinto()[x][y] & LaberintosEstado.PARED_DERECHA) == 0) {
+        		if((agState.getlaberinto()[x][y+1] & LaberintosEstado.HAY_CANDADO) != 0) {
+        			if(agState.getllave()) y++;
         		} else {
-        			x--;
+        			y++;
+        		}
+        	}
+        	break;
+        case RonlyEstado.OESTE:
+        	if((y>0) && (agState.getlaberinto()[x][y] & LaberintosEstado.PARED_IZQUIERDA) == 0) {
+        		if((agState.getlaberinto()[x][y-1] & LaberintosEstado.HAY_CANDADO) != 0) {
+        			if(agState.getllave()) y--;
+        		} else {
+        			y--;
         		}
         	}
         	break;
