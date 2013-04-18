@@ -7,12 +7,12 @@ import frsf.cidisi.faia.environment.Environment;
 public class RonlyAgentPerception extends Perception {
 
 	//TODO: Setup Statics
-    //public static int UNKNOWN_PERCEPTION = -1;   
+    //public static int UNKNOWN_PERCEPTION = -1;
 	
 	
 	/* Sensores:
 	 * 	- percepcionLaberinto: El laberinto actual
-	 *  - won: true si se ha llegado a la meta final
+	 *  - won: true si se ha llegado a la meta final (no hay mas niveles)
 	 */
 	private int[][] percepcionLaberinto;
 	private Boolean won;
@@ -32,9 +32,7 @@ public class RonlyAgentPerception extends Perception {
      */
     @Override
     public void initPerception(Agent agentIn, Environment environmentIn) {
-    	
-    	//TODO: Aca deberia actiualizarse el estado del agente si llego a la meta?
-        //RonlyAgent agent = (RonlyAgent) agentIn;
+
         LaberintosAmbiente environment = (LaberintosAmbiente) environmentIn;
         LaberintosEstado environmentState =
                 environment.getEnvironmentState();

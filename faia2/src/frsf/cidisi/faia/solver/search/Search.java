@@ -137,15 +137,11 @@ public class Search extends Solve {
             // This variable store the branch's path where the node belongs.-
             Vector<NTree> path = getBestPath();
             Vector<SearchAction> ret = new Vector<SearchAction>();
-            
-            //TODO: Sacar debug
-            System.out.println("--- el path!");
+
             for(NTree nodo: path) {
             	ret.add(nodo.getAction());
-            	System.out.println(nodo.getAction().toString());
             }
-            System.out.println("---fin-----");
-            
+
             // The first node of the branch has the action that must be executed by the agent.-
             return ret;
         }
@@ -280,7 +276,7 @@ public class Search extends Solve {
             case Search.GRAPHICAL_TREE:
                 break;
             case Search.GRAPHVIZ_TREE:
-                GraphvizTree.printFile(tree);
+                //GraphvizTree.printFile(tree);
                 break;
             case Search.EFAIA_TREE:
             	TreeMLWriter.printFile(tree);

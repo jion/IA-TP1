@@ -22,15 +22,20 @@ public class LaberintosAmbiente extends Environment {
      */
     @Override
     public  RonlyAgentPerception getPercept() {
-        // Create a new perception to return
-         RonlyAgentPerception perception = new RonlyAgentPerception();
+		// Se crea una nueva percepcion
+		RonlyAgentPerception perception = new RonlyAgentPerception();
 		
-		//TODO : Revisar si estan bien definidos los sensores
-         perception.setPercepcionLaberinto(this.getNextLevel());
-         perception.setWon(((LaberintosEstado) environmentState).isFinished());
-         
-        // Return the perception
-        return perception;
+		// Se percibe del ambiente un laberinto entero a la vez
+		// (El siguente nivel no resuelto). Se setea a null si
+		// ya no quedan niveles por completar
+		perception.setPercepcionLaberinto(this.getNextLevel());
+		
+        // true: No quedan mas laberintos. (Ganaste!)
+        // false: La princesa está en el otro castillo...
+		perception.setWon(((LaberintosEstado) environmentState).isFinished());
+		 
+		// Return the perception
+		return perception;
     }
 
     
