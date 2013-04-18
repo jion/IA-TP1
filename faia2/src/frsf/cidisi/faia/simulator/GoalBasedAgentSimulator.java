@@ -85,7 +85,7 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
                 break;
             }
 
-            System.out.println("Action returned: " + action);
+            System.out.println("Actions returned: " + action);
             System.out.println();
 
             this.actionReturned(agent, action);

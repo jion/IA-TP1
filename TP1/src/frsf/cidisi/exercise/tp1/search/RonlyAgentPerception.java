@@ -10,6 +10,7 @@ public class RonlyAgentPerception extends Perception {
 
 	/* Sensores:
 	 * 	- percepcionLaberinto: El laberinto actual
+	 *  - posInicial: Posicion inicial del agente
 	 *  - won: true si se ha llegado a la meta final (no hay mas niveles)
 	 */
 	private Laberinto percepcionLaberinto;

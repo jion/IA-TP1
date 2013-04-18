@@ -24,7 +24,7 @@ public class Avanzar extends SearchAction {
         PairInt pos = agState.getposicion();
         
         // Posicion actual del agente
-        int row = agState.getposicion().getFirst();	// Fila
+        int row = agState.getposicion().getFirst();		// Fila
         int col = agState.getposicion().getSecond();	// Columna
         
         // PreConditions: El agente debe poder moverse hacia adelante
@@ -102,34 +102,29 @@ public class Avanzar extends SearchAction {
         int x = agState.getposicion().getFirst();	// Fila
         int y = agState.getposicion().getSecond();	// Columna
         
-        if (true) {
-            // Update the agent state
-            switch(agState.getorientacion()) {
-            case RonlyEstado.NORTE:
-            	x--;
-            	break;
-            case RonlyEstado.SUR:
-            	x++;
-            	break;
-            case RonlyEstado.ESTE:
-            	y++;
-            	break;
-            case RonlyEstado.OESTE:
-            	y--;
-            	break;
-            }
-            agState.setposicion(x,y);
-
-        	// Update the real world
-        	if(agState.getposSalidas().contains(agState.getposicion())) {
-        		environmentState.pasarNivel();
-        		if(environmentState.isFinished()) agState.setGoalReached(true); // TODO: Donde se debe actualizar realmente????
-        	}
-        	
-            return environmentState;
+        // Update the agent state
+        switch(agState.getorientacion()) {
+        case RonlyEstado.NORTE:
+        	x--;
+        	break;
+        case RonlyEstado.SUR:
+        	x++;
+        	break;
+        case RonlyEstado.ESTE:
+        	y++;
+        	break;
+        case RonlyEstado.OESTE:
+        	y--;
+        	break;
         }
+        agState.setposicion(x,y);
 
-        return null;
+    	// Update the real world
+    	if(agState.getposSalidas().contains(agState.getposicion())) {
+    		environmentState.pasarNivel();
+    	}
+    	
+    	return environmentState;
     }
 
     /**

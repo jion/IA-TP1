@@ -48,30 +48,27 @@ public class GiraIzq extends SearchAction {
         // TODO: Use this conditions
         // PreConditions: null
         // PostConditions: null
-        
-        if (true) {
-            // Update the real world
-            
-            // Update the agent state
-            switch(agState.getorientacion()) {
-            case RonlyEstado.NORTE:
-            	agState.setorientacion(RonlyEstado.OESTE);
-            	break;
-            case RonlyEstado.SUR:
-            	agState.setorientacion(RonlyEstado.ESTE);
-            	break;
-            case RonlyEstado.ESTE:
-            	agState.setorientacion(RonlyEstado.NORTE);
-            	break;
-            case RonlyEstado.OESTE:
-            	agState.setorientacion(RonlyEstado.SUR);
-            	break;
-            }
-            
-            return environmentState;
-        }
 
-        return null;
+        // Update the real world
+        
+        // Update the agent state
+        switch(agState.getorientacion()) {
+        case RonlyEstado.NORTE:
+        	agState.setorientacion(RonlyEstado.OESTE);
+        	break;
+        case RonlyEstado.SUR:
+        	agState.setorientacion(RonlyEstado.ESTE);
+        	break;
+        case RonlyEstado.ESTE:
+        	agState.setorientacion(RonlyEstado.NORTE);
+        	break;
+        case RonlyEstado.OESTE:
+        	agState.setorientacion(RonlyEstado.SUR);
+        	break;
+        }
+        
+        return environmentState;
+
     }
 
     /**

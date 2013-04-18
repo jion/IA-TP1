@@ -48,30 +48,27 @@ public class GirarDer extends SearchAction {
         // TODO: Use this conditions
         // PreConditions: null
         // PostConditions: null
-        
-        if (true) {
-            // Update the real world
-            
-            // Update the agent state
-            switch(agState.getorientacion()) {
-            case RonlyEstado.NORTE:
-            	agState.setorientacion(RonlyEstado.ESTE);
-            	break;
-            case RonlyEstado.SUR:
-            	agState.setorientacion(RonlyEstado.OESTE);
-            	break;
-            case RonlyEstado.ESTE:
-            	agState.setorientacion(RonlyEstado.SUR);
-            	break;
-            case RonlyEstado.OESTE:
-            	agState.setorientacion(RonlyEstado.NORTE);
-            	break;
-            }
-            
-            return environmentState;
-        }
 
-        return null;
+        // Update the real world
+        
+        // Update the agent state
+        switch(agState.getorientacion()) {
+        case RonlyEstado.NORTE:
+        	agState.setorientacion(RonlyEstado.ESTE);
+        	break;
+        case RonlyEstado.SUR:
+        	agState.setorientacion(RonlyEstado.OESTE);
+        	break;
+        case RonlyEstado.ESTE:
+        	agState.setorientacion(RonlyEstado.SUR);
+        	break;
+        case RonlyEstado.OESTE:
+        	agState.setorientacion(RonlyEstado.NORTE);
+        	break;
+        }
+        
+        return environmentState;
+
     }
 
     /**
