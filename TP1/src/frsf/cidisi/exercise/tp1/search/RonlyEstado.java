@@ -126,9 +126,11 @@ public class RonlyEstado extends SearchBasedAgentState {
         	
         	/* Actualiza la posicion inicial del agente para el siguiente
         	 * laberinto. Dada la simplificacion del TP, solo cambiaría
-        	 * la columna.
+        	 * la columna, pero se percepciona la posicion completa para
+        	 * hacerlo mas generico y permitir al agente conocer la posicion
+        	 * inicial del primer laberinto sin tener que considerarla fija en (0,0)
         	 */
-        	posicion.setSecond(0);
+        	posicion = rap.getPosInicial();
         	
         	// Si hay llave en la posicion inicial, la tomamos.
         	int celdaActual= laberinto[posicion.getFirst()][posicion.getSecond()];

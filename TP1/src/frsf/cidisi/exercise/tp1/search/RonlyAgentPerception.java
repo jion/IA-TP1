@@ -3,24 +3,20 @@ package frsf.cidisi.exercise.tp1.search;
 import frsf.cidisi.faia.agent.Agent;
 import frsf.cidisi.faia.agent.Perception;
 import frsf.cidisi.faia.environment.Environment;
+import frsf.cidisi.faia.state.datastructure.Pair;
 
 public class RonlyAgentPerception extends Perception {
 
-	//TODO: Setup Statics
-    //public static int UNKNOWN_PERCEPTION = -1;
-	
-	
 	/* Sensores:
 	 * 	- percepcionLaberinto: El laberinto actual
 	 *  - won: true si se ha llegado a la meta final (no hay mas niveles)
 	 */
 	private int[][] percepcionLaberinto;
+	private Pair<Integer, Integer> posInicial;
 	private Boolean won;
 
-	
-	
 	public  RonlyAgentPerception() {
-    	//TODO: Complete Method
+    	super();
     }
 
     public RonlyAgentPerception(Agent agent, Environment environment) {
@@ -50,8 +46,7 @@ public class RonlyAgentPerception extends Perception {
     @Override
     public String toString() {
         StringBuffer str = new StringBuffer();
-
-        //TODO: Complete Method
+        
         if(getWon())
         	{ str.append("Fin del juego!"); }
         else
@@ -71,6 +66,14 @@ public class RonlyAgentPerception extends Perception {
 		this.percepcionLaberinto = percepcionLaberinto;
 	}
 	
+	public Pair<Integer, Integer> getPosInicial() {
+		return posInicial;
+	}
+
+	public void setPosInicial(Pair<Integer, Integer> posInicial) {
+		this.posInicial = posInicial;
+	}
+
 	public Boolean getWon() {
 		return won;
 	}

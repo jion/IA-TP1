@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import frsf.cidisi.faia.state.EnvironmentState;
+import frsf.cidisi.faia.state.datastructure.Pair;
 
 /**
  * This class represents the real world state.
@@ -41,7 +42,7 @@ public class LaberintosEstado extends EnvironmentState {
 				{0x0C, 0x05, 0x09, 0x0C, 0x06, 0x03, 0x08, 0x05, 0x03, 0x0B},
 				{0x06, 0x08, 0x0C, 0x06, 0x09, 0x05, 0x0A, 0x0C, 0x05, 0x63},
 				{0x05, 0x02, 0x0A, 0x0D, 0x0C, 0x06, 0x03, 0x02, 0x08, 0x0D},
-				{0x82, 0x03, 0x03, 0x0A, 0x06, 0x03, 0x03, 0x03, 0x02, 0x0A}};
+				{0x86, 0x03, 0x03, 0x0A, 0x06, 0x03, 0x03, 0x03, 0x02, 0x0A}};
 
     private static final int[][] nivel3 = { 
 				{0x05, 0x03, 0x03, 0x01, 0x03, 0x03, 0x03, 0x03, 0x03, 0x63},
@@ -56,6 +57,7 @@ public class LaberintosEstado extends EnvironmentState {
 				{0x06, 0x03, 0x0B, 0x07, 0x03, 0x02, 0x03, 0x0A, 0x06, 0x0A}};
 	    
     private List<int[][]> laberintos;
+    private Pair<Integer, Integer> posRonly; // whereis ronly?
     private int nivelActual;
 	
     public LaberintosEstado() {
@@ -71,10 +73,12 @@ public class LaberintosEstado extends EnvironmentState {
     @Override
     public void initState() {
     	nivelActual=0;
-
+    	
     	laberintos.add(nivel1);
     	laberintos.add(nivel2);
     	laberintos.add(nivel3);
+    	
+    	posRonly = new Pair<Integer,Integer>(0,0);
     }
 
     /**
@@ -102,11 +106,30 @@ public class LaberintosEstado extends EnvironmentState {
      }
      
 	 public void pasarNivel(){
+		 // TODO: Aca deberia pasarsele el conjunto de acciones para que ronlyu pase de nivel?
 	     nivelActual++;
+	     this.posRonly.setSecond(0);
 	 }
      
 	public Boolean isFinished() {
 		return (nivelActual >= laberintos.size());
+	}
+
+	public Pair<Integer, Integer> getPosRonly() {
+		return posRonly;
+	}
+
+	public void setPosRonly(Pair<Integer, Integer> posRonly) {
+		this.posRonly = posRonly;
+	}
+
+	public void setPosRonly(int row, int col) {
+		if(this.posRonly == null)
+			{ this.posRonly = new Pair<Integer,Integer>(row,col); }
+		else {
+			this.posRonly.setFirst(row);
+			this.posRonly.setSecond(row);
+		}
 	}
 }
 
