@@ -24,7 +24,7 @@ public class RonlyEstado extends SearchBasedAgentState {
 	public static final int AVANZAR = 3;
 
 	// Variables de estado del Agente
-	private int[][]						laberinto;		// \
+	private Laberinto					laberinto;		// \
     private Pair<Integer,Integer>		posicion;		//  | ¿Dónde Estoy?
     private int 						orientacion;	// /
     
@@ -115,12 +115,15 @@ public class RonlyEstado extends SearchBasedAgentState {
         	 */
         	for(int fila=0; fila < 10; fila++) {
         		for(int columna=0; columna < 10; columna++) {
-        			int celda = laberinto[fila][columna];
+
+        			if(laberinto.consulta(Laberinto.HAY_LLAVE, fila, columna)) {
+        				posLlave.setPair(fila, columna);
+        			}
         			
-        			if((celda & LaberintosEstado.HAY_LLAVE) > 0) { posLlave.setPair(fila, columna); }
-        			if((celda & LaberintosEstado.ES_SALIDA) > 0) {
+        			if(laberinto.consulta(Laberinto.ES_SALIDA, fila, columna)) {
         				posSalidas.add(new Pair<Integer, Integer>(fila, columna));
         			}
+
         		}
         	}
         	
@@ -133,8 +136,7 @@ public class RonlyEstado extends SearchBasedAgentState {
         	posicion = rap.getPosInicial();
         	
         	// Si hay llave en la posicion inicial, la tomamos.
-        	int celdaActual= laberinto[posicion.getFirst()][posicion.getSecond()];
-        	llave = ((celdaActual & LaberintosEstado.HAY_LLAVE) > 0) ? true : false;
+        	llave = laberinto.consulta(Laberinto.HAY_LLAVE, this.posicion);
     	}
     	
     	return;
@@ -152,37 +154,8 @@ public class RonlyEstado extends SearchBasedAgentState {
 		str.append("\n  Tengo llave?: "+ this.isLlave());
 		str.append("\n  Laberinto percibido: ");
 		str.append("\n   ");
-		for(int j=0; j < laberinto[0].length; j++) {
-			if( (laberinto[0][j] & LaberintosEstado.PARED_ARRIBA) > 0) {
-				str.append(" _");
-			} else {
-				str.append("  ");
-			}
-		}
+		str.append(laberinto.toString());
 		
-		for(int i=0; i < laberinto.length; i++) {
-			str.append("\n   ");
-
-			for(int j=0; j < laberinto[i].length; j++) {
-				if( (laberinto[i][j] & LaberintosEstado.PARED_IZQUIERDA) > 0) {
-					str.append("|");
-				} else {
-					str.append(" ");
-				}
-				if((posLlave.getFirst()==i) && (posLlave.getSecond()==j) ) str.append("L"); else {
-				if( (laberinto[i][j] & LaberintosEstado.PARED_ABAJO) > 0) {
-					str.append("_");
-				} else {
-					str.append(" ");
-				} }
-			}
-			
-			if( (laberinto[i][laberinto[i].length - 1] & LaberintosEstado.PARED_DERECHA) > 0) {
-				str.append("|");
-			} else {
-				str.append(" ");
-			}
-		}
 		return str.toString();
 	}
 
@@ -213,39 +186,50 @@ public class RonlyEstado extends SearchBasedAgentState {
      public Pair<Integer, Integer> getposicion(){
         return posicion;
      }
+     
      public void setposicion(int x, int y){
     	 posicion.setFirst(x);
     	 posicion.setSecond(y);
      }
+     
      public int getorientacion(){
         return orientacion;
      }
+     
      public void setorientacion(int arg){
         orientacion = arg;
      }
+     
      public boolean getllave(){
         return llave;
      }
+     
      public void setllave(boolean arg){
         llave = arg;
      }
+     
      public Pair<Integer, Integer> getposLlave(){
         return posLlave;
      }
+     
      public void setposLlave(Pair<Integer, Integer> arg){
         posLlave = arg;
      }
+     
      public List<Pair<Integer,Integer>> getposSalidas(){
         return posSalidas;
      }
+     
      public void setposSalidas(List<Pair<Integer,Integer>> arg){
         posSalidas = arg;
      }
-     public int[][] getlaberinto(){
+     
+     public Laberinto getlaberinto(){
         return laberinto;
      }
-     public void setlaberinto(int[][] arg){
-        laberinto = arg;
+     
+     public void setlaberinto(Laberinto laberinto){
+        this.laberinto = laberinto;
      }
 	
     public boolean isGoalReached() {
@@ -256,7 +240,7 @@ public class RonlyEstado extends SearchBasedAgentState {
  		this.goalReached = goalReached;
  	}
 
-	protected void setLaberinto(int[][] laberinto) {
+	protected void setLaberinto(Laberinto laberinto) {
 		this.laberinto = laberinto;
 	}
 
@@ -280,7 +264,7 @@ public class RonlyEstado extends SearchBasedAgentState {
 		this.posSalidas = posSalidas;
 	}
 
-	public int[][] getLaberinto() {
+	public Laberinto getLaberinto() {
 		return laberinto;
 	}
 

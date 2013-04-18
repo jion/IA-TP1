@@ -11,7 +11,7 @@ public class RonlyAgentPerception extends Perception {
 	 * 	- percepcionLaberinto: El laberinto actual
 	 *  - won: true si se ha llegado a la meta final (no hay mas niveles)
 	 */
-	private int[][] percepcionLaberinto;
+	private Laberinto percepcionLaberinto;
 	private Pair<Integer, Integer> posInicial;
 	private Boolean won;
 
@@ -58,11 +58,11 @@ public class RonlyAgentPerception extends Perception {
     // The following methods are agent-specific:
 
     /* Getters & Setters *****************************************************/	
-	public int[][] getPercepcionLaberinto(){
+	public Laberinto getPercepcionLaberinto(){
 		return percepcionLaberinto;
 	}
 
-	public void setPercepcionLaberinto(int[][] percepcionLaberinto){
+	public void setPercepcionLaberinto(Laberinto percepcionLaberinto){
 		this.percepcionLaberinto = percepcionLaberinto;
 	}
 	

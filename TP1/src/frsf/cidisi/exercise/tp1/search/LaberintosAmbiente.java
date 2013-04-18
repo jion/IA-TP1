@@ -61,7 +61,7 @@ public class LaberintosAmbiente extends Environment {
 
 	//TODO: Complete this section with agent-specific methods
     /* Getters & Setters *****************************************************/
-    public int[][] getNextLevel() {
+    public Laberinto getNextLevel() {
     	return ((LaberintosEstado) environmentState).getLaberintoActual();
     }
 }

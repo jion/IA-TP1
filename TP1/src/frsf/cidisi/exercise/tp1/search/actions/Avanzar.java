@@ -5,6 +5,7 @@ import frsf.cidisi.faia.agent.search.SearchAction;
 import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
 import frsf.cidisi.faia.state.AgentState;
 import frsf.cidisi.faia.state.EnvironmentState;
+import frsf.cidisi.faia.state.datastructure.Pair;
 
 public class Avanzar extends SearchAction {
 
@@ -15,49 +16,53 @@ public class Avanzar extends SearchAction {
     @Override
     public SearchBasedAgentState execute(SearchBasedAgentState s) {
     	RonlyEstado agState = (RonlyEstado) s;
+        Laberinto   laberinto = agState.getlaberinto();
         
         // Posicion actual del agente
-        int x = agState.getposicion().getFirst();	// Fila
-        int y = agState.getposicion().getSecond();	// Columna
+        Pair<Integer, Integer> pos = agState.getposicion();
+        
+        // Posicion actual del agente
+        int row = agState.getposicion().getFirst();	// Fila
+        int col = agState.getposicion().getSecond();	// Columna
         
         // PreConditions: El agente debe poder moverse hacia adelante
         switch(agState.getorientacion()) {
         case RonlyEstado.NORTE:
-        	if((agState.getlaberinto()[x][y] & LaberintosEstado.PARED_ARRIBA) == 0) {
-        		if((agState.getlaberinto()[x-1][y] & LaberintosEstado.HAY_CANDADO) != 0) {
-        			if(agState.getllave()) x--; else return null;
+        	if(!laberinto.consulta(Laberinto.PARED_ARRIBA, row, col)) { // Si NO hay pared arriba
+        		if(laberinto.consulta(Laberinto.HAY_CANDADO, row-1, col)) {
+        			if(agState.getllave()) row--; else return null;
         		} else {
-        			x--;
+        			row--;
         		}
         		break;
         	}
         	return null;
         case RonlyEstado.SUR:
-        	if((agState.getlaberinto()[x][y] & LaberintosEstado.PARED_ABAJO) == 0) {
-        		if((agState.getlaberinto()[x+1][y] & LaberintosEstado.HAY_CANDADO) != 0) {
-        			if(agState.getllave()) x++; else return null;
+        	if(!laberinto.consulta(Laberinto.PARED_ABAJO, row, col)) {
+        		if(laberinto.consulta(Laberinto.HAY_CANDADO, row+1, col)) {
+        			if(agState.getllave()) row++; else return null;
         		} else {
-        			x++;
+        			row++;
         		}
         		break;
         	}
         	return null;
         case RonlyEstado.ESTE:
-        	if((agState.getlaberinto()[x][y] & LaberintosEstado.PARED_DERECHA) == 0) {
-        		if((agState.getlaberinto()[x][y+1] & LaberintosEstado.HAY_CANDADO) != 0) {
-        			if(agState.getllave()) y++; else return null;
+        	if(!laberinto.consulta(Laberinto.PARED_DERECHA, row, col)) {
+        		if(laberinto.consulta(Laberinto.HAY_CANDADO, row, col+1)) {
+        			if(agState.getllave()) col++; else return null;
         		} else {
-        			y++;
+        			col++;
         		}
         		break;
         	}
         	return null;
         case RonlyEstado.OESTE:
-        	if((y>0) && (agState.getlaberinto()[x][y] & LaberintosEstado.PARED_IZQUIERDA) == 0) {
-        		if((agState.getlaberinto()[x][y-1] & LaberintosEstado.HAY_CANDADO) != 0) {
-        			if(agState.getllave()) y--; else return null;
+        	if((col>0) && !laberinto.consulta(Laberinto.PARED_IZQUIERDA, row, col)) {
+        		if(laberinto.consulta(Laberinto.HAY_CANDADO, row, col-1)) {
+        			if(agState.getllave()) col--; else return null;
         		} else {
-        			y--;
+        			col--;
         		}
         		break;
         	}
@@ -68,13 +73,14 @@ public class Avanzar extends SearchAction {
         /* PostConditions:
          *   - El agente estará en su nueva posicion
          */
-        agState.setposicion(x, y);
+        agState.setposicion(row, col);
  
         // Si hay llave, actualizar estado
-        if((agState.getlaberinto()[x][y] & LaberintosEstado.HAY_LLAVE) != 0) {
-        	//TODO: Aca deberia actualizarse el estado del laberinto
-        	agState.setllave(true);
-        }
+        /* TODO: Aca deberia actualizarse el estado del laberinto
+         *   agState.setllave(laberinto.takeLlave(row, col));
+         */
+        if(laberinto.consulta(Laberinto.HAY_LLAVE, pos)) { agState.setllave(true); }
+        
         return agState;
     }
 
