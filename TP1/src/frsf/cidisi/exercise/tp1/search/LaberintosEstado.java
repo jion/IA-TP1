@@ -3,8 +3,9 @@ package frsf.cidisi.exercise.tp1.search;
 import java.util.ArrayList;
 import java.util.List;
 
+import frsf.cidisi.exercise.tp1.datastructures.Laberinto;
+import frsf.cidisi.exercise.tp1.datastructures.PairInt;
 import frsf.cidisi.faia.state.EnvironmentState;
-import frsf.cidisi.faia.state.datastructure.Pair;
 
 /**
  * This class represents the real world state.
@@ -48,7 +49,7 @@ public class LaberintosEstado extends EnvironmentState {
 				{0x06, 0x03, 0x0B, 0x07, 0x03, 0x02, 0x03, 0x0A, 0x06, 0x0A}};
 
     private List<Laberinto> laberintos;
-    private Pair<Integer, Integer> posRonly; // whereis ronly?
+    private PairInt posRonly; // whereis ronly?
     private int nivelActual;
 	
     public LaberintosEstado() {
@@ -106,17 +107,17 @@ public class LaberintosEstado extends EnvironmentState {
 		return (nivelActual >= laberintos.size());
 	}
 
-	public Pair<Integer, Integer> getPosRonly() {
+	public PairInt getPosRonly() {
 		return posRonly;
 	}
 
-	public void setPosRonly(Pair<Integer, Integer> posRonly) {
+	public void setPosRonly(PairInt posRonly) {
 		this.posRonly = posRonly;
 	}
 
 	public void setPosRonly(int row, int col) {
 		if(this.posRonly == null)
-			{ this.posRonly = new Pair<Integer,Integer>(row,col); }
+			{ this.posRonly = new PairInt(row,col); }
 		else {
 			this.posRonly.setFirst(row);
 			this.posRonly.setSecond(row);

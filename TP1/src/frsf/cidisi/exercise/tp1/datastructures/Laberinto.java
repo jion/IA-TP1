@@ -1,9 +1,7 @@
-package frsf.cidisi.exercise.tp1.search;
+package frsf.cidisi.exercise.tp1.datastructures;
 
 import java.util.LinkedList;
 import java.util.List;
-
-import frsf.cidisi.faia.state.datastructure.Pair;
 
 public class Laberinto {
 	
@@ -25,10 +23,10 @@ public class Laberinto {
 	char[][] data;
 	
 	// Listas de elementos relevantes en el laberinto
-	private List<Pair<Integer, Integer>> llaves;
-	private List<Pair<Integer, Integer>> candados;
-	private List<Pair<Integer, Integer>> salidas;
-	private List<Pair<Integer, Integer>> entradas;
+	private List<PairInt> llaves;
+	private List<PairInt> candados;
+	private List<PairInt> salidas;
+	private List<PairInt> entradas;
 	
 	/* Constructores *********************************************************/
 	protected Laberinto() {
@@ -47,20 +45,20 @@ public class Laberinto {
 	private void initInfo() {
 		//TODO: Inicializar las listas de elementos relevantes.
 		// news
-		llaves   = new LinkedList<Pair<Integer, Integer>>();
-		candados = new LinkedList<Pair<Integer, Integer>>();
-		entradas = new LinkedList<Pair<Integer, Integer>>();
-		salidas  = new LinkedList<Pair<Integer, Integer>>();
+		llaves   = new LinkedList<PairInt>();
+		candados = new LinkedList<PairInt>();
+		entradas = new LinkedList<PairInt>();
+		salidas  = new LinkedList<PairInt>();
 
     	/* Recorre el nuevo laberinto para guardar las posiciones
     	 * de los objetos relevantes que se encuentran en el mismo.
     	 */
     	for(int row=0; row < getRows(); row++) {
     		for(int col=0; col < getCols(); col++) {
-    			if(consulta(HAY_LLAVE,   row, col)) { llaves.add(new Pair<Integer, Integer>(row,col)); }
-    			if(consulta(HAY_CANDADO, row, col)) { candados.add(new Pair<Integer, Integer>(row,col)); }
-    			if(consulta(ES_ENTRADA,  row, col)) { entradas.add(new Pair<Integer, Integer>(row,col)); }
-    			if(consulta(ES_SALIDA,   row, col)) { salidas.add(new Pair<Integer, Integer>(row,col)); }
+    			if(consulta(HAY_LLAVE,   row, col)) { llaves.add(new PairInt(row,col)); }
+    			if(consulta(HAY_CANDADO, row, col)) { candados.add(new PairInt(row,col)); }
+    			if(consulta(ES_ENTRADA,  row, col)) { entradas.add(new PairInt(row,col)); }
+    			if(consulta(ES_SALIDA,   row, col)) { salidas.add(new PairInt(row,col)); }
     			
     		}
     	}
@@ -68,7 +66,7 @@ public class Laberinto {
 	}
 
 	/* Public methods ********************************************************/
-	public boolean consulta(int consulta, Pair<Integer, Integer> pair) {
+	public boolean consulta(int consulta, PairInt pair) {
 		return consulta(consulta, pair.getFirst(), pair.getSecond());
 	}
 	
@@ -157,51 +155,51 @@ public class Laberinto {
 	 * 
 	 */
 	public boolean isEntrada(int x, int y) {
-		return isEntrada(new Pair<Integer, Integer>(x,y));
+		return isEntrada(new PairInt(x,y));
 	}
 	
-	public boolean isEntrada(Pair<Integer, Integer> pair) {
+	public boolean isEntrada(PairInt pair) {
 		return entradas.contains(pair);
 	}
 	
 	public boolean isSalida(int x, int y) {
-		return isSalida(new Pair<Integer, Integer>(x,y));
+		return isSalida(new PairInt(x,y));
 	}
 	
-	public boolean isSalida(Pair<Integer, Integer> pair) {
+	public boolean isSalida(PairInt pair) {
 		return salidas.contains(pair);
 	}
 	
 	public boolean isCandado(int x, int y) {
-		return isCandado(new Pair<Integer, Integer>(x,y));
+		return isCandado(new PairInt(x,y));
 	}
 	
-	public boolean isCandado(Pair<Integer, Integer> pair) {
+	public boolean isCandado(PairInt pair) {
 		return candados.contains(pair);
 	}
 	
 	public boolean isLlave(int x, int y) {
-		return isLlave(new Pair<Integer, Integer>(x,y));
+		return isLlave(new PairInt(x,y));
 	}
 	
-	public boolean isLlave(Pair<Integer, Integer> pair) {
+	public boolean isLlave(PairInt pair) {
 		return llaves.contains(pair);
 	}
 	
 	/* Getters & Setters *****************************************************/
-	public List<Pair<Integer, Integer>> getPosEntradas() {
+	public List<PairInt> getPosEntradas() {
 		return this.entradas;
 	}
 	
-	public List<Pair<Integer, Integer>> getPosSalidas() {
+	public List<PairInt> getPosSalidas() {
 		return this.salidas;
 	}
 	
-	public List<Pair<Integer, Integer>> getPosLlaves() {
+	public List<PairInt> getPosLlaves() {
 		return this.llaves;
 	}
 	
-	public List<Pair<Integer, Integer>> getPosCandados() {
+	public List<PairInt> getPosCandados() {
 		return this.candados;
 	}
 	

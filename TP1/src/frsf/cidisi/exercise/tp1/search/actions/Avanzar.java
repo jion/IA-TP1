@@ -1,11 +1,13 @@
 package frsf.cidisi.exercise.tp1.search.actions;
 
-import frsf.cidisi.exercise.tp1.search.*;
+import frsf.cidisi.exercise.tp1.datastructures.Laberinto;
+import frsf.cidisi.exercise.tp1.datastructures.PairInt;
+import frsf.cidisi.exercise.tp1.search.LaberintosEstado;
+import frsf.cidisi.exercise.tp1.search.RonlyEstado;
 import frsf.cidisi.faia.agent.search.SearchAction;
 import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
 import frsf.cidisi.faia.state.AgentState;
 import frsf.cidisi.faia.state.EnvironmentState;
-import frsf.cidisi.faia.state.datastructure.Pair;
 
 public class Avanzar extends SearchAction {
 
@@ -19,7 +21,7 @@ public class Avanzar extends SearchAction {
         Laberinto   laberinto = agState.getlaberinto();
         
         // Posicion actual del agente
-        Pair<Integer, Integer> pos = agState.getposicion();
+        PairInt pos = agState.getposicion();
         
         // Posicion actual del agente
         int row = agState.getposicion().getFirst();	// Fila

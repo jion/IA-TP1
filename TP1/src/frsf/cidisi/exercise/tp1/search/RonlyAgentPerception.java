@@ -1,9 +1,10 @@
 package frsf.cidisi.exercise.tp1.search;
 
+import frsf.cidisi.exercise.tp1.datastructures.Laberinto;
+import frsf.cidisi.exercise.tp1.datastructures.PairInt;
 import frsf.cidisi.faia.agent.Agent;
 import frsf.cidisi.faia.agent.Perception;
 import frsf.cidisi.faia.environment.Environment;
-import frsf.cidisi.faia.state.datastructure.Pair;
 
 public class RonlyAgentPerception extends Perception {
 
@@ -12,7 +13,7 @@ public class RonlyAgentPerception extends Perception {
 	 *  - won: true si se ha llegado a la meta final (no hay mas niveles)
 	 */
 	private Laberinto percepcionLaberinto;
-	private Pair<Integer, Integer> posInicial;
+	private PairInt posInicial;
 	private Boolean won;
 
 	public  RonlyAgentPerception() {
@@ -66,11 +67,11 @@ public class RonlyAgentPerception extends Perception {
 		this.percepcionLaberinto = percepcionLaberinto;
 	}
 	
-	public Pair<Integer, Integer> getPosInicial() {
+	public PairInt getPosInicial() {
 		return posInicial;
 	}
 
-	public void setPosInicial(Pair<Integer, Integer> posInicial) {
+	public void setPosInicial(PairInt posInicial) {
 		this.posInicial = posInicial;
 	}
 

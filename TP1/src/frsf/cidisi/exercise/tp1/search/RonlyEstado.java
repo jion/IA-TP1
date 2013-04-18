@@ -3,9 +3,10 @@ package frsf.cidisi.exercise.tp1.search;
 import java.util.ArrayList;
 import java.util.List;
 
+import frsf.cidisi.exercise.tp1.datastructures.Laberinto;
+import frsf.cidisi.exercise.tp1.datastructures.PairInt;
 import frsf.cidisi.faia.agent.Perception;
 import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
-import frsf.cidisi.faia.state.datastructure.Pair;
 
 
 /**
@@ -25,13 +26,13 @@ public class RonlyEstado extends SearchBasedAgentState {
 
 	// Variables de estado del Agente
 	private Laberinto					laberinto;		// \
-    private Pair<Integer,Integer>		posicion;		//  | ¿Dónde Estoy?
+    private PairInt						posicion;		//  | ¿Dónde Estoy?
     private int 						orientacion;	// /
     
     private boolean 					llave;			//   ¿Qué poseo?
     
-    private Pair<Integer,Integer>		posLlave;		// \ ¿Dónde están los objetos importantes?
-    private List<Pair<Integer,Integer>> posSalidas;		// / 
+    private PairInt		posLlave;		// \ ¿Dónde están los objetos importantes?
+    private List<PairInt> posSalidas;		// / 
     
     //private List<SearchAction> 			path;			//   ¿Qué decido hacer?
     
@@ -41,9 +42,9 @@ public class RonlyEstado extends SearchBasedAgentState {
 	public RonlyEstado() {
     	super();
 
-    	this.posicion   = new Pair<Integer, Integer>(0,0);
-		this.posLlave   = new Pair<Integer, Integer>(0,0);
-		this.posSalidas = new ArrayList<Pair<Integer, Integer>>();
+    	this.posicion   = new PairInt(0,0);
+		this.posLlave   = new PairInt(0,0);
+		this.posSalidas = new ArrayList<PairInt>();
 		
 		this.initState();
     }
@@ -121,7 +122,7 @@ public class RonlyEstado extends SearchBasedAgentState {
         			}
         			
         			if(laberinto.consulta(Laberinto.ES_SALIDA, fila, columna)) {
-        				posSalidas.add(new Pair<Integer, Integer>(fila, columna));
+        				posSalidas.add(new PairInt(fila, columna));
         			}
 
         		}
@@ -183,7 +184,7 @@ public class RonlyEstado extends SearchBasedAgentState {
     //TODO: Complete this section with agent-specific methods
     // The following methods are agent-specific:
    	
-     public Pair<Integer, Integer> getposicion(){
+     public PairInt getposicion(){
         return posicion;
      }
      
@@ -208,19 +209,19 @@ public class RonlyEstado extends SearchBasedAgentState {
         llave = arg;
      }
      
-     public Pair<Integer, Integer> getposLlave(){
+     public PairInt getposLlave(){
         return posLlave;
      }
      
-     public void setposLlave(Pair<Integer, Integer> arg){
+     public void setposLlave(PairInt arg){
         posLlave = arg;
      }
      
-     public List<Pair<Integer,Integer>> getposSalidas(){
+     public List<PairInt> getposSalidas(){
         return posSalidas;
      }
      
-     public void setposSalidas(List<Pair<Integer,Integer>> arg){
+     public void setposSalidas(List<PairInt> arg){
         posSalidas = arg;
      }
      
@@ -244,7 +245,7 @@ public class RonlyEstado extends SearchBasedAgentState {
 		this.laberinto = laberinto;
 	}
 
-	protected void setPosicion(Pair<Integer, Integer> posicion) {
+	protected void setPosicion(PairInt posicion) {
 		this.posicion = posicion;
 	}
 
@@ -256,11 +257,11 @@ public class RonlyEstado extends SearchBasedAgentState {
 		this.llave = llave;
 	}
 
-	protected void setPosLlave(Pair<Integer, Integer> posLlave) {
+	protected void setPosLlave(PairInt posLlave) {
 		this.posLlave = posLlave;
 	}
 
-	protected void setPosSalidas(List<Pair<Integer, Integer>> posSalidas) {
+	protected void setPosSalidas(List<PairInt> posSalidas) {
 		this.posSalidas = posSalidas;
 	}
 
@@ -268,7 +269,7 @@ public class RonlyEstado extends SearchBasedAgentState {
 		return laberinto;
 	}
 
-	public Pair<Integer, Integer> getPosicion() {
+	public PairInt getPosicion() {
 		return posicion;
 	}
 
@@ -280,11 +281,11 @@ public class RonlyEstado extends SearchBasedAgentState {
 		return llave;
 	}
 
-	public Pair<Integer, Integer> getPosLlave() {
+	public PairInt getPosLlave() {
 		return posLlave;
 	}
 
-	public List<Pair<Integer, Integer>> getPosSalidas() {
+	public List<PairInt> getPosSalidas() {
 		return posSalidas;
 	}
 	

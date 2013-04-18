@@ -1,5 +1,6 @@
 package frsf.cidisi.exercise.tp1.search;
 
+import frsf.cidisi.exercise.tp1.datastructures.Laberinto;
 import frsf.cidisi.faia.agent.Action;
 import frsf.cidisi.faia.environment.Environment;
 

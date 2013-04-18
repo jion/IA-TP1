@@ -1,8 +1,8 @@
 package frsf.cidisi.exercise.tp1.search;
 
+import frsf.cidisi.exercise.tp1.datastructures.PairInt;
 import frsf.cidisi.faia.solver.search.IEstimatedCostFunction;
 import frsf.cidisi.faia.solver.search.NTree;
-import frsf.cidisi.faia.state.datastructure.Pair;
 
 /**
  * This class allows to define a function to be used by any
@@ -18,8 +18,8 @@ public class Heuristic implements IEstimatedCostFunction {
         RonlyEstado agState = (RonlyEstado) node.getAgentState();
 	
 		//Method: Complete Method
-        Pair<Integer,Integer> posSal   = agState.getposSalidas().get(0);
-        Pair<Integer,Integer> posRonly = agState.getposicion();
+        PairInt posSal   = agState.getposSalidas().get(0);
+        PairInt posRonly = agState.getposicion();
         
         return Math.abs(posSal.getFirst() - posRonly.getFirst()) + Math.abs(posSal.getSecond() - posRonly.getSecond());
     }
