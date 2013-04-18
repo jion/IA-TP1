@@ -8,10 +8,15 @@ public class Laberinto {
 	/* Mascaras utilizadas para consultar la información específica
 	 * de cada celda.
 	 */
+	public static final int PAREDES 		= 0x0F;
+	public static final int TOKENS 			= 0xF0;
+	
+	public static final int PARED_NADA		= 0x08;
 	public static final int PARED_ARRIBA 	= 0x01;
 	public static final int PARED_ABAJO 	= 0x02;
 	public static final int PARED_IZQUIERDA = 0x04;
 	public static final int PARED_DERECHA 	= 0x08;
+
 	public static final int HAY_LLAVE 	= 0x10;
 	public static final int HAY_CANDADO = 0x20;
 	public static final int ES_SALIDA 	= 0x40;
