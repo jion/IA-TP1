@@ -121,7 +121,7 @@ public class LaberintosEstado extends EnvironmentState {
 			{ this.posRonly = new PairInt(row,col); }
 		else {
 			this.posRonly.setFirst(row);
-			this.posRonly.setSecond(row);
+			this.posRonly.setSecond(col);
 		}
 	}
 }
