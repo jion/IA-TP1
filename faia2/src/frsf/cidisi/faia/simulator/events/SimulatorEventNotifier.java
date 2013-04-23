@@ -27,7 +27,7 @@ public class SimulatorEventNotifier {
 
     public static void runEventHandlers(EventType eventType, Object[] params) {
 
-        if (!eventHandlers.contains(eventType)) {
+        if (!eventHandlers.containsKey(eventType)) {
             return;
         }
 
