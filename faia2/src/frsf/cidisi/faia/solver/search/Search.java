@@ -145,7 +145,6 @@ public class Search extends Solve {
             // The first node of the branch has the action that must be executed by the agent.-
             return ret;
         }
-
         return null;
 
     }
@@ -203,7 +202,7 @@ public class Search extends Solve {
             case Search.GRAPHICAL_TREE:
                 break;
             case Search.GRAPHVIZ_TREE:
-                //GraphvizTree.printFile(tree);
+                GraphvizTree.printFile(tree);
                 break;
             case Search.EFAIA_TREE:
             	TreeMLWriter.printFile(tree);
