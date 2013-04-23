@@ -1,6 +1,6 @@
 package frsf.cidisi.exercise.tp1.search;
 
-import frsf.cidisi.exercise.tp1.gui.LaberintosGui;
+import frsf.cidisi.exercise.tp1.interfaz.PantallaPrincipal;
 import frsf.cidisi.faia.exceptions.PrologConnectorException;
 import frsf.cidisi.faia.simulator.SearchBasedAgentSimulator;
 import frsf.cidisi.faia.simulator.events.EventType;
@@ -12,8 +12,9 @@ public class RonlyAgentMain {
         RonlyAgent agent = new RonlyAgent();
 
         LaberintosAmbiente environment = new LaberintosAmbiente();
+        PantallaPrincipal pp = new PantallaPrincipal();
         
-        SimulatorEventNotifier.SubscribeEventHandler(EventType.IterationFinished, LaberintosGui.getInstance());
+        SimulatorEventNotifier.SubscribeEventHandler(EventType.IterationFinished, pp);
         
         SearchBasedAgentSimulator simulator =
                 new SearchBasedAgentSimulator(environment, agent);
