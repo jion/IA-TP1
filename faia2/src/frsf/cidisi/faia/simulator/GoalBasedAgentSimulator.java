@@ -55,7 +55,7 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
         System.out.println();
 
         Perception perception;
-        List<Action> action;
+        List<Action> actions;
         GoalBasedAgent agent;
 
         agent = (GoalBasedAgent) this.getAgents().firstElement();
@@ -79,21 +79,23 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
             System.out.println("Environment: " + environment);
 
             System.out.println("Asking the agent for an action...");
-            action = (List<Action>) agent.selectAction();
+            actions = (List<Action>) agent.selectAction();
 
-            if (action == null) {
+            if (actions == null) {
                 break;
             }
 
-            System.out.println("Actions returned: " + action);
+            System.out.println("Actions returned: " + actions);
             System.out.println();
 
-            this.actionReturned(agent, action);
+            this.actionReturned(agent, actions);
+            
+            SimulatorEventNotifier.runEventHandlers(EventType.IterationFinished, new Object[] {perception, actions} );
 
-        } while (!this.agentSucceeded(action) && !this.agentFailed(action));
+        } while (!this.agentSucceeded(actions) && !this.agentFailed(actions));
 
         // Check what happened, if agent has reached the goal or not.
-        if (this.agentSucceeded(action)) {
+        if (this.agentSucceeded(actions)) {
             System.out.println("Agent has reached the goal!");
         } else {
             System.out.println("ERROR: The simulation has finished, but the agent has not reached his goal.");
