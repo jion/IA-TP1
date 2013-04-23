@@ -99,31 +99,29 @@ public class Avanzar extends SearchAction {
         // PostConditions: null
         
     	// Posicion actual del agente
-        int x = agState.getposicion().getFirst();	// Fila
-        int y = agState.getposicion().getSecond();	// Columna
+        int row = agState.getposicion().getFirst();	// Fila
+        int col = agState.getposicion().getSecond();	// Columna
         
         // Update the agent state
         switch(agState.getorientacion()) {
         case RonlyEstado.NORTE:
-        	x--;
+        	row--;
         	break;
         case RonlyEstado.SUR:
-        	x++;
+        	row++;
         	break;
         case RonlyEstado.ESTE:
-        	y++;
+        	col++;
         	break;
         case RonlyEstado.OESTE:
-        	y--;
+        	col--;
         	break;
         }
-        agState.setposicion(x,y);
 
     	// Update the real world
-    	if(agState.getposSalidas().contains(agState.getposicion())) {
-    		environmentState.pasarNivel();
-    	}
-    	
+        agState.setposicion(row,col);
+        environmentState.setPosRonly(row, col);
+
     	return environmentState;
     }
 

@@ -68,7 +68,7 @@ public class LaberintosEstado extends EnvironmentState {
     	
     	laberintos.add(new Laberinto(nivel1));
     	laberintos.add(new Laberinto(nivel2));
-    	//laberintos.add(new Laberinto(nivel3));
+    	laberintos.add(new Laberinto(nivel3));
     	
     	posRonly = laberintos.get(0).getPosEntradas().get(0).clone();
     }
@@ -123,6 +123,10 @@ public class LaberintosEstado extends EnvironmentState {
 			this.posRonly.setFirst(row);
 			this.posRonly.setSecond(col);
 		}
+	}
+	
+	public boolean isRonlyOnExit() {
+		return getLaberintoActual().getPosSalidas().contains(this.getPosRonly());
 	}
 }
 

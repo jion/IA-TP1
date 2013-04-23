@@ -99,7 +99,7 @@ public class RonlyEstado extends SearchBasedAgentState {
     	// Percibo el laberinto
 		laberinto = rap.getLaberinto();
 
-		// Reinicializo el estado
+		// Reinicializo los objetos
 		this.setLlave(false);
 		this.posSalidas.clear();
 

@@ -34,14 +34,7 @@ public class RonlyAgentPerception extends Perception {
         LaberintosAmbiente environment = (LaberintosAmbiente) environmentIn;
         LaberintosEstado environmentState =
                 environment.getEnvironmentState();
-       
-        // Se percibe del ambiente un laberinto entero a la vez
-        // (El siguente nivel no resuelto).
-        this.laberinto = environmentState.getLaberintoActual();
-        
-        // true: No quedan mas laberintos. (Is the FINAL COUNTDOWN!)
-        // false: La princesa está en el otro castillo...
-        this.ultimoNivel = environmentState.isUltimoNivel();
+
     }
     
     @Override

@@ -25,18 +25,28 @@ public class LaberintosAmbiente extends Environment {
     public  RonlyAgentPerception getPercept() {
     	LaberintosEstado estado = (LaberintosEstado) environmentState;
     	
+    	/* Si Ronly se encuentra en la posicion de salida, quiere decir
+    	 * que encontro la salida para el nivel anterior, y por lo tanto
+    	 * pasamos de nivel para percibir el siguiente.
+    	 * Caso contrario, percibirá nuevamente el nivel actual, en la
+    	 * posicion donde se ha quedado, para que termine de resolver el
+    	 * nivel (Esto último en realidad nunca pasa en este modelo, dado
+    	 * que este if siempre va a dar true porque siempre se percibe
+    	 * luego de resolver cada nivel)
+    	 */
+    	if(estado.isRonlyOnExit()) { estado.pasarNivel(); }
+    	
 		// Se crea una nueva percepcion
 		RonlyAgentPerception perception = new RonlyAgentPerception();
 		
-		// Se percibe del ambiente un laberinto entero a la vez
-		// (El siguente nivel no resuelto). Se setea a null si
-		// ya no quedan niveles por completar
-		perception.setLaberinto(this.getNextLevel());
+        // Se percibe del ambiente un laberinto entero a la vez
+        // (El siguente nivel no resuelto).
+		perception.setLaberinto(this.getLaberintoActual());
 		
-		// Setup de la posicion inicial
-		perception.setPosInicial(estado.getPosRonly());
+        // Se percibe la posicion inicial de Ronly
+		perception.setPosInicial(estado.getPosRonly().clone());
 		
-        // true: No quedan mas laberintos. (Ganaste!)
+        // true: No quedan mas laberintos. (Is the FINAL COUNTDOWN!)
         // false: La princesa está en el otro castillo...
 		perception.setUltimoNivel(estado.isUltimoNivel());
 
@@ -44,7 +54,6 @@ public class LaberintosAmbiente extends Environment {
 		return perception;
     }
 
-    
     public String toString() {
         return environmentState.toString();
     }
@@ -62,7 +71,7 @@ public class LaberintosAmbiente extends Environment {
 
 	//TODO: Complete this section with agent-specific methods
     /* Getters & Setters *****************************************************/
-    public Laberinto getNextLevel() {
+    public Laberinto getLaberintoActual() {
     	return ((LaberintosEstado) environmentState).getLaberintoActual();
     }
 }
