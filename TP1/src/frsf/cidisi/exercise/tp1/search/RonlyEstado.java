@@ -15,8 +15,8 @@ import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
 public class RonlyEstado extends SearchBasedAgentState {
 	
 	public static final int NORTE = 1;
-	public static final int SUR   = 2;
-	public static final int ESTE  = 3;
+	public static final int ESTE  = 2;
+	public static final int SUR   = 3;
 	public static final int OESTE = 4;
 	
 	// Posibles acciones del Agente
@@ -25,18 +25,16 @@ public class RonlyEstado extends SearchBasedAgentState {
 	public static final int AVANZAR = 3;
 
 	// Variables de estado del Agente
-	private Laberinto					laberinto;		// \
-    private PairInt						posicion;		//  | ¿Dónde Estoy?
-    private int 						orientacion;	// /
+	private Laberinto		laberinto;		// \
+    private PairInt			posicion;		//  | ¿Dónde Estoy?
+    private int 			orientacion;	// /
     
-    private boolean 					llave;			//   ¿Qué poseo?
+    private boolean 		llave;			//   ¿Qué poseo?
     
-    private PairInt		posLlave;		// \ ¿Dónde están los objetos importantes?
-    private List<PairInt> posSalidas;		// / 
-    
-    //private List<SearchAction> 			path;			//   ¿Qué decido hacer?
-    
-    private boolean 					goalReached;	//   ¡¿¿¿Gané?!?!?! --> Fiesta ISI!
+    private PairInt			posLlave;		// \ ¿Dónde están los objetos importantes?
+    private List<PairInt>	posSalidas;		// / 
+
+    private boolean 		goalReached;	//   ¡¿¿¿Gané?!?!?! --> Fiesta ISI!
 	
 
 	public RonlyEstado() {
@@ -78,7 +76,7 @@ public class RonlyEstado extends SearchBasedAgentState {
     	state.setLaberinto(this.laberinto);
     	state.setLlave(this.llave);
     	state.setOrientacion(this.orientacion);
-    	state.setPosicion(this.posicion.clone());
+    	state.setposicion(this.posicion.getFirst(), this.posicion.getSecond());
     	state.setPosLlave(this.posLlave);
     	state.setPosSalidas(this.posSalidas);
     	
