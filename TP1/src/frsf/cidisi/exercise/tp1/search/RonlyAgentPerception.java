@@ -9,13 +9,13 @@ import frsf.cidisi.faia.environment.Environment;
 public class RonlyAgentPerception extends Perception {
 
 	/* Sensores:
-	 * 	- percepcionLaberinto: El laberinto actual
-	 *  - posInicial: Posicion inicial del agente
-	 *  - won: true si se ha llegado a la meta final (no hay mas niveles)
+	 * 	- laberinto:   El laberinto percibido
+	 *  - posInicial:  Posicion inicial del agente
+	 *  - ultimoNivel: true si se trata del último nivel (no hay mas niveles)
 	 */
-	private Laberinto percepcionLaberinto;
-	private PairInt posInicial;
-	private Boolean won;
+	private Laberinto	laberinto;
+	private PairInt 	posInicial;
+	private boolean		ultimoNivel;
 
 	public  RonlyAgentPerception() {
     	super();
@@ -36,23 +36,22 @@ public class RonlyAgentPerception extends Perception {
                 environment.getEnvironmentState();
        
         // Se percibe del ambiente un laberinto entero a la vez
-        // (El siguente nivel no resuelto). Se setea a null si
-        // ya no quedan niveles por completar
-        this.percepcionLaberinto = environmentState.getLaberintoActual();
+        // (El siguente nivel no resuelto).
+        this.laberinto = environmentState.getLaberintoActual();
         
-        // true: No quedan mas laberintos. (Ganaste!)
+        // true: No quedan mas laberintos. (Is the FINAL COUNTDOWN!)
         // false: La princesa está en el otro castillo...
-        this.won = environmentState.isFinished();
+        this.ultimoNivel = environmentState.isUltimoNivel();
     }
     
     @Override
     public String toString() {
         StringBuffer str = new StringBuffer();
         
-        if(getWon())
-        	{ str.append("Fin del juego!"); }
+        if(getUltimoNivel())
+        	{ str.append("Ultimo laberinto"); }
         else
-        	{ str.append("Nuevo laberinto"); }
+        	{ str.append("Laberinto Intermedio"); }
         
         return str.toString();
     }
@@ -60,12 +59,12 @@ public class RonlyAgentPerception extends Perception {
     // The following methods are agent-specific:
 
     /* Getters & Setters *****************************************************/	
-	public Laberinto getPercepcionLaberinto(){
-		return percepcionLaberinto;
+	public Laberinto getLaberinto(){
+		return laberinto;
 	}
 
-	public void setPercepcionLaberinto(Laberinto percepcionLaberinto){
-		this.percepcionLaberinto = percepcionLaberinto;
+	public void setLaberinto(Laberinto percepcionLaberinto){
+		this.laberinto = percepcionLaberinto;
 	}
 	
 	public PairInt getPosInicial() {
@@ -76,12 +75,12 @@ public class RonlyAgentPerception extends Perception {
 		this.posInicial = posInicial;
 	}
 
-	public Boolean getWon() {
-		return won;
+	public Boolean getUltimoNivel() {
+		return ultimoNivel;
 	}
 	
-	public void setWon(Boolean won) {
-		this.won = won;
+	public void setUltimoNivel(Boolean ultimoNivel) {
+		this.ultimoNivel = ultimoNivel;
 	}
 
 }

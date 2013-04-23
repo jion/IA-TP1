@@ -34,7 +34,7 @@ public class RonlyEstado extends SearchBasedAgentState {
     private PairInt			posLlave;		// \ ¿Dónde están los objetos importantes?
     private List<PairInt>	posSalidas;		// / 
 
-    private boolean 		goalReached;	//   ¡¿¿¿Gané?!?!?! --> Fiesta ISI!
+    private boolean 		ultimoNivel;	//   Me encuentro en el ultimo nivel?
 	
 
 	public RonlyEstado() {
@@ -60,7 +60,7 @@ public class RonlyEstado extends SearchBasedAgentState {
 		
 		this.posLlave.setPair(0,0);
 		this.posSalidas.clear();
-		this.goalReached = false;
+		this.ultimoNivel = false;
     }
     
     /**
@@ -80,7 +80,7 @@ public class RonlyEstado extends SearchBasedAgentState {
     	state.setPosLlave(this.posLlave);
     	state.setPosSalidas(this.posSalidas);
     	
-    	state.setGoalReached(this.goalReached);
+    	state.setUltimoNivel(this.ultimoNivel);
     	
         return state;
     }
@@ -93,51 +93,44 @@ public class RonlyEstado extends SearchBasedAgentState {
     public void updateState(Perception p) {
     	RonlyAgentPerception rap = (RonlyAgentPerception) p;
 
-    	// TODO: Hacer un tipo de percepcion especifica (nueva clase)
-    	// cuando gano el juego??
+    	// Percibí el último nivel?
+    	this.setUltimoNivel(rap.getUltimoNivel());
     	
-    	// Alcancé el objetivo?
-    	this.setGoalReached(rap.getWon());
-    	
-    	// Si no lo alcance todavia, obtengo los datos del
-    	// siguiente laberinto
-    	if(!this.isGoalReached()) {
-    		laberinto = rap.getPercepcionLaberinto();
+    	// Percibo el laberinto
+		laberinto = rap.getLaberinto();
 
-    		// Reinicializo el estado
-    		this.setLlave(false);
-    		this.posSalidas.clear();
-    		this.setGoalReached(false);
+		// Reinicializo el estado
+		this.setLlave(false);
+		this.posSalidas.clear();
 
-        	/* Recorre el nuevo laberinto para guardar las posiciones
-        	 * de los objetos que se encuentran en el mismo.
-        	 */
-        	for(int fila=0; fila < 10; fila++) {
-        		for(int columna=0; columna < 10; columna++) {
+    	/* Recorre el nuevo laberinto para guardar las posiciones
+    	 * de los objetos que se encuentran en el mismo.
+    	 */
+    	for(int row=0; row < 10; row++) {
+    		for(int col=0; col < 10; col++) {
 
-        			if(laberinto.consulta(Laberinto.HAY_LLAVE, fila, columna)) {
-        				posLlave.setPair(fila, columna);
-        			}
-        			
-        			if(laberinto.consulta(Laberinto.ES_SALIDA, fila, columna)) {
-        				posSalidas.add(new PairInt(fila, columna));
-        			}
+    			if(laberinto.consulta(Laberinto.HAY_LLAVE, row, col)) {
+    				posLlave.setPair(row, col);
+    			}
+    			
+    			if(laberinto.consulta(Laberinto.ES_SALIDA, row, col)) {
+    				posSalidas.add(new PairInt(row, col));
+    			}
 
-        		}
-        	}
-        	
-        	/* Actualiza la posicion inicial del agente para el siguiente
-        	 * laberinto. Dada la simplificacion del TP, solo cambiaría
-        	 * la columna, pero se percepciona la posicion completa para
-        	 * hacerlo mas generico y permitir al agente conocer la posicion
-        	 * inicial del primer laberinto sin tener que considerarla fija en (0,0)
-        	 */
-        	posicion = rap.getPosInicial();
-        	
-        	// Si hay llave en la posicion inicial, la tomamos.
-        	llave = laberinto.consulta(Laberinto.HAY_LLAVE, this.posicion);
+    		}
     	}
     	
+    	/* Actualiza la posicion inicial del agente para el siguiente
+    	 * laberinto. Dada la simplificacion del TP, solo cambiaría
+    	 * la columna, pero se percepciona la posicion completa para
+    	 * hacerlo mas generico y permitir al agente conocer la posicion
+    	 * inicial del primer laberinto sin tener que considerarla fija en (0,0)
+    	 */
+    	posicion = rap.getPosInicial().clone();
+    	
+    	// Si hay llave en la posicion inicial, la tomamos.
+    	llave = laberinto.consulta(Laberinto.HAY_LLAVE, this.posicion);
+
     	return;
     }
 
@@ -231,12 +224,12 @@ public class RonlyEstado extends SearchBasedAgentState {
         this.laberinto = laberinto;
      }
 	
-    public boolean isGoalReached() {
- 		return goalReached;
+    public boolean isUltimoNivel() {
+ 		return ultimoNivel;
  	}
 
- 	public void setGoalReached(boolean goalReached) {
- 		this.goalReached = goalReached;
+ 	protected void setUltimoNivel(boolean ultimoNivel) {
+ 		this.ultimoNivel = ultimoNivel;
  	}
 
 	protected void setLaberinto(Laberinto laberinto) {

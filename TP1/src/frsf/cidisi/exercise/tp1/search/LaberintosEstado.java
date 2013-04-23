@@ -48,9 +48,9 @@ public class LaberintosEstado extends EnvironmentState {
 				{0x05, 0x03, 0x03, 0x0A, 0x0E, 0x0C, 0x0E, 0x0C, 0x0C, 0x0C},
 				{0x06, 0x03, 0x0B, 0x07, 0x03, 0x02, 0x03, 0x0A, 0x06, 0x0A}};
 
-    private List<Laberinto> laberintos;
-    private PairInt posRonly; // whereis ronly?
-    private int nivelActual;
+    private List<Laberinto> laberintos;		// Conjunto de laberintos
+    private PairInt			posRonly;		// whereis ronly?
+    private int 			nivelActual;	// Nivel donde está el agente
 	
     public LaberintosEstado() {
     	super();
@@ -68,7 +68,7 @@ public class LaberintosEstado extends EnvironmentState {
     	
     	laberintos.add(new Laberinto(nivel1));
     	laberintos.add(new Laberinto(nivel2));
-    	laberintos.add(new Laberinto(nivel3));
+    	//laberintos.add(new Laberinto(nivel3));
     	
     	posRonly = laberintos.get(0).getPosEntradas().get(0).clone();
     }
@@ -78,35 +78,36 @@ public class LaberintosEstado extends EnvironmentState {
      */
     @Override
     public String toString() {
-        String str = "Nivel: " + this.getnivelActual();
 
-        //TODO: Complete Method
-
-        return str;
+        return "Nivel: " + this.getNivelActual();
     }
 
     // The following methods are agent-specific:
     /* Getters & Setters *****************************************************/
-     public Laberinto getLaberintoActual(){
-    	 if(!isFinished()) { return laberintos.get(nivelActual); }
-    	 
-    	 return null;
-     }
-
-     public int getnivelActual(){
-        return nivelActual;
-     }
+	/* Relacionado con los niveles */
+    public int getNivelActual(){
+		return nivelActual;
+	} 
+	
+	public Laberinto getLaberintoActual(){
+		return laberintos.get(nivelActual);
+	}
      
-	 public void pasarNivel(){
-		 // TODO: Aca deberia pasarsele el conjunto de acciones para que ronlyu pase de nivel?
-	     nivelActual++;
-	     this.posRonly.setSecond(0);
-	 }
+	public void pasarNivel(){
+		/* TODO: Aca deberia pasarsele el conjunto de acciones para
+		 * que ronlyu pase de nivel? O seria mejor dejar que eso se
+		 * haga en el avanzar y que el avance de nivel se de al hacer
+		 * la nueva percepcion? (Me gusta mas la 2da)
+		 */
+		nivelActual++;
+		this.posRonly.setSecond(0);
+	}
      
-	public Boolean isFinished() {
-		return (nivelActual >= laberintos.size());
+	public Boolean isUltimoNivel() {
+		return (nivelActual == (laberintos.size()-1));
 	}
 
+	/* Posicionamiento del agente */
 	public PairInt getPosRonly() {
 		return posRonly;
 	}

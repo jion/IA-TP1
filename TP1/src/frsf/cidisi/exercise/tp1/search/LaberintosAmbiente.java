@@ -31,14 +31,14 @@ public class LaberintosAmbiente extends Environment {
 		// Se percibe del ambiente un laberinto entero a la vez
 		// (El siguente nivel no resuelto). Se setea a null si
 		// ya no quedan niveles por completar
-		perception.setPercepcionLaberinto(this.getNextLevel());
+		perception.setLaberinto(this.getNextLevel());
 		
 		// Setup de la posicion inicial
 		perception.setPosInicial(estado.getPosRonly());
 		
         // true: No quedan mas laberintos. (Ganaste!)
         // false: La princesa está en el otro castillo...
-		perception.setWon(estado.isFinished());
+		perception.setUltimoNivel(estado.isUltimoNivel());
 
 		// Return the perception
 		return perception;
