@@ -32,7 +32,9 @@ public class RonlyEstado extends SearchBasedAgentState {
     private boolean 		llave;			//   ¿Qué poseo?
     
     private PairInt			posLlave;		// \ ¿Dónde están los objetos importantes?
-    private List<PairInt>	posSalidas;		// / 
+    private List<PairInt>	posSalidas;		// /
+    
+    private int				cantDeGiros;    //	 Lleva la cuenta de la cantidad de giros
 
     private boolean 		ultimoNivel;	//   Me encuentro en el ultimo nivel?
 	
@@ -52,7 +54,8 @@ public class RonlyEstado extends SearchBasedAgentState {
      */
     @Override
     public void initState() {
-    	// TODO: Tal vez debería inicializarse en base a su ubicacion en el ambiente
+    	// En realidad el agente nunca sabra su posicion real actual hasta no
+    	// realizar la primera percepcion.
     	this.posicion.setPair(0,0);
 		this.orientacion = ESTE;
 		
@@ -61,6 +64,7 @@ public class RonlyEstado extends SearchBasedAgentState {
 		this.posLlave.setPair(0,0);
 		this.posSalidas.clear();
 		this.ultimoNivel = false;
+		this.cantDeGiros = 0;
     }
     
     /**
@@ -127,6 +131,7 @@ public class RonlyEstado extends SearchBasedAgentState {
     	 * inicial del primer laberinto sin tener que considerarla fija en (0,0)
     	 */
     	posicion = rap.getPosInicial().clone();
+    	orientacion = ESTE;
     	
     	// Si hay llave en la posicion inicial, la tomamos.
     	llave = laberinto.consulta(Laberinto.HAY_LLAVE, this.posicion);
@@ -274,6 +279,14 @@ public class RonlyEstado extends SearchBasedAgentState {
 
 	public PairInt getPosLlave() {
 		return posLlave;
+	}
+
+	public int getCantDeGiros() {
+		return cantDeGiros;
+	}
+
+	public void aumentarCantidadDeGiros() {
+		this.cantDeGiros++;
 	}
 
 	public List<PairInt> getPosSalidas() {

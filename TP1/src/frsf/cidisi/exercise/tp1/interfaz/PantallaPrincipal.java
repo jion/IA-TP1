@@ -35,6 +35,13 @@ public class PantallaPrincipal extends JFrame implements EventHandler {
 	List<Action> acciones = null;
 	Laberinto laberinto = null;
 	
+	/*llave indica si el agente posee la llave para abrir el candado, esta se setea cuando el agente pasa
+	 * sobre una posición con llave. Como el ambiente no se modifica, la llave no se elimina del ambiente,
+	 * pero esta accion si modifica el estado del agente, cambiando su variable interna llave.
+	 */
+	boolean llave;
+	boolean candado;
+	
 	//variable auxiliar que permite controlar el dibujo del laberinto en el JPanel
 	int contador =1;
     
@@ -56,10 +63,11 @@ public class PantallaPrincipal extends JFrame implements EventHandler {
     	acciones = listaAcciones;
     	
     	/*Seteamos los valores de la posición inicial de Ronly */
-    	xRonly = 100 + (percepcion.getPosInicial().getFirst() * 48);
-    	yRonly= 100 + (percepcion.getPosInicial().getSecond() *48);
+    	yRonly = 100 + (percepcion.getPosInicial().getFirst() * 48);
+    	xRonly= 100 + (percepcion.getPosInicial().getSecond() *48);
     	
-    	
+    	llave = false;
+    	candado = false;
     	
     	//Se crea la pantalla principal donde se manejará la interfaz gráfica del programa
 
@@ -88,7 +96,7 @@ public class PantallaPrincipal extends JFrame implements EventHandler {
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(new BorderLayout(0, 0));
-        contentPane.setOpaque(false);
+        //contentPane.setOpaque(true);
         setContentPane(contentPane);
         setBounds(0,0,800,600);
         
@@ -101,29 +109,54 @@ public class PantallaPrincipal extends JFrame implements EventHandler {
     {    	
     	ImageIcon imagen = null;
     	ImageIcon ronly = null;
-    	ImageIcon elemento = null;
+    	ImageIcon elemento = null;    
     	
     	// Se setea, segun la orientacion del agente, la imagen que lo representará en el laberinto
-    	switch (orientacionActual){
-    	case 1: {											//Ronly mira al norte
-    		ronly = new ImageIcon("images/RonlyAtras.png");
-    		break;
+    	// además verifica si el agente posee o no la llave que le permite abrir 
+    	if (!llave){
+	    	switch (orientacionActual){
+	    	case 1: {											//Ronly mira al norte
+	    		ronly = new ImageIcon("images/RonlyAtras.png");
+	    		break;
+	    	}
+	    	case 2: {											//Ronly mira al este
+	    		ronly = new ImageIcon("images/RonlyEste.png");
+	    		break;
+	    	}
+	    	case 3: {											//Ronly mira al sur
+	    		ronly = new ImageIcon("images/Ronly.png");
+	    		break;
+	    	}
+	    	case 4: {											//Ronly mira al oeste
+	    		ronly = new ImageIcon("images/RonlyOeste.png");
+	    		break;
+	    	}
+	    	
+	    	}
     	}
-    	case 2: {											//Ronly mira al este
-    		ronly = new ImageIcon("images/RonlyEste.png");
-    		break;
+    	else {
+    		switch (orientacionActual){
+	    	case 1: {											//Ronly mira al norte
+	    		ronly = new ImageIcon("images/RonlyAtrasLlave.png");
+	    		
+	    		break;
+	    	}
+	    	case 2: {											//Ronly mira al este
+	    		ronly = new ImageIcon("images/RonlyEsteLlave.png");
+	    		break;
+	    	}
+	    	case 3: {											//Ronly mira al sur
+	    		ronly = new ImageIcon("images/RonlyFrenteLlave.png");
+	    		break;
+	    	}
+	    	case 4: {											//Ronly mira al oeste
+	    		ronly = new ImageIcon("images/RonlyOesteLlave.png");
+	    		break;
+	    	}
+	    	
+	    	}
     	}
-    	case 3: {											//Ronly mira al sur
-    		ronly = new ImageIcon("images/Ronly.png");
-    		break;
-    	}
-    	case 4: {											//Ronly mira al oeste
-    		ronly = new ImageIcon("images/RonlyOeste.png");
-    		break;
-    	}
-    	
-    	}
-    	
+    	    	
     	//se setea la posicion inicial para comenzar a dibujar
     	int x = 100;
     	int y = 100;
@@ -239,6 +272,7 @@ public class PantallaPrincipal extends JFrame implements EventHandler {
     	
     			//Se dibuja la imagen correspondiente a la caleda actual, y además se dibujan las terminaciones
     			//(esquinas) si las hubiera. 
+    			
     			g.drawImage (imagen.getImage(), x + (col*48) , y + (row * 48), this);
     			g.drawImage(esquina1.getImage(), x + (col*48) , y + (row * 48), this );
     			g.drawImage(esquina2.getImage(), x + (col*48) , y + (row * 48), this );
@@ -249,23 +283,26 @@ public class PantallaPrincipal extends JFrame implements EventHandler {
     			
     			// El siguiente Switch evalua si en la posición actual hay una llave o un candado. Si lo hay setea la variable 
     			//elemento con la imagen correspondiente
-    			
-    			switch (laberinto.getCelda(row, col) & Laberinto.TOKENS & ~(Laberinto.ES_SALIDA)){
-    			case Laberinto.HAY_LLAVE: {    													//LLAVE
-    				elemento = new ImageIcon("images/llave.png");
-    				break;
-    			}
-    			case Laberinto.HAY_CANDADO: {														//CANDADO
-    				elemento = new ImageIcon("images/candado.png");
-    				break;
-    			}
-    			}  //fin Switch
+	    			
+    				switch (laberinto.getCelda(row, col) & Laberinto.TOKENS & ~(Laberinto.ES_SALIDA)){
+	    			case Laberinto.HAY_LLAVE: {  														//LLAVE
+	    				if (!llave && !candado)
+	    					elemento = new ImageIcon("images/llave.png");    				
+	    				break;
+	    			}
+	    			case Laberinto.HAY_CANDADO: {														//CANDADO
+	    				if(!candado)
+	    					elemento = new ImageIcon("images/candado.png");
+	    				break;
+	    			}
+	    			}  //fin Switch
     			
     			//Si hay algun elemento, llave o candado en la posicion actual lo grafica, caso contrario no.
     			if (elemento != null)
     				g.drawImage (elemento.getImage(), x + (col*48) , y + (row * 48), this);    
     			
     			elemento = null;
+
     		}
     		
     		// Dibuja el agente dentro del laberinto en la posicion
@@ -318,34 +355,44 @@ public class PantallaPrincipal extends JFrame implements EventHandler {
 		if (accion.equals("Avanzar")){
 			switch (orientacionActual){
 			case 1: {																//NORTE
-				if ((xRonly==100 && yRonly==100)||(xRonly==532 && yRonly==100))
+				if ((xRonly==100 && yRonly==100)||(xRonly==((laberinto.getCols()*48)+100) && yRonly==100))
 					puedoAvanzar = false;
 				else
 					yRonly-=48;
 				break;
 			}
 			case 2:{																//ESTE
-				if ((xRonly==100 && yRonly==532)||(xRonly==532 && yRonly==532))
+				if ((xRonly==100 && yRonly==(laberinto.getCols()*48)+100)||(xRonly==(laberinto.getCols()*48)+100 && yRonly==(laberinto.getCols()*48)+100))
 					puedoAvanzar = false;
 				else
 					xRonly+=48;
 				break;
 			}
 			case 3:{																//SUR
-				if ((xRonly==532 && yRonly==532)||(xRonly==100 && yRonly==532))
+				if ((xRonly==(laberinto.getCols()*48)+100 && yRonly==(laberinto.getCols()*48)+100)||(xRonly==100 && yRonly==(laberinto.getCols()*48)+100))
 					puedoAvanzar = false;
 				else
 					yRonly+=48;
 				break;
 			}
 			case 4:{																//OESTE
-				if ((xRonly==100 && yRonly==100)||(xRonly ==100 && yRonly==532))
+				if ((xRonly==100 && yRonly==100)||(xRonly ==100 && yRonly==(laberinto.getCols()*48)+100))
 					puedoAvanzar = false;
 				else
 					xRonly-=48;
 				break;
 			}
 			}	
+		}
+		
+		if((laberinto.getCelda((xRonly -100)/48, (yRonly-100)/48)& Laberinto.TOKENS & ~(Laberinto.ES_SALIDA)) == Laberinto.HAY_LLAVE){
+			llave=true;
+		}
+		
+		//si hay un candado en la posicion cambia el valor de la variable candado para que este no se dibuje mas.
+		if(((laberinto.getCelda((xRonly -100)/48, (yRonly-100)/48)& Laberinto.TOKENS & ~(Laberinto.ES_SALIDA)) == Laberinto.HAY_CANDADO)&& llave){
+			candado=true;
+			llave=false;
 		}
 		
 		if(puedoAvanzar && contador!=0){

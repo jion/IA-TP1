@@ -219,7 +219,7 @@ public class NTree implements Cloneable, Comparable<NTree> {
         str = str + ">";
 //		str = str + "\n";
         str = str + toString();
-        str = str + agentState.toString();
+//        str = str + agentState.toString();
         for (int i = 0; i < getSons().size(); i++) {
             str = str + sons.elementAt(i).toXml();
         }

@@ -16,6 +16,7 @@ import frsf.cidisi.faia.solver.search.AStarSearch;
 import frsf.cidisi.faia.solver.search.IEstimatedCostFunction;
 import frsf.cidisi.faia.solver.search.IStepCostFunction;
 import frsf.cidisi.faia.solver.search.Search;
+import frsf.cidisi.faia.solver.search.UniformCostSearch;
 
 public class RonlyAgent extends SearchBasedAgent {
 
@@ -27,7 +28,7 @@ public class RonlyAgent extends SearchBasedAgent {
 	
 	public RonlyAgent() {
 		/* Goals */
-		RonlyGoal agGoal = new RonlyGoal();				// El objetivo General del agente
+		RonlyGoal agGoal = new RonlyGoal();					// El objetivo General del agente
 		RonlyPartialGoal ptGoal = new RonlyPartialGoal();	// El objetivo Parcial del agente
 		 
 		/* Actions */
@@ -57,16 +58,19 @@ public class RonlyAgent extends SearchBasedAgent {
     public List<SearchAction> selectAction() {
 
         // Create the search strategy
-        IStepCostFunction cost = new CostFunction();
-        IEstimatedCostFunction heuristic = new Heuristic(); 
-        AStarSearch strategy = new AStarSearch(cost, heuristic);          
-
+        IStepCostFunction cost = new CostFunctionPuntoA();
+        IEstimatedCostFunction heuristic = new HeuristicPuntoA(); 
+        AStarSearch  strategyPuntoA = new AStarSearch(cost, heuristic);
+        
+        
+        UniformCostSearch strategyPuntoB = new UniformCostSearch(cost);
+        
         // Create a Search object with the strategy
-        Search searchSolver = new Search(strategy);
+        Search searchSolver = new Search(strategyPuntoB);
 
         /* Generate an XML file with the search tree. It can also be generated
          * in other formats like PDF with PDF_TREE */
-        searchSolver.setVisibleTree(Search.WHITHOUT_TREE);//.XML_TREE);
+        searchSolver.setVisibleTree(Search.XML_TREE);
 
         // Set the Search searchSolver.
         this.setSolver(searchSolver);
@@ -76,7 +80,6 @@ public class RonlyAgent extends SearchBasedAgent {
         
         try {
             path = this.getSolver().solve(new Object[]{this.getPartialProblem()});
-            // System.out.println(path.toString()); //TODO: Debug. Borrar.
         } catch (Exception ex) {
             Logger.getLogger(RonlyAgent.class.getName()).log(Level.SEVERE, null, ex);
         }

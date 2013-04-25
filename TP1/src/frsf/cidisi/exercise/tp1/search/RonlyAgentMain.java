@@ -12,9 +12,9 @@ public class RonlyAgentMain {
         RonlyAgent agent = new RonlyAgent();
 
         LaberintosAmbiente environment = new LaberintosAmbiente();
-        PantallaPrincipal pp = new PantallaPrincipal();
+        //PantallaPrincipal pp = new PantallaPrincipal();
         
-        SimulatorEventNotifier.SubscribeEventHandler(EventType.IterationFinished, pp);
+       //SimulatorEventNotifier.SubscribeEventHandler(EventType.IterationFinished, pp);
         
         SearchBasedAgentSimulator simulator =
                 new SearchBasedAgentSimulator(environment, agent);

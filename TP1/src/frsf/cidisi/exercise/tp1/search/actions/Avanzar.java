@@ -99,7 +99,7 @@ public class Avanzar extends SearchAction {
         // PostConditions: null
         
     	// Posicion actual del agente
-        int row = agState.getposicion().getFirst();	// Fila
+        int row = agState.getposicion().getFirst();		// Fila
         int col = agState.getposicion().getSecond();	// Columna
         
         // Update the agent state
@@ -130,7 +130,7 @@ public class Avanzar extends SearchAction {
      */
     @Override
     public Double getCost() {
-        return new Double(1);
+        return new Double(3000);
     }
 
     /**

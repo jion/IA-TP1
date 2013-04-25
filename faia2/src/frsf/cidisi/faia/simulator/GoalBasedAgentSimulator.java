@@ -88,9 +88,9 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
             System.out.println("Actions returned: " + actions);
             System.out.println();
 
-            this.actionReturned(agent, actions);
-            
             SimulatorEventNotifier.runEventHandlers(EventType.IterationFinished, new Object[] {perception, actions} );
+
+            this.actionReturned(agent, actions);
 
         } while (!this.agentSucceeded(actions) && !this.agentFailed(actions));
 

@@ -34,6 +34,8 @@ public class GiraIzq extends SearchAction {
         	break;
         }
         
+        agState.aumentarCantidadDeGiros();
+        
         return agState;
     }
 
@@ -76,7 +78,7 @@ public class GiraIzq extends SearchAction {
      */
     @Override
     public Double getCost() {
-        return new Double(500);
+        return new Double(1);
     }
 
     /**
