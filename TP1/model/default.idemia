@@ -2,13 +2,14 @@
 <idemia:AgentModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:idemia="utn.frsf.cidisi">
   <Environment name="LaberintosAmbiente">
     <EnvironmentState name="LaberintosEstado">
-      <DataStructure name="laberinto" type="matrix"/>
+      <DataStructure name="laberintos" type="matrix"/>
       <DataStructure name="nivelActual"/>
+      <DataStructure name="posRonly" type="pair"/>
     </EnvironmentState>
   </Environment>
   <Agent name="RonlyAgent">
     <Strategy xsi:type="idemia:Search" searchStrategy="AStarSearch"/>
-    <Goal name="RonlyGoal" value="posSalidas.contains(posicion)"/>
+    <Goal name="RonlyGoal" value="ultimoNivel &amp;&amp; posSalidas.contains(posicion)"/>
     <AgentState name="RonlyEstado">
       <DataStructure name="posicion" type="pair"/>
       <DataStructure name="orientacion"/>
@@ -16,6 +17,8 @@
       <DataStructure name="posLlave" type="pair"/>
       <DataStructure name="posSalidas" type="Other"/>
       <DataStructure name="laberinto" type="matrix"/>
+      <DataStructure name="cantGiros"/>
+      <DataStructure name="ultimoNivel"/>
     </AgentState>
   </Agent>
   <Actions execute_by="//@Agent" executed_on="//@Environment" name="GirarDer"/>
