@@ -12,8 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import frsf.cidisi.exercise.tp1.datastructures.Laberinto;
-import frsf.cidisi.exercise.tp1.datastructures.Orientacion;
-import frsf.cidisi.exercise.tp1.search.LaberintosEstado;
 import frsf.cidisi.exercise.tp1.search.RonlyAgentPerception;
 import frsf.cidisi.faia.agent.Action;
 import frsf.cidisi.faia.simulator.events.EventHandler;
@@ -26,11 +24,14 @@ public class PantallaPrincipal extends JFrame implements EventHandler {
 	private JPanel contentPane;
 	private JLabel nivel;
 	private Font fuenteContenido; 
+	private boolean ultimoNivel;
     
     /*Posicion inicial del agente en el laberinto*/
     
     int colRonly;
 	int rowRonly;
+	
+	boolean primerRonly = true;
 
 	/* Orientacion del agente*/
 	int orientacionActual;
@@ -61,17 +62,16 @@ public class PantallaPrincipal extends JFrame implements EventHandler {
      * Create the frame.
      */
  
-    public void inicializar (RonlyAgentPerception percepcion, List<Action> listaAcciones){
+    public void inicializarPercepcion (RonlyAgentPerception percepcion){
     	    	
     	//Se considera a efectos de la reolución de este TP que la orientación inicial siempre es hacia el Este
     	orientacionActual= 2;
-    	
     	
     	//Se obtiene el laberinto a resolver y la secuencia de acciones que el agente debe llevar a cabo
     	//para poder salir del mismo
     	
     	laberinto = percepcion.getLaberinto();
-    	acciones = listaAcciones;
+    	//acciones = listaAcciones;
     	
     	/*Seteamos los valores de la posición inicial de Ronly */
     	rowRonly = 30 +(percepcion.getPosInicial().getFirst() * 48);
@@ -79,7 +79,6 @@ public class PantallaPrincipal extends JFrame implements EventHandler {
     	
     	llave = false;
     	candado = false;
-
     	
     	//Se crea la pantalla principal donde se manejará la interfaz gráfica del programa
     	this.setBounds(0,0,((laberinto.getCols()*48)+17),((laberinto.getRows()*48)+37));
@@ -92,7 +91,7 @@ public class PantallaPrincipal extends JFrame implements EventHandler {
 		}
 		
 		//Se le indica al agente que comience su camino dentro del laberinto
-        this.moverRonly();
+        //this.moverRonly();
     	
     }
     
@@ -122,11 +121,19 @@ public class PantallaPrincipal extends JFrame implements EventHandler {
     	ImageIcon ronly = null;
     	ImageIcon elemento = null;    
     	
-    	
     	// Se setea, segun la orientacion del agente, la imagen que lo representará en el laberinto
     	// además verifica si el agente posee o no la llave que le permite abrir 
     	
-    	if (!llave){
+    	if (primerRonly){
+    		ronly = new ImageIcon("images/RonlyPensando.png");
+    		primerRonly = false;
+    		try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+    	}
+    	else if (!llave && !primerRonly){
 	    	switch (orientacionActual){
 	    	case 1: {											//Ronly mira al norte
 	    		ronly = new ImageIcon("images/RonlyAtras.png");
@@ -147,7 +154,7 @@ public class PantallaPrincipal extends JFrame implements EventHandler {
 	    	
 	    	}
     	}
-    	else {
+    	else if (llave){
     		switch (orientacionActual){
 	    	case 1: {											//Ronly mira al norte
 	    		ronly = new ImageIcon("images/RonlyAtrasLlave.png");
@@ -451,33 +458,48 @@ public class PantallaPrincipal extends JFrame implements EventHandler {
 	
 	public void runEventHandler(EventType eventType, Object[] params) {
 		
+		RonlyAgentPerception percepcion = null;
+		List<Action> acciones = null;
+		
 		switch(eventType) {
-		case PerceptionRecived:
-			RonlyAgentPerception percepcion = (RonlyAgentPerception) params[0];
-			
-			// TODO
-			
-			break;
-		case IterationFinished:
-			List<Action> acciones = (List<Action>) params[0];
-			
-			// TODO
-			
-			break;
-		default:
-		}
+        case PerceptionRecived:
+                percepcion = (RonlyAgentPerception) params[0];
+               
+                inicializarPercepcion(percepcion);
+                ultimoNivel = percepcion.getUltimoNivel();
+               
+                break;
+        case IterationFinished:
+                acciones = (List<Action>) params[0];
+               
+                inicializarAcciones(acciones);
+                
+                //el valor booleano que se le debe pasar a esta funcion indica si el nivel que el agente 
+        		//esta intentando resolver es el ultimo!
+                this.dibujarNivelSuperado(ultimoNivel);
+                
+                break;
+        default:
+        }
+
 		
-		
-		//LaberintosEstado ambienteEstado = (LaberintosEstado) params[2];
-		//this.inicializar(percepcion, acciones);
-		
-		
-		//el valor booleano que se le debe pasar a esta funcion indica si el nivel que el agente 
-		//esta intentando resolver es el ultimo!
-		
-		this.dibujarNivelSuperado(true);
+
 	}
 	
+	
+	/**
+	 * Inicializa la variable Acciones
+	 * @param acciones: lista de acciones que el agente debe llevar a cabo para resolver el laberinto
+	 */
+	private void inicializarAcciones(List<Action> listaAcciones) {
+
+		acciones = listaAcciones;
+		
+		moverRonly();
+		
+		
+	}
+
 	/** 
 	 * Este método muestra una ventana emergente con el mensaje "Ronly ha 
 	 * superado todos los laberintos.Ha cumplido su objetivo!" si es que el 
