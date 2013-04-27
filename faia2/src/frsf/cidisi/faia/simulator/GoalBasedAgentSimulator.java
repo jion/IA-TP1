@@ -73,6 +73,7 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
             System.out.println("Sending perception to agent...");
             perception = this.getPercept();
             agent.see(perception);
+            SimulatorEventNotifier.runEventHandlers(EventType.PerceptionRecived, new Object[] {perception} );
             System.out.println("Perception: " + perception);
 
             System.out.println("Agent State: " + agent.getAgentState());
@@ -88,7 +89,7 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
             System.out.println("Actions returned: " + actions);
             System.out.println();
 
-            SimulatorEventNotifier.runEventHandlers(EventType.IterationFinished, new Object[] {perception, actions} );
+            SimulatorEventNotifier.runEventHandlers(EventType.IterationFinished, new Object[] {actions} );
 
             this.actionReturned(agent, actions);
 

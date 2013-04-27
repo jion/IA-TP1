@@ -32,7 +32,7 @@ public class SimulatorEventNotifier {
         }
 
         for (EventHandler eventHandler : eventHandlers.get(eventType)) {
-            eventHandler.runEventHandler(params);
+            eventHandler.runEventHandler(eventType, params);
         }
     }
 

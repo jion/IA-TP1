@@ -19,6 +19,7 @@ package frsf.cidisi.faia.simulator.events;
 
 public enum EventType {
 
+	PerceptionRecived,
     IterationFinished,
     SimulationFinished
 }
