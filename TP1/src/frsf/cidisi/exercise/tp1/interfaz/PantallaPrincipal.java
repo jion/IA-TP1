@@ -1,28 +1,36 @@
 package frsf.cidisi.exercise.tp1.interfaz;
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import frsf.cidisi.exercise.tp1.datastructures.Laberinto;
+import frsf.cidisi.exercise.tp1.datastructures.Orientacion;
+import frsf.cidisi.exercise.tp1.search.LaberintosEstado;
 import frsf.cidisi.exercise.tp1.search.RonlyAgentPerception;
 import frsf.cidisi.faia.agent.Action;
 import frsf.cidisi.faia.simulator.events.EventHandler;
+import frsf.cidisi.faia.simulator.events.EventType;
 
 
 public class PantallaPrincipal extends JFrame implements EventHandler {
 	private static final long serialVersionUID = 1L;
 
 	private JPanel contentPane;
+	private JLabel nivel;
+	private Font fuenteContenido; 
     
     /*Posicion inicial del agente en el laberinto*/
     
-    int xRonly;
-	int yRonly;
+    int colRonly;
+	int rowRonly;
 
 	/* Orientacion del agente*/
 	int orientacionActual;
@@ -34,6 +42,9 @@ public class PantallaPrincipal extends JFrame implements EventHandler {
 	
 	List<Action> acciones = null;
 	Laberinto laberinto = null;
+	//LaberintosEstado ambiente = null;  //TODO: agregar el nivel actual
+	
+	int nivelActual;
 	
 	/*llave indica si el agente posee la llave para abrir el candado, esta se setea cuando el agente pasa
 	 * sobre una posición con llave. Como el ambiente no se modifica, la llave no se elimina del ambiente,
@@ -51,10 +62,10 @@ public class PantallaPrincipal extends JFrame implements EventHandler {
      */
  
     public void inicializar (RonlyAgentPerception percepcion, List<Action> listaAcciones){
-    	
-    	
+    	    	
     	//Se considera a efectos de la reolución de este TP que la orientación inicial siempre es hacia el Este
-    	orientacionActual=2;
+    	orientacionActual= 2;
+    	
     	
     	//Se obtiene el laberinto a resolver y la secuencia de acciones que el agente debe llevar a cabo
     	//para poder salir del mismo
@@ -63,56 +74,58 @@ public class PantallaPrincipal extends JFrame implements EventHandler {
     	acciones = listaAcciones;
     	
     	/*Seteamos los valores de la posición inicial de Ronly */
-    	yRonly = 100 + (percepcion.getPosInicial().getFirst() * 48);
-    	xRonly= 100 + (percepcion.getPosInicial().getSecond() *48);
+    	rowRonly = 30 +(percepcion.getPosInicial().getFirst() * 48);
+    	colRonly= 10 + (percepcion.getPosInicial().getSecond() *48);
     	
     	llave = false;
     	candado = false;
+
     	
     	//Se crea la pantalla principal donde se manejará la interfaz gráfica del programa
-
+    	this.setBounds(0,0,((laberinto.getCols()*48)+17),((laberinto.getRows()*48)+37));
     	this.setLocationRelativeTo(null);
         this.setVisible(true);
         try {
-			Thread.sleep(500);
+			Thread.sleep(200);
 		} catch (InterruptedException e) { 
 			e.printStackTrace();
 		}
-        
+		
 		//Se le indica al agente que comience su camino dentro del laberinto
         this.moverRonly();
     	
     }
     
-    /*
+    /**
      * Constructor de la clase PantallaPrincipal. 
-     * Se setean las propiedades del JFrame, se le añade un JPanel para dibujar en él el laberinto
+     * Se setean las propiedades del JFrame, se le añade un JPanel para dibujar el laberinto
      */
     public PantallaPrincipal() {
-    	
-    	
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
+    
+    	this.setIconImage((new ImageIcon("images/ronly.png")).getImage());
+    	setTitle("Trabajo Práctico N°1 - Inteligencia Artificial - Ronly");
+    	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(new BorderLayout(0, 0));
-        //contentPane.setOpaque(true);
-        setContentPane(contentPane);
-        setBounds(0,0,800,600);
-        
+        contentPane.setOpaque(false);
+        setContentPane(contentPane);    
+ 
     }
 
-    /*
+    /**
      * Se redefine el método Paint para dibujar el laberinto.
      */
     public void paint (Graphics g)
-    {    	
+    {   
     	ImageIcon imagen = null;
     	ImageIcon ronly = null;
     	ImageIcon elemento = null;    
     	
+    	
     	// Se setea, segun la orientacion del agente, la imagen que lo representará en el laberinto
     	// además verifica si el agente posee o no la llave que le permite abrir 
+    	
     	if (!llave){
 	    	switch (orientacionActual){
 	    	case 1: {											//Ronly mira al norte
@@ -158,12 +171,13 @@ public class PantallaPrincipal extends JFrame implements EventHandler {
     	}
     	    	
     	//se setea la posicion inicial para comenzar a dibujar
-    	int x = 100;
-    	int y = 100;
+    	int x = 10;
+    	int y = 30;
     	
     	//se obtiene el tamaño del laberinto
-    	int columnas = laberinto.getCols();
+    	
     	int filas = laberinto.getRows();
+    	int columnas = laberinto.getCols();
     	
     	//se recorre el laberinto para dibujar en cada par (row, col) la imagen que representa las paredes que 
     	//tiene indicadas esa celda.
@@ -269,6 +283,30 @@ public class PantallaPrincipal extends JFrame implements EventHandler {
     							!laberinto.consulta(Laberinto.PARED_IZQUIERDA, row, col))){
     				esquina4 = new ImageIcon ("images/AbajoIzquierda.png");
     			}
+    			if ((row!=0) && 
+    					laberinto.consulta(Laberinto.ES_ENTRADA, row, col) && 
+    					!laberinto.consulta(Laberinto.PARED_ARRIBA, row, col) &&
+    					laberinto.consulta(Laberinto.PARED_IZQUIERDA, row-1, col)){
+    				esquina1 = new ImageIcon ("images/ArribaIzquierda.png");
+    			}
+    			if ((row!=filas-1) && 
+    					laberinto.consulta(Laberinto.ES_ENTRADA, row, col) && 
+    					!laberinto.consulta(Laberinto.PARED_ABAJO, row, col) &&
+    					laberinto.consulta(Laberinto.PARED_IZQUIERDA, row+1, col)){
+    				esquina4 = new ImageIcon ("images/AbajoIzquierda.png");
+    			}
+    			if ((row!=0) && 
+    					laberinto.consulta(Laberinto.ES_SALIDA, row, col) && 
+    					!laberinto.consulta(Laberinto.PARED_ARRIBA, row, col) &&
+    					laberinto.consulta(Laberinto.PARED_DERECHA, row-1, col)){
+    				esquina2 = new ImageIcon ("images/ArribaDerecha.png");
+    			}
+    			if ((row!=filas-1) && 
+    					laberinto.consulta(Laberinto.ES_SALIDA, row, col) &&
+    					!laberinto.consulta(Laberinto.PARED_ABAJO, row, col) &&
+    					laberinto.consulta(Laberinto.PARED_DERECHA, row+1, col)){
+    				esquina3 = new ImageIcon ("images/AbajoDerecha.png");
+    			}
     	
     			//Se dibuja la imagen correspondiente a la caleda actual, y además se dibujan las terminaciones
     			//(esquinas) si las hubiera. 
@@ -306,13 +344,13 @@ public class PantallaPrincipal extends JFrame implements EventHandler {
     		}
     		
     		// Dibuja el agente dentro del laberinto en la posicion
-    		g.drawImage (ronly.getImage(), xRonly, yRonly, this); 
+    		g.drawImage (ronly.getImage(), colRonly, rowRonly, this); 
     	}    	
     	
     } //fin paint
 
     
-    /*
+    /**
      * Este método recorre la Lista de acciones que el agente debe llevar a cabo para salir del laberinto,
      * y por cada una de ellas invoca al método moverSigRonly, pasandole como argumento un String que le 
      * indica la acción a realizar
@@ -333,6 +371,13 @@ public class PantallaPrincipal extends JFrame implements EventHandler {
 	 * de la accion que recibe como parametro. 
 	 * Se encarga, también, de validar que esta acción se pueda llevar a cabo. 
 	 */
+	/**
+	 * Este método actualiza las variables que refieren a la posicion y orientacion actual del agente
+	 * dentro del laberinto que este está intentando resolver.
+	 * 
+	 * @param accion: string que representa la siguiente acción que el agente debe resolver, este puede
+	 * tomar valores: girarDer, girarIzq, Avanzar.
+	 */
 	private void moverSigRonly(String accion) {
 		
 		boolean puedoAvanzar = true;
@@ -347,7 +392,7 @@ public class PantallaPrincipal extends JFrame implements EventHandler {
 		}
 		else if (accion.equals("GiraIzq")){
 			if(orientacionActual == 1){
-				orientacionActual=4;
+				orientacionActual= 4;
 			}
 			else 
 				orientacionActual--;
@@ -355,42 +400,42 @@ public class PantallaPrincipal extends JFrame implements EventHandler {
 		if (accion.equals("Avanzar")){
 			switch (orientacionActual){
 			case 1: {																//NORTE
-				if ((xRonly==100 && yRonly==100)||(xRonly==((laberinto.getCols()*48)+100) && yRonly==100))
+				if ((rowRonly==10 && colRonly==10)||(colRonly==((laberinto.getCols()*48)+10) && rowRonly==10))
 					puedoAvanzar = false;
 				else
-					yRonly-=48;
+					rowRonly-=48;
 				break;
 			}
 			case 2:{																//ESTE
-				if ((xRonly==100 && yRonly==(laberinto.getCols()*48)+100)||(xRonly==(laberinto.getCols()*48)+100 && yRonly==(laberinto.getCols()*48)+100))
+				if ((rowRonly==10 && colRonly==(laberinto.getCols()*48)+10)||(colRonly==((laberinto.getCols()*48)+10) && rowRonly==(laberinto.getCols()*48)+10))
 					puedoAvanzar = false;
 				else
-					xRonly+=48;
+					colRonly+=48;
 				break;
 			}
 			case 3:{																//SUR
-				if ((xRonly==(laberinto.getCols()*48)+100 && yRonly==(laberinto.getCols()*48)+100)||(xRonly==100 && yRonly==(laberinto.getCols()*48)+100))
+				if ((colRonly==(laberinto.getCols()*48)+10 && rowRonly==(laberinto.getCols()*48)+10)||(colRonly==10 && rowRonly==(laberinto.getCols()*48)+10))
 					puedoAvanzar = false;
 				else
-					yRonly+=48;
+					rowRonly+=48;
 				break;
 			}
 			case 4:{																//OESTE
-				if ((xRonly==100 && yRonly==100)||(xRonly ==100 && yRonly==(laberinto.getCols()*48)+100))
+				if ((colRonly==10 && rowRonly==10)||(colRonly ==10 && rowRonly==(laberinto.getCols()*48)+10))
 					puedoAvanzar = false;
 				else
-					xRonly-=48;
+					colRonly-=48;
 				break;
 			}
 			}	
 		}
 		
-		if((laberinto.getCelda((xRonly -100)/48, (yRonly-100)/48)& Laberinto.TOKENS & ~(Laberinto.ES_SALIDA)) == Laberinto.HAY_LLAVE){
+		if((laberinto.getCelda((rowRonly -10)/48, (colRonly-10)/48)& Laberinto.TOKENS & ~(Laberinto.ES_SALIDA)) == Laberinto.HAY_LLAVE){
 			llave=true;
 		}
 		
 		//si hay un candado en la posicion cambia el valor de la variable candado para que este no se dibuje mas.
-		if(((laberinto.getCelda((xRonly -100)/48, (yRonly-100)/48)& Laberinto.TOKENS & ~(Laberinto.ES_SALIDA)) == Laberinto.HAY_CANDADO)&& llave){
+		if(((laberinto.getCelda((rowRonly -10)/48, (colRonly-10)/48)& Laberinto.TOKENS & ~(Laberinto.ES_SALIDA)) == Laberinto.HAY_CANDADO)&& llave){
 			candado=true;
 			llave=false;
 		}
@@ -402,12 +447,71 @@ public class PantallaPrincipal extends JFrame implements EventHandler {
 			System.out.println("La acción " + accion + "no es una acción válida");
 		
 	}
-
-	@Override
-	public void runEventHandler(Object[] params) {
-		RonlyAgentPerception percepcion = (RonlyAgentPerception) params[0];
-		List<Action> acciones = (List<Action>) params[1];
-
-		this.inicializar(percepcion, acciones);
+	
+	
+	public void runEventHandler(EventType eventType, Object[] params) {
+		
+		switch(eventType) {
+		case PerceptionRecived:
+			RonlyAgentPerception percepcion = (RonlyAgentPerception) params[0];
+			
+			// TODO
+			
+			break;
+		case IterationFinished:
+			List<Action> acciones = (List<Action>) params[0];
+			
+			// TODO
+			
+			break;
+		default:
+		}
+		
+		
+		//LaberintosEstado ambienteEstado = (LaberintosEstado) params[2];
+		//this.inicializar(percepcion, acciones);
+		
+		
+		//el valor booleano que se le debe pasar a esta funcion indica si el nivel que el agente 
+		//esta intentando resolver es el ultimo!
+		
+		this.dibujarNivelSuperado(true);
 	}
+	
+	/** 
+	 * Este método muestra una ventana emergente con el mensaje "Ronly ha 
+	 * superado todos los laberintos.Ha cumplido su objetivo!" si es que el 
+	 * agente logró resolver el último laberinto del conjunto propuesto
+	 * En caso contrario muestra una ventana emergente con el mensaje "Nivel
+	 * superado!" Indicando que el agente logró pasar el nivel actual y 
+	 * continuará con el ciclo percepción-acción para poder cumplir su objetivo.  
+	 * 
+	 * @param ultimoNivel: valor booleano que indica si el nivel que el agente está 
+	 * intentando resolver es el último. 
+	 */
+
+	private void dibujarNivelSuperado(boolean ultimoNivel) {
+		
+		this.remove(contentPane);
+
+		//Si es el ultimo nivel se muestra un mensaje indicando que se ha cumplido el objetivo (superar
+		//un conjunto de laberintos propuestos) y el programa termina su ejecucion.
+		//En caso contrario se muestra un mensaje indicando que el nivel ha sido superado, y se continua 
+		//con la ejecucion del proximo laberinto
+		
+		if (ultimoNivel){
+			JOptionPane.showMessageDialog(null,"\n     Ronly ha superado todos los laberintos." + "\n\n     Ha cumplido su objetivo! \n\n\n",
+					
+					"Fin de juego", JOptionPane.PLAIN_MESSAGE, new ImageIcon("images/RonlyGanador.png"));
+			
+			System.exit(0);
+		}
+		else{
+			JOptionPane.showMessageDialog(null,"Nivel Superado!");
+			JPanel panelEspera = new JPanel();
+			this.add(panelEspera);
+		}
+		
+		
+	} // fin dibujarNivelSuperado
 }
