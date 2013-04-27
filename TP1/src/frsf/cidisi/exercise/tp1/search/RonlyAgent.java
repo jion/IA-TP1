@@ -13,6 +13,7 @@ import frsf.cidisi.faia.agent.search.Problem;
 import frsf.cidisi.faia.agent.search.SearchAction;
 import frsf.cidisi.faia.agent.search.SearchBasedAgent;
 import frsf.cidisi.faia.solver.search.AStarSearch;
+import frsf.cidisi.faia.solver.search.DepthFirstSearch;
 import frsf.cidisi.faia.solver.search.IEstimatedCostFunction;
 import frsf.cidisi.faia.solver.search.IStepCostFunction;
 import frsf.cidisi.faia.solver.search.Search;
@@ -57,25 +58,27 @@ public class RonlyAgent extends SearchBasedAgent {
     @Override
     public List<SearchAction> selectAction() {
 
-        // Create the search strategy
-        IStepCostFunction cost = new CostFunctionPuntoA();
-        IEstimatedCostFunction heuristic = new HeuristicPuntoA(); 
-        AStarSearch  strategyPuntoA = new AStarSearch(cost, heuristic);
+        // Creamos las estrategias de busqueda con sus respectivas funciones costo
+        IStepCostFunction costAStartSearch = new CostAStartSearch();
+        IStepCostFunction costUniformSeach = new CostUniformSeach();
+        IEstimatedCostFunction heuristic = new HeuristicAStartSearch(); 
         
-        
-        UniformCostSearch strategyPuntoB = new UniformCostSearch(cost);
-        
+        AStarSearch       strategyAStartSearch = new AStarSearch(costAStartSearch, heuristic);
+        UniformCostSearch strategyUniformSeach = new UniformCostSearch(costUniformSeach);
+        DepthFirstSearch  strategyDepthFirstSearch = new DepthFirstSearch();
+
         // Create a Search object with the strategy
-        Search searchSolver = new Search(strategyPuntoB);
+        Search searchSolver = new Search(strategyAStartSearch);
 
         /* Generate an XML file with the search tree. It can also be generated
          * in other formats like PDF with PDF_TREE */
-        searchSolver.setVisibleTree(Search.XML_TREE);
+        searchSolver.setVisibleTree(Search.WHITHOUT_TREE);
+        //searchSolver.setVisibleTree(Search.XML_TREE);
 
         // Set the Search searchSolver.
         this.setSolver(searchSolver);
 
-		// Ask the solver for the best action
+		// Utilizamos el solver para obtener el camino a la salida
         List<SearchAction> path = null;
         
         try {

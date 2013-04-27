@@ -11,7 +11,7 @@ import frsf.cidisi.faia.solver.search.NTree;
  * This class allows to define a function to be used by any
  * informed search strategy, like A Star or Greedy.
  */
-public class HeuristicPuntoA implements IEstimatedCostFunction {
+public class HeuristicAStartSearch implements IEstimatedCostFunction {
 
     /**
      * It returns the estimated cost to reach the goal from a NTree node.

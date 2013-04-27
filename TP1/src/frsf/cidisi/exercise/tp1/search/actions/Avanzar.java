@@ -130,7 +130,7 @@ public class Avanzar extends SearchAction {
      */
     @Override
     public Double getCost() {
-        return new Double(3000);
+        return new Double(1);
     }
 
     /**
