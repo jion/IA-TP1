@@ -24,6 +24,7 @@ import frsf.cidisi.faia.environment.Environment;
 import frsf.cidisi.faia.agent.NoAction;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Vector;
 
 public class SituationCalculusBasedAgentSimulator extends GoalBasedAgentSimulator {
@@ -42,8 +43,8 @@ public class SituationCalculusBasedAgentSimulator extends GoalBasedAgentSimulato
     }
 
     @Override
-    public boolean agentSucceeded(Action actionReturned) {
-        if (actionReturned instanceof NoAction) {
+    public boolean agentSucceeded(List<? extends Action> actions) {
+        if (actions.get(actions.size()-1) instanceof NoAction) { // Ultima Accion
             return true;
         }
 
@@ -51,17 +52,19 @@ public class SituationCalculusBasedAgentSimulator extends GoalBasedAgentSimulato
     }
 
     @Override
-    public boolean agentFailed(Action actionReturned) {
-        return this.environment.agentFailed(actionReturned);
+    public boolean agentFailed(List<? extends Action> actions) {
+        return this.environment.agentFailed(actions);
     }
 
     @Override
-    public void actionReturned(Agent agent, Action action) {
-        this.updateState(action);
+    public void actionReturned(Agent agent, List<? extends Action> actions) {
+        this.updateState(actions);
 
         SituationCalculusBasedAgent scAgent =
                 (SituationCalculusBasedAgent) agent;
 
-        scAgent.tell(action);
+        scAgent.tell(actions);
     }
+
+
 }

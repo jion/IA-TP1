@@ -18,6 +18,7 @@
 package frsf.cidisi.faia.agent.situationcalculus;
 
 import java.util.Hashtable;
+import java.util.List;
 
 import frsf.cidisi.faia.exceptions.PrologConnectorException;
 import frsf.cidisi.faia.agent.Action;
@@ -83,6 +84,12 @@ public abstract class KnowledgeBase extends AgentState {
         this.lastPerception = perception.toString();
     }
 
+    public void tell(List<? extends Action> actions) {
+    	for(Action a : actions) { 
+    		this.tell(a);
+    	}
+    }
+    
     public void tell(Action actionObject) {
         String action = actionObject.toString();
 
