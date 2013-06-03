@@ -20,6 +20,6 @@ public class RonlyGoal extends GoalTest {
     	/* Verifico si el agente se encuentra en alguna de las
     	 * posiciones de salida del último nivel */
         return agState.isUltimoNivel() &&
-        	agState.getposSalidas().contains(agState.getposicion());
+        	agState.getPosSalidas().contains(agState.getPosicion());
 	}
 }

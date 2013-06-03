@@ -19,11 +19,13 @@ public class RonlyPartialGoal extends GoalTest {
     public boolean isGoalState (AgentState agentState) {
 		RonlyEstado agState = (RonlyEstado) agentState;
 		
-		/* Verifica que el agente se encuentre en alguna de las casillas
-		 * marcadas como posiciones de salida. Este es el objetivo parcial
-		 * que debe cumplir el algoritmo de busqueda para poder pasar al
-		 * siguiente nivel.
+		/* Verifica que el agente se encuentre en alguna de las
+		 * casillas marcadas como posiciones de salida. Este es
+		 * el objetivo parcial que debe cumplir el algoritmo de
+		 * busqueda para poder pasar al siguiente nivel.
 		 */
-        return agState.getposSalidas().contains(agState.getposicion());
+		;
+        return agState.getOrientacion() == RonlyEstado.ESTE &&
+        	agState.getPosSalidas().contains(agState.getPosicion());
 	}
 }

@@ -14,10 +14,10 @@ import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
  */
 public class RonlyEstado extends SearchBasedAgentState {
 	
-	public static final int NORTE = 1;
-	public static final int ESTE  = 2;
-	public static final int SUR   = 3;
-	public static final int OESTE = 4;
+	public static final int NORTE = 0;
+	public static final int ESTE  = 1;
+	public static final int SUR   = 2;
+	public static final int OESTE = 3;
 	
 	// Posibles acciones del Agente
 	public static final int GIR_IZQ = 1;
@@ -80,7 +80,7 @@ public class RonlyEstado extends SearchBasedAgentState {
     	state.setLaberinto(this.laberinto);
     	state.setLlave(this.llave);
     	state.setOrientacion(this.orientacion);
-    	state.setposicion(this.posicion.getFirst(), this.posicion.getSecond());
+    	state.setPosicion(this.posicion.getFirst(), this.posicion.getSecond());
     	state.setPosLlave(this.posLlave);
     	state.setPosSalidas(this.posSalidas);
     	
@@ -146,7 +146,7 @@ public class RonlyEstado extends SearchBasedAgentState {
 	public String toString() {
 		StringBuffer str = new StringBuffer();
 		
-		str.append("\n  Posicion: "+ this.getposicion());
+		str.append("\n  Posicion: "+ this.getPosicion());
 		str.append("\n  Orientacion: "+ this.getOrientacion());
 		str.append("\n  Tengo llave?: "+ this.isLlave());
 		str.append("\n  Laberinto percibido: ");
@@ -169,7 +169,7 @@ public class RonlyEstado extends SearchBasedAgentState {
     		boolean ret = true;
     		ret = this.isLlave() == givenState.isLlave(); // Camino con/sin llave
     		ret = ret && this.getPosicion().equals(givenState.getPosicion());
-    		ret = ret && (this.getOrientacion() == givenState.getorientacion());
+    		ret = ret && (this.getOrientacion() == givenState.getOrientacion());
     		
     		return ret;
     	}
@@ -180,32 +180,32 @@ public class RonlyEstado extends SearchBasedAgentState {
     //TODO: Complete this section with agent-specific methods
     // The following methods are agent-specific:
    	
-     public PairInt getposicion(){
+     public PairInt getPosicion(){
         return posicion;
      }
      
-     public void setposicion(int x, int y){
+     public void setPosicion(int x, int y){
     	 posicion.setFirst(x);
     	 posicion.setSecond(y);
      }
      
-     public int getorientacion(){
+     public int getOrientacion(){
         return orientacion;
      }
      
-     public void setorientacion(int arg){
+     public void setOrientacion(int arg){
         orientacion = arg;
      }
      
-     public boolean getllave(){
+     public boolean getTieneLlave(){
         return llave;
      }
      
-     public void setllave(boolean arg){
-        llave = arg;
+     public void setTieneLlave(boolean tieneLlave){
+        llave = tieneLlave;
      }
      
-     public PairInt getposLlave(){
+     public PairInt getPosLlave(){
         return posLlave;
      }
      
@@ -213,19 +213,19 @@ public class RonlyEstado extends SearchBasedAgentState {
         posLlave = arg;
      }
      
-     public List<PairInt> getposSalidas(){
+     public List<PairInt> getPosSalidas(){
         return posSalidas;
      }
      
-     public void setposSalidas(List<PairInt> arg){
+     public void setPosSalidas(List<PairInt> arg){
         posSalidas = arg;
      }
      
-     public Laberinto getlaberinto(){
+     public Laberinto getLaberinto(){
         return laberinto;
      }
      
-     public void setlaberinto(Laberinto laberinto){
+     public void setLaberinto(Laberinto laberinto){
         this.laberinto = laberinto;
      }
 	
@@ -237,16 +237,8 @@ public class RonlyEstado extends SearchBasedAgentState {
  		this.ultimoNivel = ultimoNivel;
  	}
 
-	protected void setLaberinto(Laberinto laberinto) {
-		this.laberinto = laberinto;
-	}
-
 	protected void setPosicion(PairInt posicion) {
 		this.posicion = posicion;
-	}
-
-	protected void setOrientacion(int orientacion) {
-		this.orientacion = orientacion;
 	}
 
 	protected void setLlave(boolean llave) {
@@ -257,29 +249,10 @@ public class RonlyEstado extends SearchBasedAgentState {
 		this.posLlave = posLlave;
 	}
 
-	protected void setPosSalidas(List<PairInt> posSalidas) {
-		this.posSalidas = posSalidas;
-	}
-
-	public Laberinto getLaberinto() {
-		return laberinto;
-	}
-
-	public PairInt getPosicion() {
-		return posicion;
-	}
-
-	public int getOrientacion() {
-		return orientacion;
-	}
-
 	public boolean isLlave() {
 		return llave;
 	}
 
-	public PairInt getPosLlave() {
-		return posLlave;
-	}
 
 	public int getCantDeGiros() {
 		return cantDeGiros;
@@ -288,10 +261,5 @@ public class RonlyEstado extends SearchBasedAgentState {
 	public void aumentarCantidadDeGiros() {
 		this.cantDeGiros++;
 	}
-
-	public List<PairInt> getPosSalidas() {
-		return posSalidas;
-	}
-	
 }
 

@@ -21,12 +21,12 @@ public class HeuristicAStartSearch implements IEstimatedCostFunction {
         RonlyEstado agState = (RonlyEstado) node.getAgentState();
 	
 		//Method: Complete Method
-        PairInt posRonly = agState.getposicion();
+        PairInt posRonly = agState.getPosicion();
         PairInt posLlave = agState.getPosLlave();
         
-        int dist[] = new int[agState.getposSalidas().size()];
+        int dist[] = new int[agState.getPosSalidas().size()];
         int i=0;
-        for(PairInt s: agState.getposSalidas()) {
+        for(PairInt s: agState.getPosSalidas()) {
         	if(agState.isLlave() || !agState.getLaberinto().consulta(Laberinto.HAY_CANDADO, s)) {
         		dist[i] = Math.abs(s.getFirst() - posRonly.getFirst()) + Math.abs(s.getSecond() - posRonly.getSecond());
         	} else {

@@ -19,18 +19,18 @@ public class GiraIzq extends SearchAction {
         // PreConditions: null
         
         // PostConditions: null
-        switch(agState.getorientacion()) {
+        switch(agState.getOrientacion()) {
         case RonlyEstado.NORTE:
-        	agState.setorientacion(RonlyEstado.OESTE);
+        	agState.setOrientacion(RonlyEstado.OESTE);
         	break;
         case RonlyEstado.SUR:
-        	agState.setorientacion(RonlyEstado.ESTE);
+        	agState.setOrientacion(RonlyEstado.ESTE);
         	break;
         case RonlyEstado.ESTE:
-        	agState.setorientacion(RonlyEstado.NORTE);
+        	agState.setOrientacion(RonlyEstado.NORTE);
         	break;
         case RonlyEstado.OESTE:
-        	agState.setorientacion(RonlyEstado.SUR);
+        	agState.setOrientacion(RonlyEstado.SUR);
         	break;
         }
         
@@ -54,18 +54,18 @@ public class GiraIzq extends SearchAction {
         // Update the real world
         
         // Update the agent state
-        switch(agState.getorientacion()) {
+        switch(agState.getOrientacion()) {
         case RonlyEstado.NORTE:
-        	agState.setorientacion(RonlyEstado.OESTE);
+        	agState.setOrientacion(RonlyEstado.OESTE);
         	break;
         case RonlyEstado.SUR:
-        	agState.setorientacion(RonlyEstado.ESTE);
+        	agState.setOrientacion(RonlyEstado.ESTE);
         	break;
         case RonlyEstado.ESTE:
-        	agState.setorientacion(RonlyEstado.NORTE);
+        	agState.setOrientacion(RonlyEstado.NORTE);
         	break;
         case RonlyEstado.OESTE:
-        	agState.setorientacion(RonlyEstado.SUR);
+        	agState.setOrientacion(RonlyEstado.SUR);
         	break;
         }
         
@@ -78,7 +78,7 @@ public class GiraIzq extends SearchAction {
      */
     @Override
     public Double getCost() {
-        return new Double(30);
+        return new Double(1);
     }
 
     /**

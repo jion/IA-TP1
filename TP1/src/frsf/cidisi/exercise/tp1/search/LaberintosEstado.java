@@ -49,27 +49,26 @@ public class LaberintosEstado extends EnvironmentState {
 				{0x06, 0x03, 0x0B, 0x07, 0x03, 0x02, 0x03, 0x0A, 0x06, 0x0A}};
     
     /* NIVELES XXS **********************************************************/
-	/*
-	private static final char[][] nivel1 = { 
+	private static final char[][] nivelXXS1 = { 
     		{0x83, 0x09, 0x07, 0x09},
 			{0x0D, 0x04, 0x03, 0x08},
 			{0x0C, 0x06, 0x09, 0x0E},
 			{0x06, 0x13, 0x02, 0x63}};
     
-	private static final char[][] nivel2 = {
+	private static final char[][] nivelXXS2 = {
     		{0x0D,0x05,0x09,0x0D},
     		{0x06,0x08,0x06,0x42},
     		{0x05,0x02,0x1B,0x65},
     		{0x82,0x03,0x03,0x0A}};
-	private static final char[][] nivel3 = {
+	private static final char[][] nivelXXS3 = {
     		{0x07, 0x01, 0x09, 0x65},
 			{0x83, 0x08, 0x04, 0x0A},
 		    {0x81, 0x08, 0x06, 0x09},
 			{0x1E, 0x06, 0x03, 0x0A}};
-    */
    
     /* NIVELES DE PRUEBA *****************************************************/
-    private static final char[][] nivelX = {
+    /*
+	private static final char[][] nivelX = {
 		    	{0x85,0x01,0x09},
 		    	{0x0C,0x0C,0x0C},
 		    	{0x0E,0x1E,0x6E}};
@@ -80,7 +79,7 @@ public class LaberintosEstado extends EnvironmentState {
 		    	{0x84,0x0A,0x05,0x00,0x08},
 		    	{0x0C,0x0D,0x0C,0x04,0x08},
 		    	{0x06,0x0A,0x1E,0x06,0x0A}};
-    
+    */
     
     
     private List<Laberinto> laberintos;		// Conjunto de laberintos
@@ -100,10 +99,14 @@ public class LaberintosEstado extends EnvironmentState {
     @Override
     public void initState() {
     	nivelActual=0;
+    	laberintos.add(new Laberinto(nivelXXS1));
+    	laberintos.add(new Laberinto(nivelXXS2));
+    	laberintos.add(new Laberinto(nivelXXS3));
     	
     	laberintos.add(new Laberinto(nivel1));
     	laberintos.add(new Laberinto(nivel2));
     	laberintos.add(new Laberinto(nivel3));
+    	
     	
     	posRonly = laberintos.get(0).getPosEntradas().get(0).clone();
     }

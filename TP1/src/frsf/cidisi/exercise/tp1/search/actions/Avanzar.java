@@ -18,21 +18,21 @@ public class Avanzar extends SearchAction {
     @Override
     public SearchBasedAgentState execute(SearchBasedAgentState s) {
     	RonlyEstado agState = (RonlyEstado) s;
-        Laberinto   laberinto = agState.getlaberinto();
+        Laberinto   laberinto = agState.getLaberinto();
         
         // Posicion actual del agente
-        PairInt pos = agState.getposicion();
+        PairInt pos = agState.getPosicion();
         
         // Posicion actual del agente
-        int row = agState.getposicion().getFirst();		// Fila
-        int col = agState.getposicion().getSecond();	// Columna
+        int row = agState.getPosicion().getFirst();		// Fila
+        int col = agState.getPosicion().getSecond();	// Columna
         
         // PreConditions: El agente debe poder moverse hacia adelante
-        switch(agState.getorientacion()) {
+        switch(agState.getOrientacion()) {
         case RonlyEstado.NORTE:
         	if(!laberinto.consulta(Laberinto.PARED_ARRIBA, row, col)) { // Si NO hay pared arriba
         		if(laberinto.consulta(Laberinto.HAY_CANDADO, row-1, col)) {
-        			if(agState.getllave()) row--; else return null;
+        			if(agState.getTieneLlave()) row--; else return null;
         		} else {
         			row--;
         		}
@@ -42,7 +42,7 @@ public class Avanzar extends SearchAction {
         case RonlyEstado.SUR:
         	if(!laberinto.consulta(Laberinto.PARED_ABAJO, row, col)) {
         		if(laberinto.consulta(Laberinto.HAY_CANDADO, row+1, col)) {
-        			if(agState.getllave()) row++; else return null;
+        			if(agState.getTieneLlave()) row++; else return null;
         		} else {
         			row++;
         		}
@@ -52,7 +52,7 @@ public class Avanzar extends SearchAction {
         case RonlyEstado.ESTE:
         	if(!laberinto.consulta(Laberinto.PARED_DERECHA, row, col)) {
         		if(laberinto.consulta(Laberinto.HAY_CANDADO, row, col+1)) {
-        			if(agState.getllave()) col++; else return null;
+        			if(agState.getTieneLlave()) col++; else return null;
         		} else {
         			col++;
         		}
@@ -62,7 +62,7 @@ public class Avanzar extends SearchAction {
         case RonlyEstado.OESTE:
         	if((col>0) && !laberinto.consulta(Laberinto.PARED_IZQUIERDA, row, col)) {
         		if(laberinto.consulta(Laberinto.HAY_CANDADO, row, col-1)) {
-        			if(agState.getllave()) col--; else return null;
+        			if(agState.getTieneLlave()) col--; else return null;
         		} else {
         			col--;
         		}
@@ -75,13 +75,13 @@ public class Avanzar extends SearchAction {
         /* PostConditions:
          *   - El agente estará en su nueva posicion
          */
-        agState.setposicion(row, col);
+        agState.setPosicion(row, col);
  
         // Si hay llave, actualizar estado
         /* TODO: Aca deberia actualizarse el estado del laberinto
          *   agState.setllave(laberinto.takeLlave(row, col));
          */
-        if(laberinto.consulta(Laberinto.HAY_LLAVE, pos)) { agState.setllave(true); }
+        if(laberinto.consulta(Laberinto.HAY_LLAVE, pos)) { agState.setTieneLlave(true); }
         
         return agState;
     }
@@ -99,11 +99,11 @@ public class Avanzar extends SearchAction {
         // PostConditions: null
         
     	// Posicion actual del agente
-        int row = agState.getposicion().getFirst();		// Fila
-        int col = agState.getposicion().getSecond();	// Columna
+        int row = agState.getPosicion().getFirst();		// Fila
+        int col = agState.getPosicion().getSecond();	// Columna
         
         // Update the agent state
-        switch(agState.getorientacion()) {
+        switch(agState.getOrientacion()) {
         case RonlyEstado.NORTE:
         	row--;
         	break;
@@ -119,7 +119,7 @@ public class Avanzar extends SearchAction {
         }
 
     	// Update the real world
-        agState.setposicion(row,col);
+        agState.setPosicion(row,col);
         environmentState.setPosRonly(row, col);
 
     	return environmentState;
@@ -130,7 +130,7 @@ public class Avanzar extends SearchAction {
      */
     @Override
     public Double getCost() {
-        return new Double(1);
+        return new Double(30);
     }
 
     /**

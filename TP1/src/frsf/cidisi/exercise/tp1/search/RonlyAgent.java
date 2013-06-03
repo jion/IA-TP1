@@ -68,7 +68,7 @@ public class RonlyAgent extends SearchBasedAgent {
         DepthFirstSearch  strategyDepthFirstSearch = new DepthFirstSearch();
 
         // Create a Search object with the strategy
-        Search searchSolver = new Search(strategyAStartSearch);
+        Search searchSolver = new Search(strategyDepthFirstSearch);
 
         /* Generate an XML file with the search tree. It can also be generated
          * in other formats like PDF with PDF_TREE */

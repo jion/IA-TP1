@@ -8,8 +8,7 @@
     </EnvironmentState>
   </Environment>
   <Agent name="RonlyAgent">
-    <Strategy xsi:type="idemia:Search" searchStrategy="AStarSearch"/>
-    <Goal name="RonlyGoal" value="ultimoNivel &amp;&amp; posSalidas.contains(posicion)"/>
+    <Strategy xsi:type="idemia:SituationCalculus"/>
     <AgentState name="RonlyEstado">
       <DataStructure name="posicion" type="pair"/>
       <DataStructure name="orientacion"/>
