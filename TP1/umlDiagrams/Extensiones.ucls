@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.2" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" language="java" name="frsf.cidisi.exercise.tp1.search.RonlyAgentPerception" project="TP1" 
+    file="/TP1/src/frsf/cidisi/exercise/tp1/search/RonlyAgentPerception.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="653" y="177" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="frsf.cidisi.exercise.tp1.search.LaberintosEstado" project="TP1" 
+    file="/TP1/src/frsf/cidisi/exercise/tp1/search/LaberintosEstado.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="410" y="240" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="frsf.cidisi.exercise.tp1.search.LaberintosAmbiente" project="TP1" 
+    file="/TP1/src/frsf/cidisi/exercise/tp1/search/LaberintosAmbiente.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="174" y="114" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="frsf.cidisi.exercise.tp1.search.CostAStartSearch" project="TP1" 
+    file="/TP1/src/frsf/cidisi/exercise/tp1/search/CostAStartSearch.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="890" y="78" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="frsf.cidisi.exercise.tp1.search.RonlyEstado" project="TP1" 
+    file="/TP1/src/frsf/cidisi/exercise/tp1/search/RonlyEstado.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="1103" y="429" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="frsf.cidisi.exercise.tp1.search.RonlyAgentMain" project="TP1" 
+    file="/TP1/src/frsf/cidisi/exercise/tp1/search/RonlyAgentMain.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="1302" y="78" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="frsf.cidisi.exercise.tp1.search.CostUniformSeach" project="TP1" 
+    file="/TP1/src/frsf/cidisi/exercise/tp1/search/CostUniformSeach.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="1491" y="78" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="frsf.cidisi.exercise.tp1.search.RonlyPartialGoal" project="TP1" 
+    file="/TP1/src/frsf/cidisi/exercise/tp1/search/RonlyPartialGoal.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="1705" y="78" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="frsf.cidisi.exercise.tp1.search.HeuristicAStartSearch" project="TP1" 
+    file="/TP1/src/frsf/cidisi/exercise/tp1/search/HeuristicAStartSearch.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="1927" y="78" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="frsf.cidisi.exercise.tp1.search.RonlyGoal" project="TP1" 
+    file="/TP1/src/frsf/cidisi/exercise/tp1/search/RonlyGoal.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="2150" y="78" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="frsf.cidisi.exercise.tp1.search.RonlyAgent" project="TP1" 
+    file="/TP1/src/frsf/cidisi/exercise/tp1/search/RonlyAgent.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position x="2378" y="123" width="-1" height="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
