@@ -81,7 +81,8 @@ public class LaberintosEstado extends EnvironmentState {
     
     private List<Laberinto> laberintos;		// Conjunto de laberintos
     private PairInt			posRonly;		// whereis ronly?
-    private int 			nivelActual;	// Nivel donde está el agente
+    private int				orientation;	// Hacia donde mira Ronly?
+	private int 			nivelActual;	// Nivel donde está el agente
 	
     public LaberintosEstado() {
     	super();
@@ -146,7 +147,15 @@ public class LaberintosEstado extends EnvironmentState {
 	public void setPosRonly(PairInt posRonly) {
 		this.posRonly = posRonly;
 	}
+	
+    public int getOrientation() {
+		return orientation;
+	}
 
+	public void setOrientation(int orientation) {
+		this.orientation = orientation;
+	}
+	
 	public void setPosRonly(int row, int col) {
 		if(this.posRonly == null)
 			{ this.posRonly = new PairInt(row,col); }
