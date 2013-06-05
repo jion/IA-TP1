@@ -84,6 +84,13 @@ public abstract class KnowledgeBase extends AgentState {
         this.lastPerception = perception.toString();
     }
 
+    /**
+     * Por cada acción dentro de actions, ejecuta el comando
+     * tell que le dice a la base de datos que se ejecuto
+     * dicha acción.
+     * 
+     * @param actions Conjunto de acciones a colocar en la KB
+     */
     public void tell(List<? extends Action> actions) {
     	for(Action a : actions) { 
     		this.tell(a);
