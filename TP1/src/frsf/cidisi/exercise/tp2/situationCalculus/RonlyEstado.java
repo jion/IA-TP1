@@ -1,5 +1,7 @@
 package frsf.cidisi.exercise.tp2.situationCalculus;
 
+import java.util.Hashtable;
+
 import frsf.cidisi.exercise.tp1.datastructures.Laberinto;
 import frsf.cidisi.exercise.tp1.datastructures.PairInt;
 import frsf.cidisi.faia.agent.ActionFactory;
@@ -7,10 +9,6 @@ import frsf.cidisi.faia.agent.Perception;
 import frsf.cidisi.faia.agent.situationcalculus.KnowledgeBase;
 import frsf.cidisi.faia.agent.situationcalculus.SituationCalculusPerception;
 import frsf.cidisi.faia.exceptions.PrologConnectorException;
-
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
 
 public class RonlyEstado extends KnowledgeBase {
 
@@ -134,7 +132,7 @@ public class RonlyEstado extends KnowledgeBase {
 	}
 
 	// The following methods are agent-specific:
-	private PairInt getPosicion() {
+	public PairInt getPosicion() {
 		String positionQuery = "position(X,Y," + this.getSituation() + ")";
 
 		Hashtable[] result = this.query(positionQuery);
@@ -145,7 +143,7 @@ public class RonlyEstado extends KnowledgeBase {
 		return new PairInt(x, y);
 	}
 
-	private int getOrientacion() {
+	public int getOrientacion() {
 		String positionQuery = "orientation(O," + this.getSituation() + ")";
 
 		Hashtable[] result = this.query(positionQuery);

@@ -12,28 +12,13 @@ public class GiraIzq extends SituationCalculusAction {
     public EnvironmentState execute(AgentState ast, EnvironmentState est) {
         LaberintosEstado environmentState = (LaberintosEstado) est;
         RonlyEstado agState = ((RonlyEstado) ast);
-
-        // TODO: Use this conditions
-        // PreConditions: null
-        // PostConditions: null
-
-        // Update the real world
         
-        // Update the agent state
-        switch(agState.getOrientacion()) {
-        case RonlyEstado.NORTE:
-        	agState.setOrientacion(RonlyEstado.OESTE);
-        	break;
-        case RonlyEstado.SUR:
-        	agState.setOrientacion(RonlyEstado.ESTE);
-        	break;
-        case RonlyEstado.ESTE:
-        	agState.setOrientacion(RonlyEstado.NORTE);
-        	break;
-        case RonlyEstado.OESTE:
-        	agState.setOrientacion(RonlyEstado.SUR);
-        	break;
-        }
+        // Precondiciones
+        	// -- No hay precondiciones
+        
+        // Update the real world
+        int actualOrientation = environmentState.getOrientation();
+        environmentState.setOrientation((actualOrientation + 3) % 4);
         
         return environmentState;
     }

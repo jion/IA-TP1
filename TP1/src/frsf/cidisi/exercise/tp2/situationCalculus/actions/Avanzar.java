@@ -1,7 +1,7 @@
 package frsf.cidisi.exercise.tp2.situationCalculus.actions;
 
-import frsf.cidisi.exercise.tp1.search.LaberintosEstado;
-import frsf.cidisi.exercise.tp1.search.RonlyEstado;
+import frsf.cidisi.exercise.tp2.situationCalculus.LaberintosEstado;
+import frsf.cidisi.exercise.tp2.situationCalculus.RonlyEstado;
 import frsf.cidisi.faia.agent.situationcalculus.SituationCalculusAction;
 import frsf.cidisi.faia.state.AgentState;
 import frsf.cidisi.faia.state.EnvironmentState;
@@ -21,7 +21,7 @@ public class Avanzar extends SituationCalculusAction {
         int row = agState.getPosicion().getFirst();		// Fila
         int col = agState.getPosicion().getSecond();	// Columna
         
-        // Update the agent state
+        // Se actualiza la fila o columna correspondiente
         switch(agState.getOrientacion()) {
         case RonlyEstado.NORTE:
         	row--;
@@ -38,7 +38,6 @@ public class Avanzar extends SituationCalculusAction {
         }
 
     	// Update the real world
-        agState.setPosicion(row,col);
         environmentState.setPosRonly(row, col);
 
     	return environmentState;

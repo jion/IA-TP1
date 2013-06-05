@@ -38,7 +38,6 @@ public class RonlyAgent extends SituationCalculusBasedAgent {
         try {
             selectedActions = (List<SituationCalculusAction>) this.getSolver().solve(new Object[]{this.getAgentState()});
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
