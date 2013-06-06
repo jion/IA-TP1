@@ -1,38 +1,26 @@
 package frsf.cidisi.exercise.tp2.situationCalculus;
 
-import frsf.cidisi.exercise.tp1.datastructures.Laberinto;
-import frsf.cidisi.exercise.tp1.search.LaberintosEstado;
-import frsf.cidisi.exercise.tp1.search.RonlyAgentPerception;
-import frsf.cidisi.faia.agent.Action;
-
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
-import frsf.cidisi.faia.agent.Agent;
+
+import frsf.cidisi.exercise.datastructures.Laberinto;
+import frsf.cidisi.exercise.datastructures.PairInt;
+import frsf.cidisi.faia.agent.Perception;
 import frsf.cidisi.faia.environment.Environment;
 
-
 public class LaberintosAmbiente extends Environment {
-
-    public LaberintosAmbiente() {
+    
+	public LaberintosAmbiente() {
+        // Create the environment state
         this.environmentState = new LaberintosEstado();
     }
-
-    @Override
-    public LaberintosEstado getEnvironmentState() {
-        return (LaberintosEstado) super.getEnvironmentState();
-    }
-
-    @Override
-    public boolean agentFailed(List<? extends Action> actions) {
-
-        // TODO: Completar metodo. El agente puede fallar en este problema?? 
-
-        return false;
-    }
-
-    @Override
-    public RonlyAgentPerception getPercept() {
+	
+	@Override
+	public Perception getPercept() {
     	LaberintosEstado estado = (LaberintosEstado) environmentState;
+    	
+    	PairInt posRonly    = estado.getPosRonly();
+    	Laberinto laberinto = estado.getLaberintoActual();
     	
     	/* Si Ronly se encuentra en la posicion de salida, quiere decir
     	 * que encontro la salida para el nivel anterior, y por lo tanto
@@ -44,32 +32,38 @@ public class LaberintosAmbiente extends Environment {
     	 * luego de resolver cada nivel)
     	 */
     	if(estado.isRonlyOnExit()) { estado.pasarNivel(); }
+
+    	List<RonlyAgentPerception> list = new ArrayList(laberinto.getCols()*laberinto.getRows());
     	
-		// Se crea una nueva percepcion
-		RonlyAgentPerception perception = new RonlyAgentPerception();
-		
-        // Se percibe del ambiente un laberinto entero a la vez
-        // (El siguente nivel no resuelto).
-		perception.setLaberinto(this.getLaberintoActual());
-		
-        // Se percibe la posicion inicial de Ronly
-		perception.setPosInicial(estado.getPosRonly().clone());
-		
-        // true: No quedan mas laberintos. (Is the FINAL COUNTDOWN!)
-        // false: La princesa está en el otro castillo...
-		perception.setUltimoNivel(estado.isUltimoNivel());
+    	for(int row=0; row < laberinto.getRows(); row++) {
+    		for(int col=0; col < laberinto.getCols(); col++) {
+    			int celda = laberinto.getCelda(row, col);
+    			
+    			// Se crea una nueva percepcion
+    			RonlyAgentPerception perception = new RonlyAgentPerception();
+    			
+    			perception.setEntrada  (laberinto.consulta(Laberinto.ES_ENTRADA, row, col));
+    			perception.setSalida   (laberinto.consulta(Laberinto.ES_SALIDA, row, col));
+    			perception.setAbajo    (laberinto.consulta(Laberinto.PARED_ABAJO, row, col));
+    			perception.setArriba   (laberinto.consulta(Laberinto.PARED_ARRIBA, row, col));
+    			perception.setDerecha  (laberinto.consulta(Laberinto.PARED_DERECHA, row, col));
+    			perception.setIzquierda(laberinto.consulta(Laberinto.PARED_IZQUIERDA, row, col));
+    			perception.setCandado  (laberinto.consulta(Laberinto.HAY_CANDADO, row, col));
+    			perception.setLlave    (laberinto.consulta(Laberinto.HAY_LLAVE, row, col));
+    			perception.setNivel    (estado.getNivelActual());
+    			perception.setPosicion (posRonly);
+    			
+    			list.add(perception);
+    		}
+    	}
 
 		// Return the perception
-		return perception;
-    }
-
+    	//TODO: Que hacemos aca?
+		return list.get(0);
+	}
+	
     /* Getters & Setters *****************************************************/
     public Laberinto getLaberintoActual() {
     	return ((LaberintosEstado) environmentState).getLaberintoActual();
-    }
-    
-    @Override
-    public String toString() {
-        return this.environmentState.toString();
     }
 }

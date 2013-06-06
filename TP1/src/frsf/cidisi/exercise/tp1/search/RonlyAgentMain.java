@@ -1,6 +1,6 @@
 package frsf.cidisi.exercise.tp1.search;
 
-import frsf.cidisi.exercise.tp1.interfaz.PantallaPrincipal;
+import frsf.cidisi.exercise.interfaz.PantallaPrincipal;
 import frsf.cidisi.faia.exceptions.PrologConnectorException;
 import frsf.cidisi.faia.simulator.SearchBasedAgentSimulator;
 import frsf.cidisi.faia.simulator.events.EventType;

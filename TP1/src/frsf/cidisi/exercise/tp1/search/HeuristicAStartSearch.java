@@ -2,8 +2,8 @@ package frsf.cidisi.exercise.tp1.search;
 
 import java.util.Arrays;
 
-import frsf.cidisi.exercise.tp1.datastructures.Laberinto;
-import frsf.cidisi.exercise.tp1.datastructures.PairInt;
+import frsf.cidisi.exercise.datastructures.Laberinto;
+import frsf.cidisi.exercise.datastructures.PairInt;
 import frsf.cidisi.faia.solver.search.IEstimatedCostFunction;
 import frsf.cidisi.faia.solver.search.NTree;
 

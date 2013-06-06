@@ -2,8 +2,8 @@ package frsf.cidisi.exercise.tp2.situationCalculus;
 
 import java.util.Hashtable;
 
-import frsf.cidisi.exercise.tp1.datastructures.Laberinto;
-import frsf.cidisi.exercise.tp1.datastructures.PairInt;
+import frsf.cidisi.exercise.datastructures.Laberinto;
+import frsf.cidisi.exercise.datastructures.PairInt;
 import frsf.cidisi.faia.agent.ActionFactory;
 import frsf.cidisi.faia.agent.Perception;
 import frsf.cidisi.faia.agent.situationcalculus.KnowledgeBase;

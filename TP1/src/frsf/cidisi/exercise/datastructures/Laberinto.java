@@ -1,4 +1,4 @@
-package frsf.cidisi.exercise.tp1.datastructures;
+package frsf.cidisi.exercise.datastructures;
 
 import java.util.LinkedList;
 import java.util.List;

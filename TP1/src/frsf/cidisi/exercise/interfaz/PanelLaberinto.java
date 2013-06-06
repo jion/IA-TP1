@@ -1,4 +1,4 @@
-package frsf.cidisi.exercise.tp1.interfaz;
+package frsf.cidisi.exercise.interfaz;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import frsf.cidisi.exercise.tp1.datastructures.Laberinto;
+import frsf.cidisi.exercise.datastructures.Laberinto;
 import frsf.cidisi.exercise.tp1.search.RonlyAgentPerception;
 import frsf.cidisi.faia.agent.Action;
 import frsf.cidisi.faia.simulator.events.EventHandler;

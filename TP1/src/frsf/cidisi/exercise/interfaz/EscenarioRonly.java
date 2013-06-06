@@ -1,4 +1,4 @@
-package frsf.cidisi.exercise.tp1.interfaz;
+package frsf.cidisi.exercise.interfaz;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -10,8 +10,8 @@ import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import frsf.cidisi.exercise.tp1.datastructures.Laberinto;
-import frsf.cidisi.exercise.tp1.datastructures.PairInt;
+import frsf.cidisi.exercise.datastructures.Laberinto;
+import frsf.cidisi.exercise.datastructures.PairInt;
 import frsf.cidisi.exercise.tp1.search.RonlyAgentPerception;
 import frsf.cidisi.exercise.tp1.search.RonlyEstado;
 import frsf.cidisi.faia.agent.Action;

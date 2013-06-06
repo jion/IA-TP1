@@ -1,4 +1,4 @@
-package frsf.cidisi.exercise.tp1.datastructures;
+package frsf.cidisi.exercise.datastructures;
 
 import frsf.cidisi.faia.state.datastructure.Pair;
 

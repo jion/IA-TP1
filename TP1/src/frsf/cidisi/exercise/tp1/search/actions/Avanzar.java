@@ -1,7 +1,7 @@
 package frsf.cidisi.exercise.tp1.search.actions;
 
-import frsf.cidisi.exercise.tp1.datastructures.Laberinto;
-import frsf.cidisi.exercise.tp1.datastructures.PairInt;
+import frsf.cidisi.exercise.datastructures.Laberinto;
+import frsf.cidisi.exercise.datastructures.PairInt;
 import frsf.cidisi.exercise.tp1.search.LaberintosEstado;
 import frsf.cidisi.exercise.tp1.search.RonlyEstado;
 import frsf.cidisi.faia.agent.search.SearchAction;

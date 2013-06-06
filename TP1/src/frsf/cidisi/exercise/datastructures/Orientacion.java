@@ -1,4 +1,4 @@
-package frsf.cidisi.exercise.tp1.datastructures;
+package frsf.cidisi.exercise.datastructures;
 
 public class Orientacion {
 	public static final int ESTE  = 0;

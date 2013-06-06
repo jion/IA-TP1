@@ -3,8 +3,8 @@ package frsf.cidisi.exercise.tp2.situationCalculus;
 import java.util.ArrayList;
 import java.util.List;
 
-import frsf.cidisi.exercise.tp1.datastructures.Laberinto;
-import frsf.cidisi.exercise.tp1.datastructures.PairInt;
+import frsf.cidisi.exercise.datastructures.Laberinto;
+import frsf.cidisi.exercise.datastructures.PairInt;
 import frsf.cidisi.faia.state.EnvironmentState;
 
 public class LaberintosEstado extends EnvironmentState {

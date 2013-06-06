@@ -1,4 +1,4 @@
-package frsf.cidisi.exercise.tp1.interfaz;
+package frsf.cidisi.exercise.interfaz;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
