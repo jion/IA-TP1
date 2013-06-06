@@ -5,6 +5,7 @@ import java.util.List;
 
 import frsf.cidisi.exercise.datastructures.Laberinto;
 import frsf.cidisi.exercise.datastructures.PairInt;
+import frsf.cidisi.exercise.datastructures.Ronly;
 import frsf.cidisi.faia.state.EnvironmentState;
 
 public class LaberintosEstado extends EnvironmentState {
@@ -80,14 +81,15 @@ public class LaberintosEstado extends EnvironmentState {
     
     
     private List<Laberinto> laberintos;		// Conjunto de laberintos
-    private PairInt			posRonly;		// whereis ronly?
-    private int				orientation;	// Hacia donde mira Ronly?
 	private int 			nivelActual;	// Nivel donde está el agente
-	
-    public LaberintosEstado() {
+
+	public Ronly 			ronly;			// Estado del agente en el mundo
+
+	public LaberintosEstado() {
     	super();
     	
     	laberintos = new ArrayList<Laberinto>();
+    	ronly = new Ronly();
         this.initState();
     }
 
@@ -102,8 +104,8 @@ public class LaberintosEstado extends EnvironmentState {
     	laberintos.add(new Laberinto(nivel2));
     	laberintos.add(new Laberinto(nivel3));
     	
-    	
-    	posRonly = laberintos.get(0).getPosEntradas().get(0).clone();
+    	PairInt posEntrada = laberintos.get(0).getPosEntradas().get(0);
+    	ronly.setPosicion(posEntrada.getFirst(), posEntrada.getSecond());
     }
 
 
@@ -113,9 +115,13 @@ public class LaberintosEstado extends EnvironmentState {
         return "Nivel: " + this.getNivelActual();
     }
     
-    //TODO: Complete this section with agent-specific methods
     // The following methods are agent-specific:
     /* Getters & Setters *****************************************************/
+    
+    public Ronly getRonly() {
+		return ronly;
+	}
+    
 	/* Relacionado con los niveles */
     public int getNivelActual(){
 		return nivelActual;
@@ -126,13 +132,10 @@ public class LaberintosEstado extends EnvironmentState {
 	}
      
 	public void pasarNivel(){
-		/* TODO: Aca deberia pasarsele el conjunto de acciones para
-		 * que ronly pase de nivel? O seria mejor dejar que eso se
-		 * haga en el avanzar y que el avance de nivel se de al hacer
-		 * la nueva percepcion? (Me gusta mas la 2da)
-		 */
 		nivelActual++;
-		this.posRonly.setSecond(0);
+		
+		ronly.setColumna(0);
+		ronly.setTieneLlave(false);
 	}
      
 	public Boolean isUltimoNivel() {
@@ -141,31 +144,42 @@ public class LaberintosEstado extends EnvironmentState {
 
 	/* Posicionamiento del agente */
 	public PairInt getPosRonly() {
-		return posRonly;
+		return ronly.getPosicion();
 	}
 
 	public void setPosRonly(PairInt posRonly) {
-		this.posRonly = posRonly;
+		ronly.setPosicion(posRonly);
 	}
 	
     public int getOrientation() {
-		return orientation;
+		return ronly.getOrientacion();
 	}
 
 	public void setOrientation(int orientation) {
-		this.orientation = orientation;
+		ronly.setOrientacion(orientation);
 	}
 	
 	public void setPosRonly(int row, int col) {
-		if(this.posRonly == null)
-			{ this.posRonly = new PairInt(row,col); }
+		if(ronly.getPosicion() == null)
+			{ ronly.setPosicion(new PairInt(row,col)); }
 		else {
-			this.posRonly.setFirst(row);
-			this.posRonly.setSecond(col);
+			ronly.setPosicion(row, col);
 		}
 	}
 	
 	public boolean isRonlyOnExit() {
 		return getLaberintoActual().getPosSalidas().contains(this.getPosRonly());
+	}
+
+	public void abrirCandado(int row, int col) {
+		Laberinto lab = this.getLaberintoActual();
+		
+		lab.setCelda(row, col, Laberinto.HAY_CANDADO, false);
+	}
+
+	public void tomarLlave(int row, int col) {
+		Laberinto lab = this.getLaberintoActual();
+		
+		lab.setCelda(row, col, Laberinto.HAY_LLAVE, false);
 	}
 }

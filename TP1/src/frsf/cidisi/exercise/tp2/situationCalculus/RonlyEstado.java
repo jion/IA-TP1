@@ -35,28 +35,9 @@ public class RonlyEstado extends KnowledgeBase {
 
 	@Override
 	public void initState() {
-		// TODO: Que debo definir al iniciar mi KB?
-		// Predicados utilizados?
-		// Posiciones iniciales?
 		
-		
-		/*
-		this.posicion = new PairInt(0, 0);
-		this.posLlave = new PairInt(0, 0);
-		this.posSalidas = new ArrayList<PairInt>();
-
-		// En realidad el agente nunca sabra su posicion real actual hasta no
-		// realizar la primera percepcion.
-		this.posicion.setPair(0, 0);
-		this.orientacion = ESTE;
-
-		this.llave = false;
-
-		this.posLlave.setPair(0, 0);
-		this.posSalidas.clear();
-		this.ultimoNivel = false;
-		this.cantDeGiros = 0;
-		*/
+		// Inicializamos la KB con el nivel actual (0)
+		this.addKnowledge(this.getLevelPredicate() + "(0)");
 	}
 
 	// /////////////////////////////////////////////////////////////////////////

@@ -44,7 +44,7 @@ public class SituationCalculusBasedAgentSimulator extends GoalBasedAgentSimulato
 
     @Override
     public boolean agentSucceeded(List<? extends Action> actions) {
-        if (actions.get(actions.size()-1) instanceof NoAction) { // Ultima Accion
+        if (actions.get(0) instanceof NoAction) {
             return true;
         }
 
@@ -58,11 +58,13 @@ public class SituationCalculusBasedAgentSimulator extends GoalBasedAgentSimulato
 
     @Override
     public void actionReturned(Agent agent, List<? extends Action> actions) {
-        this.updateState(actions);
+        // Actualizo el ambiente con la nueva acción
+    	this.updateState(actions);
 
         SituationCalculusBasedAgent scAgent =
                 (SituationCalculusBasedAgent) agent;
 
+        // Actualizo el agente (KB) con la nueva acción
         scAgent.tell(actions);
     }
 

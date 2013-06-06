@@ -22,44 +22,26 @@ public class LaberintosAmbiente extends Environment {
     	PairInt posRonly    = estado.getPosRonly();
     	Laberinto laberinto = estado.getLaberintoActual();
     	
-    	/* Si Ronly se encuentra en la posicion de salida, quiere decir
-    	 * que encontro la salida para el nivel anterior, y por lo tanto
-    	 * pasamos de nivel para percibir el siguiente.
-    	 * Caso contrario, percibirá nuevamente el nivel actual, en la
-    	 * posicion donde se ha quedado, para que termine de resolver el
-    	 * nivel (Esto último en realidad nunca pasa en este modelo, dado
-    	 * que este if siempre va a dar true porque siempre se percibe
-    	 * luego de resolver cada nivel)
-    	 */
-    	if(estado.isRonlyOnExit()) { estado.pasarNivel(); }
+    	// Celda que se va a percibir (La correspondiente a la posicion de Ronly)
+    	int row = posRonly.getFirst();
+    	int col = posRonly.getSecond();
 
-    	List<RonlyAgentPerception> list = new ArrayList(laberinto.getCols()*laberinto.getRows());
-    	
-    	for(int row=0; row < laberinto.getRows(); row++) {
-    		for(int col=0; col < laberinto.getCols(); col++) {
-    			int celda = laberinto.getCelda(row, col);
-    			
-    			// Se crea una nueva percepcion
-    			RonlyAgentPerception perception = new RonlyAgentPerception();
-    			
-    			perception.setEntrada  (laberinto.consulta(Laberinto.ES_ENTRADA, row, col));
-    			perception.setSalida   (laberinto.consulta(Laberinto.ES_SALIDA, row, col));
-    			perception.setAbajo    (laberinto.consulta(Laberinto.PARED_ABAJO, row, col));
-    			perception.setArriba   (laberinto.consulta(Laberinto.PARED_ARRIBA, row, col));
-    			perception.setDerecha  (laberinto.consulta(Laberinto.PARED_DERECHA, row, col));
-    			perception.setIzquierda(laberinto.consulta(Laberinto.PARED_IZQUIERDA, row, col));
-    			perception.setCandado  (laberinto.consulta(Laberinto.HAY_CANDADO, row, col));
-    			perception.setLlave    (laberinto.consulta(Laberinto.HAY_LLAVE, row, col));
-    			perception.setNivel    (estado.getNivelActual());
-    			perception.setPosicion (posRonly);
-    			
-    			list.add(perception);
-    		}
-    	}
+		// Se crea una nueva percepcion
+		RonlyAgentPerception perception = new RonlyAgentPerception();
+		
+		perception.setEntrada  (laberinto.consulta(Laberinto.ES_ENTRADA, row, col));
+		perception.setSalida   (laberinto.consulta(Laberinto.ES_SALIDA, row, col));
+		perception.setAbajo    (laberinto.consulta(Laberinto.PARED_ABAJO, row, col));
+		perception.setArriba   (laberinto.consulta(Laberinto.PARED_ARRIBA, row, col));
+		perception.setDerecha  (laberinto.consulta(Laberinto.PARED_DERECHA, row, col));
+		perception.setIzquierda(laberinto.consulta(Laberinto.PARED_IZQUIERDA, row, col));
+		perception.setCandado  (laberinto.consulta(Laberinto.HAY_CANDADO, row, col));
+		perception.setLlave    (laberinto.consulta(Laberinto.HAY_LLAVE, row, col));
+		perception.setNivel    (estado.getNivelActual());
+		perception.setPosicion (posRonly);
 
 		// Return the perception
-    	//TODO: Que hacemos aca?
-		return list.get(0);
+		return perception;
 	}
 	
     /* Getters & Setters *****************************************************/

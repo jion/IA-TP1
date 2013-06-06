@@ -93,6 +93,20 @@ public class Laberinto {
 		return false;
 	}
 	
+	public boolean setCelda(int row, int col, int mask, boolean value) {
+		if(row < data.length && col < data[row].length) {
+
+			if(value) {
+				data[row][col] |= mask;
+			} else {
+				data[row][col] &= ~mask;
+			}
+			
+			return true;
+		}
+		return false;
+	}
+	
 	@Override
 	public String toString() {
 		StringBuffer str = new StringBuffer();
