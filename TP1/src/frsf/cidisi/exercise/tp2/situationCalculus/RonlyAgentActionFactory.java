@@ -23,13 +23,21 @@ public class RonlyAgentActionFactory extends ActionFactory {
 	protected Action stringToAction(String stringAction) {
 		Action actionObject = null;
 
-		if (stringAction.equals("GirarDer")) {
+		if (stringAction.equals("girarDer")) {
 			actionObject = new GirarDer();
-		} else if (stringAction.equals("GiraIzq")) {
+		} else if (stringAction.equals("giraIzq")) {
 			actionObject = new GiraIzq();
-		} else if (stringAction.equals("Avanzar")) {
+		} else if (stringAction.equals("avanzar")) {
 			actionObject = new Avanzar();
+		} else if (stringAction.equals("tomarLlave")) {
+			actionObject = new TomarLlave();
+		} else if (stringAction.equals("abrirCandado")) {
+			actionObject = new AbrirCandado();
+		} else if (stringAction.equals("salir")) {
+			actionObject = new Salir();
 		}
+	
+
 
 		return actionObject;
 	}

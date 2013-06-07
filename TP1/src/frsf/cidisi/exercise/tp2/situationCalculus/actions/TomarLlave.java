@@ -27,7 +27,7 @@ public class TomarLlave extends SituationCalculusAction {
 
 	@Override
 	public String toString() {
-		return "TomarLlave";
+		return "tomarLlave";
 	}
 
 }

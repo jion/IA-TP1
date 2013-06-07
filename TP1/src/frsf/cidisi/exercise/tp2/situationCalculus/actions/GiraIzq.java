@@ -25,7 +25,7 @@ public class GiraIzq extends SituationCalculusAction {
 
     @Override
     public String toString() {
-        return "GiraIzq";
+        return "girarIzq";
     }
 }
 

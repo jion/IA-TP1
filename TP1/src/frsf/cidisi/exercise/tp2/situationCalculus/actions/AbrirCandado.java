@@ -28,7 +28,7 @@ public class AbrirCandado extends SituationCalculusAction {
 
 	@Override
 	public String toString() {
-		return "AbrirCandado";
+		return "abrirCandado";
 	}
 
 }

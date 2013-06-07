@@ -18,8 +18,8 @@ public class Avanzar extends SituationCalculusAction {
         // PostConditions: null
         
     	// Posicion actual del agente
-        int row = agState.getPosicion().getFirst();		// Fila
-        int col = agState.getPosicion().getSecond();	// Columna
+        int row = environmentState.getRonly().getRow();	// Fila
+        int col = environmentState.getRonly().getCol();	// Columna
         
         // Se actualiza la fila o columna correspondiente
         switch(agState.getOrientacion()) {
@@ -45,7 +45,7 @@ public class Avanzar extends SituationCalculusAction {
 
     @Override
     public String toString() {
-        return "Avanzar";
+        return "avanzar";
     }
 }
 
