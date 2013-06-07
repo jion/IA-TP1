@@ -12,10 +12,8 @@ public class RonlyAgentPerception extends SituationCalculusPerception {
 	 *  - posInicial:  Posicion inicial del agente
 	 *  - ultimoNivel: true si se trata del último nivel (no hay mas niveles)
 	 */
-	//[x, y, entrada, salida, candado, llave, izquierda, derecha, abajo, arriba, level]
-	
-	private PairInt 	posicion;
-	private boolean		entrada;
+	//[arriba,abajo,izquierda,derecha],[llave,candado,salida],N
+
 	private boolean		salida;
 	private boolean		candado;
 	private boolean		llave;
@@ -29,10 +27,19 @@ public class RonlyAgentPerception extends SituationCalculusPerception {
 	// A que nivel pertenece la celda percibida?
 	private int			nivel;
 	
+	// No hay mas niveles?
+	boolean noLevels;
+	
     public RonlyAgentPerception() {
         super();
-
-		//TODO: Complete Method
+        salida= false;
+        candado= false;
+        llave= false;
+        izquierda= false;
+        derecha= false;
+        abajo= false;
+        arriba= false;
+        noLevels=false;
     }
 
 	@Override
@@ -43,32 +50,30 @@ public class RonlyAgentPerception extends SituationCalculusPerception {
 	
     @Override
     public String toString() {
-        StringBuffer result = new StringBuffer("perception([");
-      //[x, y, entrada, salida, candado, llave, izquierda, derecha, abajo, arriba, level]
-        // Adjacent cells
-        result.append(this.posicion.getFirst());
-        result.append(",");
-        result.append(this.posicion.getSecond());
-        result.append(",");
-        result.append(this.entrada ? "entrada"	: "nada");
-        result.append(",");
-        result.append(this.salida  ? "salida"	: "nada");
-        result.append(",");
-        result.append(this.candado ? "candado"	: "nada");
-        result.append(",");
-        result.append(this.llave   ? "llave"	: "nada");
-        result.append(",");
-        result.append(this.izquierda ? "izquierda" : "nada");
-        result.append(",");
-        result.append(this.derecha ? "derecha"	: "nada");
-        result.append(",");
-        result.append(this.abajo   ? "abajo"	: "nada");
-        result.append(",");
-        result.append(this.arriba  ? "arriba"	: "nada");
-        result.append(",");
-        result.append(this.nivel);
-
-        result.append("]");
+        StringBuffer result = new StringBuffer("percepcion(");
+        if(noLevels) {
+        	result.append("nada,nada,noHayMas");
+        } else {
+        	result.append("[");
+        	result.append(this.arriba 	  ? "paredArriba"	: "nada");
+	        result.append(",");
+	        result.append(this.abajo 	  ? "paredAbajo"	: "nada");
+	        result.append(",");
+	        result.append(this.izquierda  ? "paredIzq"	: "nada");
+	        result.append(",");
+	        result.append(this.derecha	  ? "paredDer"	: "nada");
+	        result.append("],");
+	        
+        	result.append("[");
+        	result.append(this.llave 	? "llave"	: "nada");
+	        result.append(",");
+	        result.append(this.candado  ? "candado"	: "nada");
+	        result.append(",");
+	        result.append(this.salida	? "salida"	: "nada");
+	        result.append("],");
+	        
+	        result.append(this.nivel);
+        }
 
         result.append(")");
 
@@ -76,14 +81,6 @@ public class RonlyAgentPerception extends SituationCalculusPerception {
     }
     
     /* Getters & Setters *****************************************************/	
-
-	public void setPosicion(PairInt posicion) {
-		this.posicion = posicion;
-	}
-
-	public void setEntrada(boolean entrada) {
-		this.entrada = entrada;
-	}
 
 	public void setSalida(boolean salida) {
 		this.salida = salida;
@@ -114,6 +111,10 @@ public class RonlyAgentPerception extends SituationCalculusPerception {
 	}
 
 	public void setNivel(int nivel) {
-		this.nivel = nivel;
+		this.nivel = nivel + 1;
 	}
+	public void setNoLevels(boolean noLevels) {
+		this.noLevels = noLevels;
+	}
+	
 }
