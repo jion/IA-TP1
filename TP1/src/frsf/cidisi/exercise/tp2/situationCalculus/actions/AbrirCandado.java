@@ -17,8 +17,7 @@ public class AbrirCandado extends SituationCalculusAction {
     	int row = estado.getPosRonly().getFirst();
     	int col = estado.getPosRonly().getSecond();
     	
-    	if(estado.getRonly().tieneLlave() &&
-    			lab.consulta(Laberinto.ES_SALIDA, row, col))
+    	if(estado.getRonly().tieneLlave())
     	{
     		estado.abrirCandado(row, col);
     	}

@@ -35,7 +35,7 @@ public class SituationCalculus extends Solve {
     @Override
     public List<Action> solve(Object[] params) throws SituationCalculusException {
         KnowledgeBase kb = (KnowledgeBase) params[0];
-
+        //if(kb.getSituation()==34) kb.queryHasSolution("trace");
         // Query the knowledge base for the best action in the current situation.
         Hashtable[] results =
                 kb.query(kb.getBestActionPredicate() + "(X," +
@@ -45,6 +45,8 @@ public class SituationCalculus extends Solve {
         if (results.length == 0) {
             throw new SituationCalculusException("No solutions returned. Maybe there is an error in the knowledge base.");
         }
+        
+        System.out.println(results[0] + "\n");
 
         String bestAction = results[0].get("X").toString();
 

@@ -82,13 +82,13 @@ public class Laberinto {
 	 * "is"
 	 * 
 	 * @param consulta Flags de Laberinto separadas con ORs
-	 * @param x fila del laberinto
-	 * @param y	columna del laberinto
+	 * @param row fila del laberinto
+	 * @param col	columna del laberinto
 	 * @return true o false dependiendo si lo consultado es o no verdadero
 	 */
-	public boolean consulta(int consulta, int x, int y) {
-		if(x < data.length && y < data[x].length) {
-			return ( (data[x][y] & consulta) != 0 ); 
+	public boolean consulta(int consulta, int row, int col) {
+		if(row < data.length && col < data[row].length) {
+			return ( (data[row][col] & consulta) != 0 ); 
 		}
 		return false;
 	}
@@ -173,32 +173,32 @@ public class Laberinto {
 	 * solo contestan una pregunta a la vez.
 	 * 
 	 */
-	public boolean isEntrada(int x, int y) {
-		return isEntrada(new PairInt(x,y));
+	public boolean isEntrada(int row, int col) {
+		return isEntrada(new PairInt(row,col));
 	}
 	
 	public boolean isEntrada(PairInt pair) {
 		return entradas.contains(pair);
 	}
 	
-	public boolean isSalida(int x, int y) {
-		return isSalida(new PairInt(x,y));
+	public boolean isSalida(int row, int col) {
+		return isSalida(new PairInt(row,col));
 	}
 	
 	public boolean isSalida(PairInt pair) {
 		return salidas.contains(pair);
 	}
 	
-	public boolean isCandado(int x, int y) {
-		return isCandado(new PairInt(x,y));
+	public boolean isCandado(int row, int col) {
+		return isCandado(new PairInt(row,col));
 	}
 	
 	public boolean isCandado(PairInt pair) {
 		return candados.contains(pair);
 	}
 	
-	public boolean isLlave(int x, int y) {
-		return isLlave(new PairInt(x,y));
+	public boolean isLlave(int row, int col) {
+		return isLlave(new PairInt(row,col));
 	}
 	
 	public boolean isLlave(PairInt pair) {

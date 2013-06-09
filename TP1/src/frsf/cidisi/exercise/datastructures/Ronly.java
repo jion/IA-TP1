@@ -1,9 +1,9 @@
 package frsf.cidisi.exercise.datastructures;
 
 public class Ronly {
-	PairInt posicion;
-	Orientacion orientacion;
-	boolean tieneLlave;
+	private PairInt posicion;
+	private Orientacion orientacion;
+	private boolean tieneLlave;
 	
 	
 	public Ronly() {
@@ -31,7 +31,7 @@ public class Ronly {
 	}
 	public void setPosicion(int row, int col) {
 		this.posicion.setFirst(row);
-		this.posicion.setFirst(col);
+		this.posicion.setSecond(col);
 	}
 	public void setFila(int row) {
 		this.posicion.setFirst(row);

@@ -79,7 +79,7 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
             System.out.println("Agent State: " + agent.getAgentState());
             System.out.println("Environment: " + environment);
 
-            System.out.println("Asking the agent for an action...");
+            System.out.println("Asking the agent for an action...\n");
             actions = (List<Action>) agent.selectAction();
 
             if (actions == null) {

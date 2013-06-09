@@ -25,7 +25,7 @@ public class RonlyAgentActionFactory extends ActionFactory {
 
 		if (stringAction.equals("girarDer")) {
 			actionObject = new GirarDer();
-		} else if (stringAction.equals("giraIzq")) {
+		} else if (stringAction.equals("girarIzq")) {
 			actionObject = new GiraIzq();
 		} else if (stringAction.equals("avanzar")) {
 			actionObject = new Avanzar();
@@ -36,8 +36,6 @@ public class RonlyAgentActionFactory extends ActionFactory {
 		} else if (stringAction.equals("salir")) {
 			actionObject = new Salir();
 		}
-	
-
 
 		return actionObject;
 	}
