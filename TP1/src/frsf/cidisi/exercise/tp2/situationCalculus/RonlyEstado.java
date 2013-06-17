@@ -3,6 +3,7 @@ package frsf.cidisi.exercise.tp2.situationCalculus;
 import java.util.Hashtable;
 
 import frsf.cidisi.exercise.datastructures.Laberinto;
+import frsf.cidisi.exercise.datastructures.Orientacion;
 import frsf.cidisi.exercise.datastructures.PairInt;
 import frsf.cidisi.exercise.tp2.situationCalculus.actions.Salir;
 import frsf.cidisi.faia.agent.Action;
@@ -15,8 +16,8 @@ import frsf.cidisi.faia.exceptions.PrologConnectorException;
 public class RonlyEstado extends KnowledgeBase {
 
 	public static final int NORTE = 0;
-	public static final int ESTE = 1;
-	public static final int SUR = 2;
+	public static final int ESTE  = 1;
+	public static final int SUR   = 2;
 	public static final int OESTE = 3;
 
 	// Posibles acciones del Agente
@@ -30,7 +31,7 @@ public class RonlyEstado extends KnowledgeBase {
 	
 	public RonlyEstado() throws PrologConnectorException {
 		// Inicializa la base de conocimientos con el archivo prolog
-		super("kb/ronly5.pl");
+		super("kb/ronly.pl");
 
 		this.initState();
 	}
@@ -42,8 +43,7 @@ public class RonlyEstado extends KnowledgeBase {
 		this.addKnowledge(this.getLevelPredicate() + "(1)");
 		this.addKnowledge("en(0,0,0)");
 		this.addKnowledge("orientacion(1,0)");
-		
-		
+
 	}
 
 	@Override
@@ -78,7 +78,7 @@ public class RonlyEstado extends KnowledgeBase {
 	 * 
 	 * @return
 	 */
-	public int getLevel() {
+	public Integer getLevel() {
 		String query = this.getLevelPredicate() + "(L)";
 
 		Hashtable[] pos = this.query(query);
@@ -137,11 +137,7 @@ public class RonlyEstado extends KnowledgeBase {
 			str.append("\n  Posicion: " + this.getPosicion());
 			str.append("\n  Orientacion: " + this.getOrientacion());
 			str.append("\n  Tengo llave?: " + this.tieneLlave());
-			str.append("\n  pasoPor(" + this.getPosicion().getSecond() + "," + this.getPosicion().getFirst()+",C,"+this.getLevel()+")\n");
-			if(this.queryHasSolution("pasoPor(" + this.getPosicion().getSecond() + "," + this.getPosicion().getFirst()+",C,"+this.getLevel()+")"))
-				str.append("\n  Cant. de veces que pasó: " + this.prologConnector.query("pasoPor(" + this.getPosicion().getSecond() + "," + this.getPosicion().getFirst()+",C,"+this.getLevel()+")")[0].get("C"));
-			else
-				str.append("\n  Cant. de veces que pasó: 0");
+			str.append("\n  Cant. de veces que pasó por aquí: " + getCantPasadas());
 
 			
 			str.append("\n   ");
@@ -183,16 +179,16 @@ public class RonlyEstado extends KnowledgeBase {
 		return new PairInt(row, col);
 	}
 
-	public int getOrientacion() {
+	public Orientacion getOrientacion() {
 		String positionQuery = "orientacion(O," + this.getSituation() + ")";
 
 		Hashtable[] result = this.query(positionQuery);
 
-		return Integer.parseInt(result[0].get("O").toString());
+		return new Orientacion(Integer.parseInt(result[0].get("O").toString()));
 	}
 
-	private boolean tieneLlave() {
-		String keyStateQuery = "sostiene(" + this.getSituation() + ")";
+	public Boolean tieneLlave() {
+		String keyStateQuery = "sostiene(" + this.getLevel() + ")";
 
 		return this.queryHasSolution(keyStateQuery);
 	}
@@ -206,5 +202,37 @@ public class RonlyEstado extends KnowledgeBase {
 		int col = Integer.parseInt(result[0].get("X").toString());
 
 		return new PairInt(row, col);
+	}
+
+	public Integer getCantPasadas() {
+		int ret=0;
+		String query = "pasoPor(" + this.getPosicion().getSecond() + "," + this.getPosicion().getFirst()+",C,"+this.getLevel()+")";
+		
+		if(this.queryHasSolution(query)) {
+			Hashtable[] result = this.query(query);
+			
+			ret = Integer.parseInt(result[0].get("C").toString());
+		}
+
+		return ret;
+	}
+
+	public Integer getCantPasadas(int row, int col) {
+		int ret=0;
+		String query = "pasoPor(" + col + "," + row +",C,"+this.getLevel()+")";
+		
+		if(this.queryHasSolution(query)) {
+			Hashtable[] result = this.query(query);
+			
+			ret = Integer.parseInt(result[0].get("C").toString());
+		}
+
+		return ret;
+	}
+
+	public boolean tieneMiga(int row, int col) {
+		String query = "miga(" + col + "," + row +","+this.getLevel()+")";
+
+		return this.queryHasSolution(query);
 	}
 }

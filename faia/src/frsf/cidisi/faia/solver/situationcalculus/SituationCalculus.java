@@ -45,8 +45,6 @@ public class SituationCalculus extends Solve {
         if (results.length == 0) {
             throw new SituationCalculusException("No solutions returned. Maybe there is an error in the knowledge base.");
         }
-        
-        System.out.println(results[0] + "\n");
 
         String bestAction = results[0].get("X").toString();
 

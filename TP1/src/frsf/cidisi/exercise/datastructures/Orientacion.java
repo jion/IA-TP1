@@ -1,10 +1,11 @@
 package frsf.cidisi.exercise.datastructures;
 
 public class Orientacion {
-	public static final int ESTE  = 0;
-	public static final int SUR   = 1;
-	public static final int OESTE = 2;
-	public static final int NORTE = 3;
+
+	public static final int NORTE = 0;
+	public static final int ESTE  = 1;
+	public static final int SUR   = 2;
+	public static final int OESTE = 3;
 	
 	private int orientacion=ESTE;
 	
@@ -14,8 +15,7 @@ public class Orientacion {
 	}
 
 	public void girarIzq() {
-		orientacion = (orientacion - 1);
-		if(orientacion < 0) orientacion = NORTE;
+		orientacion = (orientacion + 3) % 4;
 	}
 	
 	public void girarDer() {
@@ -27,7 +27,7 @@ public class Orientacion {
 	}
 
 	public void setOrientacion(int orientacion) {
-		if(orientacion >= ESTE && orientacion <= NORTE) {
+		if(orientacion >= NORTE && orientacion <= OESTE) {
 			this.orientacion = orientacion;
 		}
 	}

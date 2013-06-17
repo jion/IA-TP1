@@ -22,7 +22,7 @@ public class Avanzar extends SituationCalculusAction {
         int col = environmentState.getRonly().getCol();	// Columna
         
         // Se actualiza la fila o columna correspondiente
-        switch(agState.getOrientacion()) {
+        switch(agState.getOrientacion().getOrientacion()) {
         case RonlyEstado.NORTE:
         	row--;
         	break;

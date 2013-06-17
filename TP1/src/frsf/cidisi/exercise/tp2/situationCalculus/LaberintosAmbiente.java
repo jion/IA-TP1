@@ -50,4 +50,14 @@ public class LaberintosAmbiente extends Environment {
     public Laberinto getLaberintoActual() {
     	return ((LaberintosEstado) environmentState).getLaberintoActual();
     }
+    
+    public LaberintosEstado getEstado() {
+    	return (LaberintosEstado) environmentState;
+    }
+
+	@Override
+	public String toString() {
+		return getEstado().toString();
+	}
+    
 }

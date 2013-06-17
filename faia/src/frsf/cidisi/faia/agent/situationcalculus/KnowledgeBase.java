@@ -47,7 +47,7 @@ public abstract class KnowledgeBase extends AgentState {
      * Returns the actual situation of the Knowledge Base
      * @return
      */
-    public int getSituation() {
+    public Integer getSituation() {
         String query = this.getSituationPredicate() + "(S)";
 
         Hashtable[] pos = this.query(query);
@@ -72,12 +72,8 @@ public abstract class KnowledgeBase extends AgentState {
 
     public void executeSuccessorStateAxioms() {
         int nextSituation = this.getSituation() + 1;
-        
-        System.out.println("Estoy por ejecutar acciomas de estado sucesor...\n");
-        
+
         this.prologConnector.executeNonQuery("findall(_,est(" + nextSituation + "),_)");
-        
-        System.out.println("PROLOG: " + "findall(_,est(" + nextSituation + "),_)");
 
     }
 
@@ -86,7 +82,6 @@ public abstract class KnowledgeBase extends AgentState {
             this.prologConnector.executeNonQuery("retract(" +
                     this.lastPerception + ")");
 
-        System.out.println("retract(" + this.lastPerception + ")");
         this.addKnowledge(perception.toString());
         this.lastPerception = perception.toString();
     }
@@ -113,8 +108,6 @@ public abstract class KnowledgeBase extends AgentState {
         this.addKnowledge(this.getExecutedActionPredicate() +
                 "(" + action + "," + this.getSituation() + ")");
         
-        System.out.println("PROLOG: " + this.getExecutedActionPredicate() +
-                "(" + action + "," + this.getSituation() + ")");
         // Execute successors state axioms
         this.executeSuccessorStateAxioms();
 

@@ -16,8 +16,8 @@ public class TomarLlave extends SituationCalculusAction {
     	int row = estado.getPosRonly().getFirst();
     	int col = estado.getPosRonly().getSecond();
     	
-    	if(estado.getRonly().tieneLlave() &&
-    			lab.consulta(Laberinto.HAY_LLAVE, row, col))
+    	
+    	if(lab.consulta(Laberinto.HAY_LLAVE, row, col))
     	{
     		estado.tomarLlave(row, col);
     	}

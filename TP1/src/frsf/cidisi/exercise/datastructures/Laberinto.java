@@ -111,6 +111,8 @@ public class Laberinto {
 	public String toString() {
 		StringBuffer str = new StringBuffer();
 		
+		str.append("\n   ");
+		
 		// Imprimo los techos
 		for(int j=0; j < data[0].length; j++) {
 			

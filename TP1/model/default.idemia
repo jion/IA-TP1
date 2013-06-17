@@ -23,5 +23,8 @@
   <Actions execute_by="//@Agent" executed_on="//@Environment" name="GirarDer"/>
   <Actions execute_by="//@Agent" executed_on="//@Environment" name="GiraIzq"/>
   <Actions execute_by="//@Agent" executed_on="//@Environment" name="Avanzar"/>
+  <Actions execute_by="//@Agent" executed_on="//@Environment" name="TomarLlave"/>
+  <Actions execute_by="//@Agent" executed_on="//@Environment" name="AbrirCandado"/>
+  <Actions execute_by="//@Agent" executed_on="//@Environment" name="Salir"/>
   <Perceptions perceived_on="//@Environment" perceived_by="//@Agent" name="percepcionlaberinto" type="matrix"/>
 </idemia:AgentModel>
